@@ -1,0 +1,23 @@
+{
+ "repo_pdf": "仓库内英文 PDF",
+ "zh_pdf": "中文翻译 PDF",
+ "dot": "·",
+ "submitted": "提交",
+ "family": "分类",
+ "one_line": "一句话定位",
+ "core_pointer": "这是本仓库的核心论文之一，完整解读见 [%s](../%s)（[English](../%s)）。",
+ "core_name": {"EventVLA": "EventVLA 深读", "TRACE": "TRACE 深读", "SAI": "SAI 深读"},
+ "list_sep": "、",
+ "relation": "与核心论文的关系",
+ "relation_body": "所属家族「%s」，对照阅读：%s；横向比较见[趋势与洞见](../reports/04_trends_insights_cn.md)与[设计空间矩阵](../insights/DESIGN_SPACE_MATRIX.md)。",
+ "abstract": "摘要（原文）",
+ "readme": {
+  "legend": "**图例 / Legend**：[paper] arXiv 原文 · [pdf] 仓库内英文 PDF · [中译] 保版式中文翻译 PDF · [解读] 中文深读报告 · [note] 论文笔记（一句话定位 + 摘要）",
+  "content": "目录",
+  "features_title": "本仓库特色",
+  "trends_title": "趋势与洞见",
+  "contrib_title": "贡献",
+  "cite_title": "引用",
+  "core_reports": "深读报告"
+ }
+}
