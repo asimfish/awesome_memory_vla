@@ -15,7 +15,7 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 
 **本仓库特色（Features）**:
 
-- 📄 **三篇核心论文的英文 PDF**（`papers/pdf/`）与 🇨🇳 **保版式中文翻译 PDF**（`papers/zh/`，由 [SuperTranslate](https://github.com/asimfish/super_translate) 生成；当前为 Google 引擎版本，DeepSeek 精译版可用 `scripts/translate_core.sh` 重出）
+- 📄 **三篇核心论文的英文 PDF**（`papers/pdf/`）与 🇨🇳 **保版式中文翻译 PDF**（`papers/zh/`，由 [SuperTranslate](https://github.com/asimfish/super_translate) + DeepSeek 生成，逐页视觉 QA 见 [papers/zh/QA_REPORT.md](papers/zh/QA_REPORT.md)）
 - 📝 **三篇逐篇深读报告（中英双语）**：`reports/01_eventvla_{cn,en}.md`、`reports/02_trace_{cn,en}.md`、`reports/03_sai_{cn,en}.md`，含方法拆解、全部关键数字、判读与关联阅读；每篇另有 PDF（`reports/pdf/`）
 - 💡 **趋势与洞见报告（中英双语）**：`reports/04_trends_insights_{cn,en}.md` —— 五个技术家族、六问设计空间、跨基准证据表、十个洞见、七个开放问题与四个研究方向
 - 🧭 **设计空间矩阵**：`insights/DESIGN_SPACE_MATRIX.md`，40 个方法按「存什么 / 何时写 / 寻址 / 容量 / 集成点 / 监督」六列横向对比

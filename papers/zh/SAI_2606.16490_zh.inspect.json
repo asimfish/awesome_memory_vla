@@ -1,0 +1,11 @@
+{
+  "issue_count": 1,
+  "issues": [
+    {
+      "page": 4,
+      "code": "text_outside_frame",
+      "severity": "error",
+      "message": "Page 4: text in the box at x=184-253, y=259-299 runs 5.6pt past its bottom edge: 'Robot B'"
+    }
+  ]
+}

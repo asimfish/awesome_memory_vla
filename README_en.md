@@ -15,7 +15,7 @@ The list is organised around three papers from June 2026 — **EventVLA** (event
 
 **Features**:
 
-- 📄 **English PDFs of the three core papers** (`papers/pdf/`) and 🇨🇳 **layout-preserving Chinese translations** (`papers/zh/`, produced with [SuperTranslate](https://github.com/asimfish/super_translate); current files use the Google engine, re-run `scripts/translate_core.sh` for the DeepSeek version)
+- 📄 **English PDFs of the three core papers** (`papers/pdf/`) and 🇨🇳 **layout-preserving Chinese translations** (`papers/zh/`, produced with [SuperTranslate](https://github.com/asimfish/super_translate) + DeepSeek; per-page visual QA in [papers/zh/QA_REPORT.md](papers/zh/QA_REPORT.md))
 - 📝 **Three bilingual deep-dive reports**: `reports/01_eventvla_{cn,en}.md`, `reports/02_trace_{cn,en}.md`, `reports/03_sai_{cn,en}.md`, with method breakdowns, every key number, assessment and related reading; each also as PDF (`reports/pdf/`)
 - 💡 **Bilingual trends-and-insights report**: `reports/04_trends_insights_{cn,en}.md` — five technical families, a six-question design space, cross-benchmark evidence tables, ten insights, seven open problems and four research directions
 - 🧭 **Design-space matrix**: `insights/DESIGN_SPACE_MATRIX.md`, 40 methods compared on what / when / where / how much / integration point / supervision
