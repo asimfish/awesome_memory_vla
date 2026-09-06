@@ -15,11 +15,11 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 
 **本仓库特色（Features）**:
 
-- 📄 **三篇核心论文的英文 PDF**（`papers/pdf/`）与 🇨🇳 **保版式中文翻译 PDF**（`papers/zh/`，由 [SuperTranslate](https://github.com/asimfish/super_translate) + DeepSeek 生成，逐页视觉 QA 见 [papers/zh/QA_REPORT.md](papers/zh/QA_REPORT.md)）
+- 📄 **17 篇论文的英文 PDF**（`papers/pdf/`：三篇核心论文 + 14 篇最近邻居）与 🇨🇳 **保版式中文翻译 PDF**（`papers/zh/`，由 [SuperTranslate](https://github.com/asimfish/super_translate) + DeepSeek 生成，逐页视觉 QA 见 [papers/zh/QA_REPORT.md](papers/zh/QA_REPORT.md) 与 [QA_SUMMARY.md](papers/zh/QA_SUMMARY.md)）
 - 📝 **三篇逐篇深读报告（中英双语）**：`reports/01_eventvla_{cn,en}.md`、`reports/02_trace_{cn,en}.md`、`reports/03_sai_{cn,en}.md`，含方法拆解、全部关键数字、判读与关联阅读；每篇另有 PDF（`reports/pdf/`）
 - 💡 **趋势与洞见报告（中英双语）**：`reports/04_trends_insights_{cn,en}.md` —— 五个技术家族、六问设计空间、跨基准证据表、十个洞见、七个开放问题与四个研究方向
 - 🧭 **设计空间矩阵**：`insights/DESIGN_SPACE_MATRIX.md`，40 个方法按「存什么 / 何时写 / 寻址 / 容量 / 集成点 / 监督」六列横向对比
-- 🗂️ **103 篇论文笔记**（`notes/`，每篇含一句话定位、与核心论文的关系、原文摘要与链接）
+- 🗂️ **103 篇论文笔记**（`notes/`）：14 篇最近邻居（KEMO、UniMem、MemoryVLA、MemER、MEM、RMBench、RoboMME、RoboMemArena、Present-but-Not-Remembered、Chronos、μVLA、AGM、HyMeS、AutoIntervene）为基于全文的手写深读（问题 / 方法 / 关键数字 / 局限 / 与核心论文的关系），其余 89 篇含一句话定位、与核心论文的关系、原文摘要与链接
 - 📚 **BibTeX**（`awesome_memory_vla.bib`，全部条目可直接引用）
 - 📊 **汇总报告**：中英文 HTML/PDF 合订报告（`report/`）、HTML 幻灯片与 Beamer PDF 幻灯片（`slides/`）
 - 🔧 **可复现脚本**（`scripts/`）：arXiv 检索、manifest 构建、笔记/README/BibTeX 生成、翻译、PDF 渲染
@@ -73,7 +73,7 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 
     *Filippo Lazzati, Kyle Stachowicz, William Chen, Alberto Maria Metelli, Andrew Wagenmaker, Sergey Levine*
 
-3. **Present but Not Remembered: Auditing How Frozen VLAs Encode, Deploy, and Steer Visual History.** arXiv 2026. [paper](https://arxiv.org/abs/2607.03372) [note](notes/PresentNotRemembered_2607.03372.md)
+3. **Present but Not Remembered: Auditing How Frozen VLAs Encode, Deploy, and Steer Visual History.** arXiv 2026. [paper](https://arxiv.org/abs/2607.03372) [pdf](papers/pdf/PresentNotRemembered_2607.03372.pdf) [中译](papers/zh/PresentNotRemembered_2607.03372_zh.pdf) [note](notes/PresentNotRemembered_2607.03372.md)
 
     *Chih-Ting Liao, Xin Cao*
 
@@ -97,7 +97,7 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 
     *Tianxing Chen, Yue Chen, Zixuan Li, Junyuan Tang, Kailun Su, Haoran Lu, Weijie Wan, Baijun Chen, Songling Liu, Haowen Yan, Honghao Su, Zhiyang Dou, Kaixuan Wang, Dandan Zhang, Yunze Liu, Yan Qin, Qiwei Liang, Qiwei Wu, Zijian Lin, Wenwei Lin, Yuran Wang, Minghua He, Tianshu Wu, Ruihai Wu, Jingquan Zhou, Kai-Chong Lei, Haibao Yu, Yuanfeng Ji, Weiyang Jin, Guanyu Lin, Xiaofan Li, Qi Xiong, Renjing Xu, Zhongyu Li, Wenhao Chai, Enze Xie, Ziwei Wang, Yao Mu, Hao Dong, Wojciech Matusik, Mingyu Ding, Wenbo Ding, Ping Luo, Masayoshi Tomizuka*
 
-2. **RoboMemArena: A Comprehensive and Challenging Robotic Memory Benchmark.** arXiv 2026. [paper](https://arxiv.org/abs/2605.10921) [note](notes/RoboMemArena_2605.10921.md)
+2. **RoboMemArena: A Comprehensive and Challenging Robotic Memory Benchmark.** arXiv 2026. [paper](https://arxiv.org/abs/2605.10921) [pdf](papers/pdf/RoboMemArena_2605.10921.pdf) [note](notes/RoboMemArena_2605.10921.md)
 
     *Huashuo Lei, Wenxuan Song, Huarui Zhang, Jieyuan Pei, Jiayi Chen, Haodong Yan, Han Zhao, Pengxiang Ding, Zhipeng Zhang, Lida Huang, Donglin Wang, Yan Wang, Haoang Li*
 
@@ -105,11 +105,11 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 
     *Xueyao Chen, Jingkai Jia, Tong Yang, Yibo Fu, Wei Li, Wenqiang Zhang*
 
-4. **RoboMME: Benchmarking and Understanding Memory for Robotic Generalist Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2603.04639) [note](notes/RoboMME_2603.04639.md)
+4. **RoboMME: Benchmarking and Understanding Memory for Robotic Generalist Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2603.04639) [pdf](papers/pdf/RoboMME_2603.04639.pdf) [中译](papers/zh/RoboMME_2603.04639_zh.pdf) [note](notes/RoboMME_2603.04639.md)
 
     *Yinpei Dai, Hongze Fu, Jayjun Lee, Yuejiang Liu, Haoran Zhang, Jianing Yang, Chelsea Finn, Nima Fazeli, Joyce Chai*
 
-5. **RMBench: Memory-Dependent Robotic Manipulation Benchmark with Insights into Policy Design.** arXiv 2026. [paper](https://arxiv.org/abs/2603.01229) [note](notes/RMBench_2603.01229.md)
+5. **RMBench: Memory-Dependent Robotic Manipulation Benchmark with Insights into Policy Design.** arXiv 2026. [paper](https://arxiv.org/abs/2603.01229) [pdf](papers/pdf/RMBench_2603.01229.pdf) [中译](papers/zh/RMBench_2603.01229_zh.pdf) [note](notes/RMBench_2603.01229.md)
 
     *Tianxing Chen, Yuran Wang, Mingleyang Li, Yan Qin, Hao Shi, Zixuan Li, Yifan Hu, Yingsheng Zhang, Kaixuan Wang, Yue Chen, Hongcheng Wang, Junjie Wang, Tianhang Yang, Renjing Xu, Ruihai Wu, Yao Mu, Yaodong Yang, Hao Dong, Ping Luo*
 
@@ -125,11 +125,11 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 
 **事件与关键帧记忆（EventVLA 一族）** ? 只在「发生了什么」的时刻写入，存原图或原图 token。2026 年中的共识方向：EventVLA 学未来关键帧概率，KEMO 用运动学 + 视觉规则，UniMem 训练事件分类器，WeaveLA 在子目标完成时触发，Keyframe-Chaining 用进度感知查询检索。
 
-1. **UniMem: Unifying Multimodal Memory and Control for Vision-Language-Action Models.** arXiv 2026. [paper](https://arxiv.org/abs/2608.22869) [note](notes/UniMem_2608.22869.md)
+1. **UniMem: Unifying Multimodal Memory and Control for Vision-Language-Action Models.** arXiv 2026. [paper](https://arxiv.org/abs/2608.22869) [pdf](papers/pdf/UniMem_2608.22869.pdf) [中译](papers/zh/UniMem_2608.22869_zh.pdf) [note](notes/UniMem_2608.22869.md)
 
     *Lars Osterberg, Maggie Wang, Mac Schwager*
 
-2. **KEMO: Event-Driven Keyframe Memory for Long-Horizon Robot Manipulation with VLA Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2606.23589) [note](notes/KEMO_2606.23589.md)
+2. **KEMO: Event-Driven Keyframe Memory for Long-Horizon Robot Manipulation with VLA Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2606.23589) [pdf](papers/pdf/KEMO_2606.23589.pdf) [中译](papers/zh/KEMO_2606.23589_zh.pdf) [note](notes/KEMO_2606.23589.md)
 
     *Yihan Zeng, Minghao Ye, Yiyuan Chen, Yide Shentu, Philipp Wu, Zike Yan, Zhongyu Li*
 
@@ -237,7 +237,7 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 
     *Myungkyu Koo, Daewon Choi, Taeyoung Kim, Kyungmin Lee, Changyeon Kim, Younggyo Seo, Jinwoo Shin*
 
-23. **MemoryVLA: Perceptual-Cognitive Memory in Vision-Language-Action Models for Robotic Manipulation.** arXiv 2025. [paper](https://arxiv.org/abs/2508.19236) [note](notes/MemoryVLA_2508.19236.md)
+23. **MemoryVLA: Perceptual-Cognitive Memory in Vision-Language-Action Models for Robotic Manipulation.** arXiv 2025. [paper](https://arxiv.org/abs/2508.19236) [pdf](papers/pdf/MemoryVLA_2508.19236.pdf) [中译](papers/zh/MemoryVLA_2508.19236_zh.pdf) [note](notes/MemoryVLA_2508.19236.md)
 
     *Hao Shi, Bin Xie, Yingfei Liu, Lin Sun, Fengrong Liu, Tiancai Wang, Erjin Zhou, Haoqiang Fan, Xiangyu Zhang, Gao Huang*
 
@@ -265,7 +265,7 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 
     *Bokai Lin, Yifu Xu, Xinyu Zhan, Hongjie Fang, Jialin Tian, Fu-Cheng Zhang, Yong-Lu Li, Cewu Lu, Lixin Yang*
 
-4. **Chronos: A Physics-Informed Full-History Framework for Non-Markovian Long-Horizon Manipulation.** arXiv 2026. [paper](https://arxiv.org/abs/2606.30318) [note](notes/Chronos_2606.30318.md)
+4. **Chronos: A Physics-Informed Full-History Framework for Non-Markovian Long-Horizon Manipulation.** arXiv 2026. [paper](https://arxiv.org/abs/2606.30318) [pdf](papers/pdf/Chronos_2606.30318.pdf) [中译](papers/zh/Chronos_2606.30318_zh.pdf) [note](notes/Chronos_2606.30318.md)
 
     *Yulin Zhou, Yimeng Wang, Nengyu Wang, Shaojia Xing, Shiyun Tu, Xiang Li, Jingkai Zhang, Ningbo Jiang, Yuankai Lin, Hua Yang, Xiangrui Zeng, Zhouping Yin*
 
@@ -273,7 +273,7 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 
     *Kuancheng Wang, Seungho Yeom, Jinglin Cao, Yuheng Zhi, Nikhil Shinde, Michael Yip*
 
-6. **$μ$VLA: On Recurrent Memory for Partially Observable Manipulation in VLA Models.** arXiv 2026. [paper](https://arxiv.org/abs/2606.12497) [note](notes/muVLA_2606.12497.md)
+6. **$μ$VLA: On Recurrent Memory for Partially Observable Manipulation in VLA Models.** arXiv 2026. [paper](https://arxiv.org/abs/2606.12497) [pdf](papers/pdf/muVLA_2606.12497.pdf) [note](notes/muVLA_2606.12497.md)
 
     *Egor Cherepanov, Nikita Kachaev, Daniil Zelezetsky, Aydar Bulatov, Artem Pshenitsyn, Yuri Kuratov, Alexey Skrynnik, Aleksandr I. Panov, Alexey K. Kovalev*
 
@@ -337,7 +337,7 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 
 **双系统、智能体与符号记忆** ? 高层用 VLM / LLM / 代码维护文本、图或进度指针，低层 VLA 执行。RoboMME 与 RoboMemArena 的榜首（PonderPounce、HyMeS、BATON）都在这里：计数与过程记忆目前符号状态更稳。AGM 的论断「可靠记忆靠有纪律的状态更新而非容量」与 EventVLA 的 NMS + 冷却、TRACE 的门控写入是同一原则。
 
-1. **AGM: Achievement-Grounded Memory for Closed-Loop Agents with Frozen VLA Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2608.29537) [note](notes/AGM_2608.29537.md)
+1. **AGM: Achievement-Grounded Memory for Closed-Loop Agents with Frozen VLA Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2608.29537) [pdf](papers/pdf/AGM_2608.29537.pdf) [note](notes/AGM_2608.29537.md)
 
     *Hongbo Gao, Zeyu Ni, Xin Wen, Siyu Xu, Ruifeng Li*
 
@@ -349,7 +349,7 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 
     *Bingxin Xu, Yuzhang Shang, Emilio Ferrara*
 
-4. **Skills in Weights, Memory in Code: Hybrid Learning for Memory-Dependent Robot Manipulation.** arXiv 2026. [paper](https://arxiv.org/abs/2608.09410) [note](notes/SkillsWeightsMemoryCode_2608.09410.md)
+4. **Skills in Weights, Memory in Code: Hybrid Learning for Memory-Dependent Robot Manipulation.** arXiv 2026. [paper](https://arxiv.org/abs/2608.09410) [pdf](papers/pdf/SkillsWeightsMemoryCode_2608.09410.pdf) [note](notes/SkillsWeightsMemoryCode_2608.09410.md)
 
     *Yunhao Zhao, Zhenyang Ni, Haoyang Chen, Ruohan Zhang, Qi Zhu*
 
@@ -385,7 +385,7 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 
     *Zijian Zeng, Fei Ding, Huiming Yang, Xianwei Li*
 
-13. **MEM: Multi-Scale Embodied Memory for Vision Language Action Models.** arXiv 2026. [paper](https://arxiv.org/abs/2603.03596) [note](notes/Mem_2603.03596.md)
+13. **MEM: Multi-Scale Embodied Memory for Vision Language Action Models.** arXiv 2026. [paper](https://arxiv.org/abs/2603.03596) [pdf](papers/pdf/Mem_2603.03596.pdf) [中译](papers/zh/Mem_2603.03596_zh.pdf) [note](notes/Mem_2603.03596.md)
 
     *Marcel Torne, Karl Pertsch, Homer Walke, Kyle Vedder, Suraj Nair, Brian Ichter, Allen Z. Ren, Haohuan Wang, Jiaming Tang, Kyle Stachowicz, Karan Dhabalia, Michael Equi, Quan Vuong, Jost Tobias Springenberg, Sergey Levine, Chelsea Finn, Danny Driess*
 
@@ -409,7 +409,7 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 
     *Shahram Najam Syed, Yatharth Ahuja, Arthur Jakobsson, Jeff Ichnowski*
 
-19. **MemER: Scaling Up Memory for Robot Control via Experience Retrieval.** arXiv 2025. [paper](https://arxiv.org/abs/2510.20328) [note](notes/MemER_2510.20328.md)
+19. **MemER: Scaling Up Memory for Robot Control via Experience Retrieval.** arXiv 2025. [paper](https://arxiv.org/abs/2510.20328) [pdf](papers/pdf/MemER_2510.20328.pdf) [note](notes/MemER_2510.20328.md)
 
     *Ajay Sridhar, Jennifer Pan, Satvik Sharma, Chelsea Finn*
 
@@ -437,7 +437,7 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 
     *Jinhui Sun, Wei Zhou, Bowen Yang, Xinliang Xiao, Li Yang*
 
-2. **AutoIntervene: Calibrated Intervention for Action-Chunking Imitation Learning Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2608.07065) [note](notes/AutoIntervene_2608.07065.md)
+2. **AutoIntervene: Calibrated Intervention for Action-Chunking Imitation Learning Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2608.07065) [pdf](papers/pdf/AutoIntervene_2608.07065.pdf) [note](notes/AutoIntervene_2608.07065.md)
 
     *Jinhe Tang, Weiming Zhi*
 
@@ -534,6 +534,9 @@ python3 scripts/make_notes.py            # 生成 notes/
 python3 scripts/make_bib.py              # 生成 awesome_memory_vla.bib
 python3 scripts/make_readme.py           # 生成 README.md / README_en.md
 bash    scripts/translate_core.sh EventVLA_2606.20092   # SuperTranslate + DeepSeek 保版式翻译（需 DEEPSEEK_API_KEY）
+python3 scripts/fetch_pdfs.py               # 下载 scripts/neighbors.txt 里的邻居论文 PDF
+python3 scripts/launch_detached.py scripts/lane_e.txt   # 脱离终端的批量翻译通道
+python3 scripts/apply_zh_patches.py && python3 scripts/make_zh_qa.py   # 应用版式补丁并汇总 QA
 bash    scripts/translate_fallback_google.sh            # 免 key 的 Google 引擎备胎版
 python3 scripts/build_pdfs.py            # 渲染 reports/pdf/ 与 report/ 的 HTML/PDF
 ```

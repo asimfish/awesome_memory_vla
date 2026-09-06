@@ -1,19 +1,71 @@
+<!-- handwritten -->
 # Skills in Weights, Memory in Code: Hybrid Learning for Memory-Dependent Robot Manipulation
 
 > **arXiv 2608.09410** · arXiv 2026 · 提交 2026-08-10 · 分类 `agentic` / 双系统、智能体与符号记忆
 > *Yunhao Zhao, Zhenyang Ni, Haoyang Chen, Ruohan Zhang, Qi Zhu*
-> [arXiv](https://arxiv.org/abs/2608.09410) · [PDF](https://arxiv.org/pdf/2608.09410)
+> [arXiv](https://arxiv.org/abs/2608.09410) · [PDF](https://arxiv.org/pdf/2608.09410) · [仓库内英文 PDF](../papers/pdf/SkillsWeightsMemoryCode_2608.09410.pdf)
 
 ## 一句话定位
 
-HyMeS：技能在权重（模仿学习）、记忆在代码（编码智能体从 rollout 反馈迭代启发式），多模态阶段完成验证更新记忆；RoboMemArena 累计成功 52.5→66.2。
+HyMeS 把记忆从 VLA 权重里拿出来：π0.5 只管马尔可夫的运动技能，编码智能体（Opus 4.8）在代码空间维护符号任务状态（计划、阶段、绑定、计数器、latch），并把它翻译成可微约束注入 flow-matching 去噪过程。RoboMemArena 修正后的 12 任务协议（160 episodes）上，同一份 π0.5 权重的 TSR 从 41.3% 升到 60.1%，比基准自带的双系统 PrediMem 高 14.5 点；SO-101 真机 TSR 25.7% → 57.1%。
+
+## 解决什么问题
+
+观测别名：任务状态 z_t（开头亮过随即拿走的提示卡、已按了几次按钮）无法从当前观测恢复，马尔可夫策略只能在「再按一次」与「抬起停止」之间平均（Fig. 1）。作者批评端到端记忆 VLA（MemoryVLA、EventVLA、MemoryWAM）把离散组合的记忆逻辑学进权重，要求示教覆盖组合空间，换个目标颜色或次数就得重采数据，latent 缓冲区又不可读不可改；批评推理时引导（VLS、DynaGuide、PPGuide）只用当前观测算引导，不维护 episode 级记忆，且策略执行结果不回流。
+
+## 方法
+
+权重微调后全程冻结，四个部分：
+
+**技能在权重。** π0.5 用标准 flow-matching 目标在示教集 D 上微调（Eq. 6–7），D 只需覆盖运动技能。仿真用 RoboMemArena 训好的 π0.5 检查点（OpenPI），真机用 LeRobot 在 SO-101 示教上微调。
+
+**记忆在代码。** 程序 P = (C, V, U)：约束选择、事件验证、记忆更新三组规则。符号状态 s_t = (plan, ρ_t, B_t, N_t, F_t)：计划、当前阶段、任务绑定、重复事件计数、持久交互状态。学习是 rollout 驱动的改码：第 n 次 rollout 产出符号执行轨迹 ξ_n = ((s_t, e_t, R_t)) 和基准给出的分阶段判定 b_n，智能体对照 PACE 记录的切换证据与 b_n 定位失败阶段，诊断是约束奖励写错还是验证规则过严/过松，然后 P^(n+1) = Edit(P^(n), ξ_n, b_n)（Eq. 10），不用梯度和专家动作标签。开发集上最好的程序保留为 P*，评测时冻结：智能体仍在 episode 开头和每次阶段切换后，依据指令、观测和 SAM + DINOv2 关键点实例化阶段计划、验证规则与约束奖励，但不再反思改码。
+
+**引导 VLA。** 当前阶段选出可微约束 R_ρ(a, o_t; s_t)，如到达阶段 R_reach = −‖ee(a) − Γ(target(s_t), o_t)‖²，Γ 用开放词汇检测 + mask 精化 + 深度反投影把符号目标落到场景关键点（沿用 VLS）。约束梯度加到速度场 v̂ = v_θ + λ_t ∇R（Eq. 12）；λ_t 随约束残差自进入阶段以来的归一化下降量做 sigmoid 衰减（Eq. 13），记忆决定选哪个行为，接近交互区后运动策略主导接触。
+
+**验证阶段完成（PACE）。** 本体感知检测动作相关运动模式并用符号 latch 保留持久事件；Qwen3-VL-8B 看当前阶段描述和最近至多 5 帧 RGB 判断完成。每次查询取或 d_r = e_prop ∨ e_vlm，最近 w = 5 次里至少 k = 3 次为真才触发阶段事件，切换后投票清零；事件接受后 U 更新绑定、计数器和持久状态，再激活下一阶段约束。不用特权环境状态，不训任务专用完成判别器。
+
+## 关键数字
+
+修正协议 12 任务、160 episodes：transferring 与 counting 每任务 10 个，occlusion 每任务 15 个，sequence 每任务 20 个；PrediMem 在同一协议上重测。CSR 为子目标平均完成率，TSR 为整任务成功率。
+
+| 设置 | 指标 | π0.5 | PrediMem | HyMeS |
+|---|---|---|---|---|
+| Overall（160 ep） | CSR / TSR | 52.5 / 41.3 | 61.7 / 45.6 | **66.2 / 60.1** |
+| Transferring（3 任务） | CSR / TSR | 70.0 / 66.7 | 86.7 / 76.7 | **93.3 / 93.3** |
+| Counting（3 任务） | CSR / TSR | 39.2 / 20.0 | **72.2** / 36.7 | 60.3 / **50.0** |
+| Sequence（2 任务） | CSR / TSR | 52.5 / 40.0 | 70.0 / 50.0 | **73.8 / 62.5** |
+| Occlusion（4 任务） | CSR / TSR | 50.4 / 40.0 | 38.3 / 31.7 | **50.6 / 47.0** |
+
+SO-101 真机（每方法 35 次，同一份示教与权重）：Observe-and-pick-up 2/10 → 7/10，Number-Guided Button Pressing 7/15 → 11/15，Put-Back Block 0/10 → 2/10；总 TSR 25.7% → 57.1%。
+
+消融（六任务子集、跨四类、同一权重与 episode）：
+
+| 变体 | 程序 | PACE 证据 | CSR | TSR |
+|---|---|---|---|---|
+| One-shot P^(0) | 无 rollout 学习 | 视觉 + 本体 | 63.3 | 53.3 |
+| Vision-only PACE | 学习 | 视觉 | 55.8 | 50.0 |
+| Proprio-only PACE | 学习 | 本体 | 63.0 | 63.3 |
+| Full HyMeS | 学习 | 视觉 + 本体 | **71.8** | **71.7** |
+
+rollout 学习带来 +8.5 CSR / +18.4 TSR；只用视觉验证掉 16.0 / 21.7，只用本体掉 8.8 / 8.4。论文未报告推理延迟、每 episode 的智能体调用次数和开发阶段用了多少 rollout。
+
+## 局限与注意
+
+作者自陈：只处理能压成紧凑符号状态的历史；成功率仍受运动能力和阶段验证限制，Fig. 4 里记忆与约束都对，失败出在预抓取偏移、按钮抖动多按一次、按太浅没被 PACE 认出；周期性 VLM 查询和智能体调用增加延迟与成本。
+
+再补四条。评测协议由作者筛选，只留「π0.5 有技能但缺历史」的 12 个任务，正是符号记忆最占便宜的子集，PrediMem 的劣势要打折看。开发阶段改码依赖基准返回的分阶段判定 b_n，这是仿真才有的特权反馈，真机上 P 如何迭代没有交代。counting 类 CSR 60.3 低于 PrediMem 的 72.2，作者归因于早期阶段的引导干扰，说明梯度引导会伤运动策略；occlusion 类 CSR 仅与 π0.5 持平（50.6 vs 50.4）。整套流程要求策略能在去噪循环里加梯度、有深度做反投影、有闭源大模型做智能体，迁移到 ACT 类确定性头并不直接。
 
 ## 与核心论文的关系
 
-所属家族「双系统、智能体与符号记忆」，对照阅读：[EventVLA 深读](../reports/01_eventvla_cn.md)、[TRACE 深读](../reports/02_trace_cn.md)；横向比较见[趋势与洞见](../reports/04_trends_insights_cn.md)与[设计空间矩阵](../insights/DESIGN_SPACE_MATRIX.md)。
+HyMeS 正是 EventVLA 批评的那种双系统，作者也承认延迟与成本。EventVLA 把稀疏证据记忆做进权重（关键帧证据头 + 5 槽 FIFO 原始帧）端到端训练；HyMeS 的反驳是端到端让示教预算随历史配置数增长，它只随可复用技能数增长。两者协议不同、数字不可比，但可按信息类型划界：多个物体的颜色、位置这类高熵细节符号状态表达不了；计数、阶段、对象-位置绑定则是符号状态的主场——HyMeS 对 π0.5 的 TSR 增益按 counting +30.0、transferring +26.6、sequence +22.5 排序，occlusion 只有 +7.0。防错误写入上两家一致：EventVLA 用 NMS + 冷却，HyMeS 用 3-of-5 投票 + 切换清零 + 符号 latch。
 
-## 摘要（原文）
+TRACE 的记忆是固定 K 槽 latent，用路径签名寻址、门控写入，作为适配器插进 ACT/Diffusion Policy，从示教里学，分支配置必须出现在示教里。HyMeS 的记忆是每步可打印的代码状态，失败能归因到记忆更新、运动执行或事件验证之一，latent 槽做不到。代价是 TRACE 以策略频率运行、不需要大模型，HyMeS 需要 Opus 4.8、Qwen3-VL-8B、SAM/DINOv2、深度反投影，还要求策略可微引导。「技能在权重、记忆在代码」这一立场目前赢在计数与过程记忆，输在延迟、遮挡下的视觉验证和对特权阶段反馈的依赖。
 
-Modern vision-language-action (VLA) policies have acquired broad manipulation skills, but typically generate each action chunk from the current observation or a short fixed-length history. However, real-world manipulation is often non-Markovian, requiring robots to retain and reason over task-relevant information from long-horizon interaction histories to determine the next action. To address this challenge, we propose HyMeS, a hybrid learning framework that leverages the reasoning and memory-management capabilities of coding agents to steer a Markovian VLA for memory-dependent manipulation. Specifically, HyMeS learns low-level motor skills through gradient-based imitation learning, while a coding agent acquires high-level memory-management strategies through heuristic learning by iteratively updating an executable heuristic system from rollout feedback. Furthermore, we close the loop between steering and execution through multimodal stage-completion verification, which updates memory using proprioceptive signals and multi-frame VLM judgments. Compared with end-to-end memory-augmented VLAs, HyMeS requires demonstrations only for reusable motor skills rather than for every history-dependent task configuration, enabling data-efficient compositional generalization. On RoboMemArena, HyMeS improves mean cumulative success from 52.5% to 66.2% and mean task success from 41.3% to 60.1% over pi0.5, while outperforming PrediMem by 4.5 points in cumulative success and 14.5 points in task success.
+## 关联阅读
 
-*arXiv comment: 9 pages, 4 figures, and 3 tables*
+- RoboMemArena / PrediMem（2605.10921）：评测基准与主要对照，PrediMem 是基准自带的 VLM 规划器 + 关键帧记忆双系统。
+- VLS（2602.03973）：HyMeS 沿用的引导接口（VLM 合成阶段奖励、梯度注入去噪），HyMeS 把奖励改为由符号记忆条件化。
+- Harness VLA（2607.08448）：最接近的先行者，用失败规则把冻结 VLA 编排成可重试原语，记忆停在原语粒度。
+- AGM（2608.29537）：同为冻结 VLA 上的进度记忆，只在物理证据验证后推进指针，用 2.43M 参数验证头替代大模型，是 PACE 的轻量替代。
+- MemoryVLA（2508.19236）：HyMeS 点名批评的端到端感知-认知记忆路线代表。

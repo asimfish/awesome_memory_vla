@@ -29,7 +29,8 @@ FAMILY_CORE = {
 }
 
 os.makedirs(os.path.join(ROOT, "notes"), exist_ok=True)
-n = 0
+n = kept = 0
+HANDWRITTEN = "<!-- handwritten -->"
 for x in man:
     key, aid = x["key"], x["arxiv"]
     path = os.path.join(ROOT, x["note"])
@@ -40,6 +41,20 @@ for x in man:
     if os.path.exists(os.path.join(ROOT, x["zh"])):
         links.append("[%s](../%s)" % (S["zh_pdf"], x["zh"]))
     sep = " " + S["dot"] + " "
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            text = f.read()
+        if text.startswith(HANDWRITTEN):
+            # keep the hand-written body, refresh only the asset-link line of the metadata block
+            new_lines = []
+            for line in text.split("\n"):
+                if line.startswith("> [arXiv](https://arxiv.org/abs/"):
+                    line = "> " + sep.join(links)
+                new_lines.append(line)
+            with open(path, "w", encoding="utf-8") as f:
+                f.write("\n".join(new_lines))
+            kept += 1
+            continue
     lines = ["# " + x["title"], ""]
     venue = x["venue"] or ("arXiv " + x["published"][:4])
     lines.append("> **arXiv %s**%s%s%s%s %s%s%s `%s` / %s" % (
@@ -73,4 +88,4 @@ for x in man:
     with open(path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
     n += 1
-print("wrote %d notes" % n)
+print("wrote %d notes, kept %d handwritten notes" % (n, kept))

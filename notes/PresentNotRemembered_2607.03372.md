@@ -1,17 +1,56 @@
+<!-- handwritten -->
 # Present but Not Remembered: Auditing How Frozen VLAs Encode, Deploy, and Steer Visual History
 
 > **arXiv 2607.03372** · arXiv 2026 · 提交 2026-07-03 · 分类 `survey` / 综述与分析
 > *Chih-Ting Liao, Xin Cao*
-> [arXiv](https://arxiv.org/abs/2607.03372) · [PDF](https://arxiv.org/pdf/2607.03372)
+> [arXiv](https://arxiv.org/abs/2607.03372) · [PDF](https://arxiv.org/pdf/2607.03372) · [仓库内英文 PDF](../papers/pdf/PresentNotRemembered_2607.03372.pdf)
 
 ## 一句话定位
 
-对冻结 VLA 做逐层探针 + 因果干预：历史帧内容可解码，但「只属于过去」的信息几乎不存在，历史只在当前帧退化时才被使用；建议记忆增强应注入过去独有的信息——为稀疏事件记忆提供机理依据。
+对三个冻结 VLA（Octo-Small 27M、Octo-Base 93M、CronusVLA-0.5B）做逐层线性探针与激活置换干预，结论是「在场、冗余、仅兜底」：上一帧内容各层可解码（Octo-Small 峰值 R²=0.398），但扣除当前帧已能解释的部分后，历史独有信息上界只有 +0.019（81 种探针配置，A₄/A₁≈0.05）；历史只在当前帧被完全遮黑时才进入动作，第 6 层后依赖消失。
+
+## 解决什么问题
+
+记忆增强工作默认「原生 VLA 不会用历史」，却没人先诊断：多帧策略里的过去是独立存储还是当前帧的副本，是否曾被读入动作。与 Grant 等人只看单帧内模态融合的机理研究互补，作者用无需训练、开环、单卡可跑的审计回答：历史是否在场（A₁）、是否独有（A₄）、何时何处被使用（Δℓ 与截断层 ℓ*）。
+
+## 方法
+
+**刺激集与模型。** BridgeData V2 中 250 对匹配的 (o_{t−1}, o_t, 指令)，213 条指令，哈希在分析前冻结；开环读取 7 维动作块的扩散均值。Octo 窗口 2 帧；CronusVLA 的历史是每帧一个 896 维认知特征。
+
+**解码腿。** 岭回归从第 ℓ 层历史 token 激活预测上一帧场景得 A₁；投影掉当前帧探针已能解释的部分、只解码残差得 A₄。扫 81 种（层 × 池化 × 目标 × 正则）配置取上界，打乱标签作对照。
+
+**部署腿。** 在第 ℓ 层把历史 token 激活换成供体的，读动作变化，减去自我置换噪声底（约 0.15）得校正贡献 Cℓ；部署间隙 Δℓ = C(全黑遮挡) − C(干净)，配对 bootstrap CI、5 种子符号一致、5,000 次置换检验三者同时成立才算「被使用」。退化梯度含部分遮挡、重遮挡、模糊、全黑，帧序打乱作顺序盲对照。第二种干预是注意力敲除：屏蔽读出 token 对历史 key 的注意力。
+
+**注入门。** 在截断层之前把样本自己的干净历史注回遮挡状态，看能否修复动作或消除状态别名；在 CronusVLA 上看能否把动作推向供体。四项合成可复用的 Temporal-Deployment Audit。
+
+## 关键数字
+
+| 量 | Octo-Small | Octo-Base | CronusVLA-0.5B |
+|---|---|---|---|
+| A₁（历史可解码） | 0.389 | 0.362 | 0.142 |
+| A₄（历史独有） | +0.019 | +0.015 | −0.011 |
+| 全黑遮挡下历史贡献 | 上升（兜底） | 上升，部署速率约为 Small 的 31% | 下降 0.0498→0.0357（常驻） |
+| 注入能否驱动动作 | 不能（修复 −0.010，CI 含 0） | 未测 | 能（+0.167，CI [0.106, 0.227]） |
+
+Octo-Small 逐层：L4 部署间隙 +0.054（CI [0.028, 0.079]，置换 p=0.0004，5/5 种子），L6 为 −0.005；注意力敲除 L0 +0.323、L4 +0.137、L6 +0.045，同样在 L6 断开。退化梯度里只有全黑显著（+0.043），部分/重遮挡与模糊都不显著；帧序打乱把两种架构的贡献都打到约 0。夹爪只占历史效应的 9.3%；自然遮挡在 250 对里只有 3 对。
+
+## 局限与注意
+
+- 审计的「历史」只是 Bridge 帧率下的前一帧，演示又近似马尔可夫，A₄≈0 在此设定下并不意外；外推到长视距记忆任务是推论而非实验，论文没有测任何真正的记忆依赖任务。
+- A₄ 以上一帧像素为目标残差化，排除不了模型存有抽象历史（任务进度、意图）；作者承认这点，以部署腿作旁证。
+- 开环、250 对、两大架构族、消费级单卡；满足「冻结、开源、多帧、单卡」的第三个家族没找到（π₀/π₀.₅、X-VLA、ACT 单帧，OpenVLA-OFT 多视角非多帧），「兜底 vs 常驻」只有两个端点。「在中层截断前注入」的位置结论来自 12 层的 Octo，能否迁移到 3B 级 VLA 未验证。
+- 对本仓库的含义：「多给几帧」的设计（ContextVLA、CronusVLA）按本文预测主要在加冗余；作者的可检验假设：在近马尔可夫数据上训练的记忆模块会继承冗余，除非目标显式奖励「当前帧不可还原」的信息。
 
 ## 与核心论文的关系
 
-所属家族「综述与分析」，对照阅读：[EventVLA 深读](../reports/01_eventvla_cn.md)、[TRACE 深读](../reports/02_trace_cn.md)、[SAI 深读](../reports/03_sai_cn.md)；横向比较见[趋势与洞见](../reports/04_trends_insights_cn.md)与[设计空间矩阵](../insights/DESIGN_SPACE_MATRIX.md)。
+- **EventVLA**（2606.20092）：KEM 只存「以后会看不见」的帧（掀开又盖回的方块、短暂出现的数字卡），正是本文定义的历史独有信息而非更多历史；RoboTwin-MeM 上锚帧 18.0% 到加 KEM 75.2% 与「加独有信息才有收益」同向。张力在短期锚帧：按本文逻辑近期帧几乎是当前帧副本，但 EventVLA 在 RMBench 上去掉短期窗从 67.8% 掉到 23.8%；可能的调和是近期帧携带运动与阶段信息而非像素内容，本文以 RGB 场景为目标的探针测不到。
+- **TRACE**（2606.14551）：路径签名增量是机器人状态轨迹的有序特征，从单张当前图像无法还原，按定义是当前帧不可还原的信息；本文发现两种冻结架构都对帧序盲（打乱后贡献归零），TRACE 的顺序反转负对照（37.8 对比保序变换约 90）恰好证明其记忆用到了顺序。经适配器外挂到 ACT/DP，也符合本文对兜底型模型「走工程化通路注入」的建议。
+- **SAI**（2606.16490）：历史 token 让策略分清单帧看起来一样的「搬运中」与「该松手」两态，过早释放 64.5%→16.1%；这类状态别名在训练数据里本就存在，模仿目标因此天然奖励历史独有信息，正是本文假设中记忆模块不继承冗余的条件。三篇核心论文都在注入独有信息而非更多历史。
 
-## 摘要（原文）
+## 关联阅读
 
-A frozen vision-language-action model (VLA) receives recent observations at every decision step, yet prior work has focused on adding memory rather than asking how existing history is represented and used. We study this temporal axis using layer-resolved linear probing and causal interchange interventions across three VLAs from two architecture families. We find a three-part dissociation. First, past-frame content remains linearly decodable throughout the network. Second, information unique to history beyond the current frame is nearly absent, indicating that stored history is largely a redundant copy of the present. Third, history is causally deployed only when the current frame is heavily degraded, while the action readout progressively loses dependence on history through the network. Although all models encode history similarly, their deployment strategies differ: under the same occlusion, one architecture increasingly relies on history as a fallback, whereas the other relies on it less. We further introduce a training-free temporal deployment audit that distinguishes these regimes. In the fallback regime, re-injecting history neither repairs occlusion nor disambiguates actions, confirming the redundancy of the stored representation. In the other regime, the same intervention reliably steers the predicted action toward the donor history. These results show that steerability depends on how history is deployed rather than whether it is encoded. VLAs do not forget the past; they largely fail to represent it as information distinct from the present. Our findings suggest that future memory augmentation should inject information unique to the past rather than simply more history.
+- Grant et al.（2603.19233）：单帧内模态融合轴的跨架构机理研究，本文的正交对照。
+- CronusVLA（2506.19816）：被审计的第二架构族，A₄≈0 但常驻使用、可被注入引导。
+- ContextVLA（2510.04246）：多帧历史 token 直接拼入输入，本文预测主要增加冗余。
+- Past-Token Prediction（2505.09561）：显式预测过去 token 的训练目标，即「目标函数奖励历史信息」的一种实现。
+- Buurmeijer et al.（2603.05487）：观测与控制 VLA 内部特征，同属 VLA 机理可解释性线。

@@ -5,11 +5,11 @@
   "intro": "我们维护一份「记忆 VLA」资源清单：围绕 2026 年 6 月的三篇论文 **EventVLA**（事件驱动的稀疏视觉证据记忆）、**TRACE**（轨迹签名寻址的固定槽 latent 记忆）与 **SAI**（多机器人协作的非对称模仿课程）展开，向外扩展到 100 篇周边工作——综述与分析、记忆基准、事件/关键帧记忆、稠密压缩历史、latent/循环/槽记忆、双系统与符号记忆、世界模型内的记忆、多机器人搭档记忆，以及必要的背景文献。",
   "features_title": "本仓库特色（Features）",
   "features": [
-   "📄 **三篇核心论文的英文 PDF**（`papers/pdf/`）与 🇨🇳 **保版式中文翻译 PDF**（`papers/zh/`，由 [SuperTranslate](https://github.com/asimfish/super_translate) + DeepSeek 生成，逐页视觉 QA 见 [papers/zh/QA_REPORT.md](papers/zh/QA_REPORT.md)）",
+   "📄 **17 篇论文的英文 PDF**（`papers/pdf/`：三篇核心论文 + 14 篇最近邻居）与 🇨🇳 **保版式中文翻译 PDF**（`papers/zh/`，由 [SuperTranslate](https://github.com/asimfish/super_translate) + DeepSeek 生成，逐页视觉 QA 见 [papers/zh/QA_REPORT.md](papers/zh/QA_REPORT.md) 与 [QA_SUMMARY.md](papers/zh/QA_SUMMARY.md)）",
    "📝 **三篇逐篇深读报告（中英双语）**：`reports/01_eventvla_{cn,en}.md`、`reports/02_trace_{cn,en}.md`、`reports/03_sai_{cn,en}.md`，含方法拆解、全部关键数字、判读与关联阅读；每篇另有 PDF（`reports/pdf/`）",
    "💡 **趋势与洞见报告（中英双语）**：`reports/04_trends_insights_{cn,en}.md` —— 五个技术家族、六问设计空间、跨基准证据表、十个洞见、七个开放问题与四个研究方向",
    "🧭 **设计空间矩阵**：`insights/DESIGN_SPACE_MATRIX.md`，40 个方法按「存什么 / 何时写 / 寻址 / 容量 / 集成点 / 监督」六列横向对比",
-   "🗂️ **103 篇论文笔记**（`notes/`，每篇含一句话定位、与核心论文的关系、原文摘要与链接）",
+   "🗂️ **103 篇论文笔记**（`notes/`）：14 篇最近邻居（KEMO、UniMem、MemoryVLA、MemER、MEM、RMBench、RoboMME、RoboMemArena、Present-but-Not-Remembered、Chronos、μVLA、AGM、HyMeS、AutoIntervene）为基于全文的手写深读（问题 / 方法 / 关键数字 / 局限 / 与核心论文的关系），其余 89 篇含一句话定位、与核心论文的关系、原文摘要与链接",
    "📚 **BibTeX**（`awesome_memory_vla.bib`，全部条目可直接引用）",
    "📊 **汇总报告**：中英文 HTML/PDF 合订报告（`report/`）、HTML 幻灯片与 Beamer PDF 幻灯片（`slides/`）",
    "🔧 **可复现脚本**（`scripts/`）：arXiv 检索、manifest 构建、笔记/README/BibTeX 生成、翻译、PDF 渲染"
@@ -45,7 +45,7 @@
    "| BibTeX | [awesome_memory_vla.bib](awesome_memory_vla.bib) | |"
   ],
   "repro_title": "Reproduce (复现)",
-  "repro_body": "```bash\npython3 scripts/build_manifest.py        # 从 scripts/curated_ids.tsv 拉取 arXiv 元数据 → scripts/papers_manifest.json\npython3 scripts/make_notes.py            # 生成 notes/\npython3 scripts/make_bib.py              # 生成 awesome_memory_vla.bib\npython3 scripts/make_readme.py           # 生成 README.md / README_en.md\nbash    scripts/translate_core.sh EventVLA_2606.20092   # SuperTranslate + DeepSeek 保版式翻译（需 DEEPSEEK_API_KEY）\nbash    scripts/translate_fallback_google.sh            # 免 key 的 Google 引擎备胎版\npython3 scripts/build_pdfs.py            # 渲染 reports/pdf/ 与 report/ 的 HTML/PDF\n```",
+  "repro_body": "```bash\npython3 scripts/build_manifest.py        # 从 scripts/curated_ids.tsv 拉取 arXiv 元数据 → scripts/papers_manifest.json\npython3 scripts/make_notes.py            # 生成 notes/\npython3 scripts/make_bib.py              # 生成 awesome_memory_vla.bib\npython3 scripts/make_readme.py           # 生成 README.md / README_en.md\nbash    scripts/translate_core.sh EventVLA_2606.20092   # SuperTranslate + DeepSeek 保版式翻译（需 DEEPSEEK_API_KEY）\npython3 scripts/fetch_pdfs.py               # 下载 scripts/neighbors.txt 里的邻居论文 PDF\npython3 scripts/launch_detached.py scripts/lane_e.txt   # 脱离终端的批量翻译通道\npython3 scripts/apply_zh_patches.py && python3 scripts/make_zh_qa.py   # 应用版式补丁并汇总 QA\nbash    scripts/translate_fallback_google.sh            # 免 key 的 Google 引擎备胎版\npython3 scripts/build_pdfs.py            # 渲染 reports/pdf/ 与 report/ 的 HTML/PDF\n```",
   "contrib_title": "Contributing",
   "contrib_body": "欢迎通过 Pull Request 补充论文：在 `scripts/curated_ids.tsv` 里加一行（分类、短名、arXiv 编号、会议/年份），在 `scripts/oneliners_cn.json` 里写一句话定位，然后运行上面的生成脚本。格式约定见 [CONTRIBUTING.md](CONTRIBUTING.md)。",
   "cite_title": "Citation",
@@ -58,11 +58,11 @@
   "intro": "The list is organised around three papers from June 2026 — **EventVLA** (event-driven sparse visual evidence memory), **TRACE** (fixed-slot latent memory addressed by trajectory path signatures) and **SAI** (an asymmetric imitation curriculum for coupled multi-robot policies) — and extends to 100 surrounding works: surveys and analyses, memory benchmarks, event/keyframe memory, dense compressed history, latent/recurrent/slot memory, dual-system and symbolic memory, memory inside world models, multi-robot partner memory, and the necessary background.",
   "features_title": "Features",
   "features": [
-   "📄 **English PDFs of the three core papers** (`papers/pdf/`) and 🇨🇳 **layout-preserving Chinese translations** (`papers/zh/`, produced with [SuperTranslate](https://github.com/asimfish/super_translate) + DeepSeek; per-page visual QA in [papers/zh/QA_REPORT.md](papers/zh/QA_REPORT.md))",
+   "📄 **English PDFs of 17 papers** (`papers/pdf/`: the three core papers plus their 14 nearest neighbours) and 🇨🇳 **layout-preserving Chinese translations** (`papers/zh/`, SuperTranslate + DeepSeek; per-page visual QA in [papers/zh/QA_REPORT.md](papers/zh/QA_REPORT.md) and [QA_SUMMARY.md](papers/zh/QA_SUMMARY.md))",
    "📝 **Three bilingual deep-dive reports**: `reports/01_eventvla_{cn,en}.md`, `reports/02_trace_{cn,en}.md`, `reports/03_sai_{cn,en}.md`, with method breakdowns, every key number, assessment and related reading; each also as PDF (`reports/pdf/`)",
    "💡 **Bilingual trends-and-insights report**: `reports/04_trends_insights_{cn,en}.md` — five technical families, a six-question design space, cross-benchmark evidence tables, ten insights, seven open problems and four research directions",
    "🧭 **Design-space matrix**: `insights/DESIGN_SPACE_MATRIX.md`, 40 methods compared on what / when / where / how much / integration point / supervision",
-   "🗂️ **103 paper notes** (`notes/`, each with a one-line positioning, relation to the core papers, abstract and links)",
+   "🗂️ **103 paper notes** (`notes/`): the 14 nearest neighbours (KEMO, UniMem, MemoryVLA, MemER, MEM, RMBench, RoboMME, RoboMemArena, Present-but-Not-Remembered, Chronos, muVLA, AGM, HyMeS, AutoIntervene) have hand-written deep notes from the full text (problem / method / key numbers / limitations / relation to the core papers); the other 89 carry a one-line positioning, relation to the core papers, abstract and links",
    "📚 **BibTeX** (`awesome_memory_vla.bib`)",
    "📊 **Consolidated reports**: bilingual HTML/PDF (`report/`), an HTML slide deck and a Beamer PDF deck (`slides/`)",
    "🔧 **Reproducible scripts** (`scripts/`): arXiv search, manifest, notes/README/BibTeX generation, translation, PDF rendering"
@@ -98,7 +98,7 @@
    "| BibTeX | [awesome_memory_vla.bib](awesome_memory_vla.bib) | |"
   ],
   "repro_title": "Reproduce",
-  "repro_body": "```bash\npython3 scripts/build_manifest.py        # arXiv metadata from scripts/curated_ids.tsv -> scripts/papers_manifest.json\npython3 scripts/make_notes.py            # notes/\npython3 scripts/make_bib.py              # awesome_memory_vla.bib\npython3 scripts/make_readme.py           # README.md / README_en.md\nbash    scripts/translate_core.sh EventVLA_2606.20092   # SuperTranslate + DeepSeek (needs DEEPSEEK_API_KEY)\nbash    scripts/translate_fallback_google.sh            # key-free Google-engine fallback\npython3 scripts/build_pdfs.py            # render reports/pdf/ and report/ HTML/PDF\n```",
+  "repro_body": "```bash\npython3 scripts/build_manifest.py        # arXiv metadata from scripts/curated_ids.tsv -> scripts/papers_manifest.json\npython3 scripts/make_notes.py            # notes/\npython3 scripts/make_bib.py              # awesome_memory_vla.bib\npython3 scripts/make_readme.py           # README.md / README_en.md\nbash    scripts/translate_core.sh EventVLA_2606.20092   # SuperTranslate + DeepSeek (needs DEEPSEEK_API_KEY)\npython3 scripts/fetch_pdfs.py               # download the neighbour PDFs listed in scripts/neighbors.txt\npython3 scripts/launch_detached.py scripts/lane_e.txt   # detached batch translation lanes\npython3 scripts/apply_zh_patches.py && python3 scripts/make_zh_qa.py   # apply layout patches, summarise QA\nbash    scripts/translate_fallback_google.sh            # key-free Google-engine fallback\npython3 scripts/build_pdfs.py            # render reports/pdf/ and report/ HTML/PDF\n```",
   "contrib_title": "Contributing",
   "contrib_body": "Pull requests are welcome: add a line to `scripts/curated_ids.tsv` (group, short key, arXiv id, venue/year), a one-line positioning to `scripts/oneliners_cn.json`, then run the generators above. Conventions are in [CONTRIBUTING.md](CONTRIBUTING.md).",
   "cite_title": "Citation",

@@ -1,0 +1,14 @@
+{
+ "TRACE_2606.14551": [
+  {"page": 18, "kind": "draw_line", "from": [108.0, 398.9366], "to": [504.0234, 398.9366], "width": 0.8005,
+   "why": "Table 14 header midrule erased by the translated header's whiteout; geometry from the original page drawings"}
+ ],
+ "RoboMME_2603.04639": [
+  {"page": 1, "kind": "overlay_original", "rect": [58, 142.0, 528, 169.0],
+   "why": "the engine translated the first author's name (Yinpei Dai -> CJK) and displaced the superscript; original author line restored"}
+ ],
+ "MemoryVLA_2508.19236": [
+  {"page": 28, "kind": "overlay_original", "rect": [100, 561.0, 512, 671.5],
+   "why": "layout engine merged the last rows of the real-world task table into overlapping text; original English rows shown instead"}
+ ]
+}

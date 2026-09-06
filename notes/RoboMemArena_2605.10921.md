@@ -1,19 +1,62 @@
+<!-- handwritten -->
 # RoboMemArena: A Comprehensive and Challenging Robotic Memory Benchmark
 
 > **arXiv 2605.10921** · arXiv 2026 · 提交 2026-05-11 · 分类 `bench` / 记忆依赖操作的基准
 > *Huashuo Lei, Wenxuan Song, Huarui Zhang, Jieyuan Pei, Jiayi Chen, Haodong Yan, Han Zhao, Pengxiang Ding, Zhipeng Zhang, Lida Huang, Donglin Wang, Yan Wang, Haoang Li*
-> [arXiv](https://arxiv.org/abs/2605.10921) · [PDF](https://arxiv.org/pdf/2605.10921)
+> [arXiv](https://arxiv.org/abs/2605.10921) · [PDF](https://arxiv.org/pdf/2605.10921) · [仓库内英文 PDF](../papers/pdf/RoboMemArena_2605.10921.pdf)
 
 ## 一句话定位
 
-26 任务、平均 >1000 步、68.9% 子任务依赖记忆的大规模基准，VLM 生成子任务并自带关键帧标注；配套双系统策略 PrediMem（近期缓冲 + 关键帧缓冲 + 预测编码头）。
+RoboMemArena 用 VLM 分解子任务 + AnyGrasp 自动执行生成 26 个任务、2,600 条平均 1,076 步的轨迹，151 个子任务中 104 个（68.9%）依赖历史，并原生提供子任务指令与关键帧标注；配套双系统 PrediMem 以 38.5% TSR 领先 MemER 27.3%、π₀.₅ 21.5%。要记的对照：拿掉关键帧库只剩 5 帧近期缓冲，TSR 跌到 17.7%，低于无记忆的 π₀.₅。
+
+## 解决什么问题
+
+三个缺口：已有记忆基准缺少能直接监督双系统规划器的多模态标注（关键帧图像 + 子任务语言）；任务短、结构简单、有些并不真需要记忆（点名 MemoryBench、MIKASA、RMBench、RoboMME）；没有配对的真机评测。要回答的是：在平均超过 1,000 步、多数子任务不可由当前帧判定的任务里，反应式 VLA 差多少，关键帧该按什么规则写入。
+
+## 方法
+
+**任务。** 四类：Transferring 4 个（相同容器间搬运，记源-目标映射）、Occlusion 11 个（开抽屉或放微波炉后物体被遮住）、Counting 7 个（倒酱两次等重复动作，前后场景几乎一样）、Sequence 4 个（后续动作依赖前一步结果）。单任务平均步长 472（Pour Wine into Mug Twice）到 1,835（Put Cookies Butter into Drawer Respectively）；双相机 256×256。
+
+**生成管线。** VLM 从指令和当前图像生成有序子任务并指派到 {Move, Place, Pour, Open, Close} 五个原语，不合理的分解人工修正；AnyGrasp 估 6-DoF 抓取位姿驱动原语，失败则重试；关键帧取夹爪开合切换帧与末端速度极小/方向突变帧的并集。每任务 100 条演示，共 15,100 段关键帧对齐片段。
+
+**评测。** TSR 要求全部阶段谓词同时成立；CSR 为满足的阶段比例，每任务 3–9 个验证阶段。真机 5 个任务在 AgileX Cobot Mobile Aloha 双臂平台各 10 次，IHMB（看人类演示后做早餐）最长超过 3 分钟。
+
+**PrediMem。** S2 为 Qwen3-VL-8B-Instruct（冻结视觉塔，其余全参微调 2 轮），输入 5 帧近期缓冲 + 不设上限的关键帧缓冲，输出当前子任务和近期窗内哪几帧写入关键帧库；训练时加预测编码头，从当前隐状态预测下一帧冻结 ViT 特征（MSE + 余弦，权重 0.1），推理时移除。S1 沿用 π₀.₅ 的 flow-matching 目标。异步运行：S2 1.06 Hz，S1 3.40 Hz。
+
+## 关键数字
+
+| 方法（TSR %） | Transfer | Occlusion | Counting | Sequence | 平均 TSR | 平均 CSR |
+|---|---|---|---|---|---|---|
+| π₀.₅ | 20.0 | 12.7 | 14.3 | 60.0 | 21.5 | 38.7 |
+| HiF-VLA | 17.5 | 12.7 | 8.6 | 42.5 | 16.9 | 39.8 |
+| MemoryVLA | 15.0 | 7.3 | 14.3 | 37.5 | 15.0 | 35.3 |
+| MemER | 20.0 | 16.4 | 27.1 | 65.0 | 27.3 | 49.1 |
+| GPT-5.4 作 S2（冻结） | 13.8 | 1.8 | 12.9 | 15.0 | 8.7 | 30.5 |
+| PrediMem 去预测编码头 | 25.0 | 19.5 | 38.6 | 63.8 | 32.3 | 49.0 |
+| PrediMem 去关键帧库 | 17.5 | 6.4 | 20.0 | 45.0 | 17.7 | 41.6 |
+| PrediMem（Qwen3-VL-8B） | 22.5 | 27.3 | 45.7 | 72.5 | 38.5 | 55.2 |
+| Ground Truth（oracle 参考） | 32.5 | 33.6 | 51.4 | 85.0 | 46.1 | 64.8 |
+
+S2 缩放：1.7B / 4B / 8B 的 TSR 为 19.9 / 31.9 / 38.5。预测编码损失权重 0 / 0.1 / 0.5 / 1 对应 TSR 32.3 / 38.5 / 31.0 / 29.8。关键帧库存 2 帧时 CSR 很低，4–8 帧改善，不设上限最好。真机平均成功率：π₀.₅ 20%，MemER 40%，PrediMem 52%；IHMB 只有 PrediMem 成功过（10%）。
+
+## 局限与注意
+
+- oracle 上界只有 46.1% TSR，一半以上失败来自 S1 低层执行而非记忆，TSR 对记忆能力的分辨率受限，CSR 部分弥补。
+- 「初始帧 + 近期窗」能否解题：去掉关键帧库即只剩 5 帧近期窗，TSR 17.7% 低于反应式 π₀.₅；单独的初始帧锚点未测。Occlusion 类的证据（抽屉里有什么）只在开抽屉中途可见，Counting 类靶向的正是前后场景相同，都不在初始帧里；Transferring 的源-目标映射在初始帧中部分可见。三个基准里它的瞬态证据比例最高。
+- 「26 个任务」高估了多样性：物体只有饼干、黄油、巧克力、酱等几样，11 个 Occlusion 任务多为抽屉/微波炉模板换物体。
+- 关键帧标注由夹爪切换和运动学拐点自动给出，标的是操作阶段边界而非「证据出现」时刻，拿来监督记忆写入有语义偏差；VLM 分解也需人工修正。
+- 68.9% 是作者用 LLM 辅助评分自算并与其他基准对比；Sequence 类上 π₀.₅ 已有 60% TSR，该类不少子任务由局部视觉规律决定。真机每任务仅 10 次；HiF-VLA、MemoryVLA 低于 π₀.₅，基线调优存疑。
 
 ## 与核心论文的关系
 
-所属家族「记忆依赖操作的基准」，对照阅读：[EventVLA 深读](../reports/01_eventvla_cn.md)、[TRACE 深读](../reports/02_trace_cn.md)；横向比较见[趋势与洞见](../reports/04_trends_insights_cn.md)与[设计空间矩阵](../insights/DESIGN_SPACE_MATRIX.md)。
+- **EventVLA**（2606.20092）与 PrediMem 的记忆结构几乎同构：近期锚帧 + 存原图的关键帧缓冲。差别在写入决策：PrediMem 由约 1 Hz 的 S2 VLM 回看近期窗做出，监督来自启发式关键帧并靠预测编码增敏；KEM 则从动作块隐状态前瞻预测「这帧将来是否关键」，端到端、无双系统延迟。去关键帧库后跌破反应式基线，独立佐证了 EventVLA「仅近期窗不够」的判断；EventVLA 未在此基准上报告。
+- **TRACE**（2606.14551）的延迟证据任务与 Occlusion 类同型（看到抽屉内容、关闭、稍后据此决策）；但 TRACE 用固定 K 槽有界记忆，而这里关键帧库不设上限最好，千步以上任务对有界记忆是压力测试。Counting 类的重复倒酱在状态轨迹上是重复片段，路径签名能否区分第一次与第二次值得验证。
+- **SAI**（2606.16490）关注双臂耦合下的阶段判断；真机任务同在双臂 Aloha 平台，IHMB「看人演示后复现」与 SAI 的历史 token 都把阶段信息显式化。四类任务对应 RoboMME 分类的时间（Counting、Sequence）与空间/物体（Occlusion、Transferring），仿真里没有过程模仿类。
 
-## 摘要（原文）
+## 关联阅读
 
-Memory is a critical component of robotic intelligence, as robots must rely on past observations and actions to accomplish long-horizon tasks in partially observable environments. However, existing robotic memory benchmarks still lack multimodal annotations for memory formation, provide limited task coverage and structural complexity, and remain restricted to simulation without real-world evaluation. We address this gap with RoboMemArena, a large-scale benchmark of 26 tasks, with average trajectory lengths exceeding 1,000 steps per task and 68.9% of subtasks being memory-dependent. The generation pipeline leverages a vision-language model (VLM) to design and compose subtasks, generates full trajectories through atomic functions, and provides memory-related annotations, including subtask instructions and native keyframe annotations, while paired real-world memory tasks support physical evaluation. We further design PrediMem, a dual-system VLA in which a high-level VLM planner manages a memory bank with recent and keyframe buffers and uses a predictive coding head to improve sensitivity to task dynamics. Extensive experiments on RoboMemArena show that PrediMem outperforms all baselines and provides insights into memory management, model architecture, and scaling laws for complex memory systems.
-
-*arXiv comment: Project website: https://robomemarena.github.io*
+- MemER（2510.20328）：最强基线，同为双系统 + 关键帧，差在关键帧选择对任务动态不敏感。
+- Keyframe Chaining（2603.01465）：关键帧链处理非马尔可夫长视距操作，思路与关键帧库相近。
+- HiF-VLA（2512.09928）：基线之一，运动表征强但不存事件级记忆。
+- Mem（2603.03596）：多尺度具身记忆，被引用来论证记忆的多模态性。
+- RoboCerebra（2506.06677）：另一长视距基准，但 RMBench 指出其任务信息全程可见。

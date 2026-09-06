@@ -1,19 +1,79 @@
+<!-- handwritten -->
 # AutoIntervene: Calibrated Intervention for Action-Chunking Imitation Learning Policies
 
 > **arXiv 2608.07065** · arXiv 2026 · 提交 2026-08-07 · 分类 `multi` / 多机器人协作与搭档记忆（SAI 一族）
 > *Jinhe Tang, Weiming Zhi*
-> [arXiv](https://arxiv.org/abs/2608.07065) · [PDF](https://arxiv.org/pdf/2608.07065)
+> [arXiv](https://arxiv.org/abs/2608.07065) · [PDF](https://arxiv.org/pdf/2608.07065) · [仓库内英文 PDF](../papers/pdf/AutoIntervene_2608.07065.pdf)
 
 ## 一句话定位
 
-用成功执行构建视觉-动作支持记忆，按分位数校准双向切换阈值决定策略↔操作者交接；SAI 阶段三「何时干预」的自动化答案。
+AutoIntervene 让机器人自己决定何时把控制权交给操作者、何时收回：把当前多视角视觉嵌入和策略即将执行的动作块，与成功示教构成的视觉-动作支持记忆做检索比对，阶段局部支持掉线就交人，全局支持恢复就交回，两个方向的阈值分别从留出示教的分位数校准。七个真机双臂任务上，两轮干预后平均成功率 30.9% → 80.0%，累计额外操作者控制时间 122.9 s；人工决定切换的同一流程只到 68.6%、用时 179.9 s。
+
+## 解决什么问题
+
+动作块策略（ACT、Diffusion Policy、Flow Matching）被感知误差或执行漂移带出示教分布后，仍会输出平滑却与状态不符的动作块——抓歪、子任务卡住，却不会停。前人各缺一块：DART 靠噪声注入扩大覆盖，部署时没有检测；DAgger/HG-DAgger 要操作者全程盯着并手动决定接管与交回；机器人门控的 LazyDAgger（策略-专家动作差异）和 RND-DAgger（状态新颖度）用同一种信号管两个方向，恢复期间差异或新颖度仍高，前者交不回去、后者刚交回又被触发；运行时监控器（Sentinel、FAIL-Detect、PATCH、Rewind-IL）只做检测、暂停或回退，不把恢复段变成训练数据。
+
+## 方法
+
+**支持记忆。** 用训练当前策略的全部成功轨迹建库：每条轨迹每个起点 u 产出一条 m_{i,u} = (E_{i,u}, A_{i,u})，即多视角视觉嵌入（策略自带的 DINOv3 ConvNeXt-Base 编码器）加从 u 起的 H_r = 40 步记录动作块。查询 Q_t = (E_t, A_t) 是当前观测嵌入加策略预测动作块的前 H_r 步，动作按左右臂分两组。视觉相似度取跨视角余弦相似度的最小值（Eq. 1），任一相机不匹配都压低分数。
+
+**阶段局部 vs 全局支持。** 操作者控制时（β = op）策略在后台继续预测，检索整库：恢复可能改变了物体状态或完成了部分任务，策略应能从任何合法阶段重新获得支持，这是全局支持。策略控制时（β = pol）相似观测可能出现在需要不同动作的阶段，整库检索会匹配错阶段，于是接管时先全库匹配一次，选匹配最强的 J = 16 条轨迹，每条给一个从匹配点起最多 B = 40 条的前向窗口，之后只在窗口内检索；每执行 U_win = 6 个策略动作，窗口按新匹配条目单调前移（Eq. 4），这是阶段局部支持。检索取相似度最高的 K = 16 条邻居，对每组动作算按维度标准差归一化的欧氏距离（Eq. 2），每组取最近的 M = 3 条，风险由平均距离最大的那组决定；视觉支持 s 取同批参考的相似度均值，动作风险 r̄ 取最近 W = 5 次评估的均值，视觉支持不平滑以便立即捕捉对应关系的丢失。
+
+**分位数校准双阈值。** 每任务留出 6 条成功示教作 D_cal，不进训练也不进记忆库。每轮部署前分别在 pol 和 op 两种检索范围下对 D_cal 跑同样的支持评估，阈值取经验分位数：θ_s = Q_{α_s}(S_cal) 为视觉支持下限，θ_r = Q_{1−α_r}(R_cal) 为动作风险上限（Eq. 5）；策略侧 (α_s, α_r) = (0.05, 0.05)，操作者侧 (0.30, 0.30)。提案被接受需同时 s ≥ θ_s 且 r̄ ≤ θ_r。策略控制下连续 L_pol = 2 次被拒（含所有窗口走到末尾，重复抓失败靠这条兜底）就交给操作者；操作者控制下后台提案连续 L_op = 2 次被接受就交回。策略侧评估 5 Hz，操作者侧 30 Hz。
+
+**干预段回流训练。** 每段操作者控制（从交人到交回或 episode 结束）作为独立干预轨迹保存，只保留成功 rollout 里的段，每轮每任务取 5 个成功 rollout。下一轮 D^(k+1) = D^(k) ∪ ΔD^(k)，采样按 λ_mix = 2/3 混合（旧数据 : 新干预 = 2 : 1）做标准行为克隆；再用新策略的编码器重建记忆库、在 D_cal 上重新校准阈值、重新部署。
+
+## 关键数字
+
+两台 AgileX PiPER-X 6-DoF 臂，三路 RGB（俯视 + 双腕），28 维状态（14 关节/夹爪 + 14 力矩），14 维动作，H = 100。每任务 36 条初始示教中 30 条训练、6 条校准；除特别说明，每个成功率来自 25 次无辅助真机 rollout。
+
+| 七任务主基准 | Initial | Human R1 | Human R2 | AutoIntervene R1 | AutoIntervene R2 | Additional Full Data |
+|---|---|---|---|---|---|---|
+| 平均成功率 | 30.9% | 45.7% | 68.6% | 59.4% | **80.0%** | 56.0% |
+| 时间 | 977.4 s（示教总时长） | +77.7 s | +179.9 s（累计） | +66.1 s | +122.9 s（累计） | 1442.9 s（示教总时长，含初始） |
+
+AutoIntervene R2 逐任务（%）：Peg Disassembly 16 → 72、Potato Transfer 44 → 76、Towel Folding 56 → 96、Towel Bagging 24 → 60、Lidded Box Packing 8 → 100、Plant Sorting 24 → 72、Towel Box Packing 44 → 84；Human R2 在 Potato Transfer（80）和 Towel Folding（100）反超。相对 Additional Full Data 新增的示教时间，AutoIntervene 少用约 74%。
+
+| 长时程任务（三轮，%） | Initial | R1 | R2 | R3 | Additional Full Data |
+|---|---|---|---|---|---|
+| Two-Towel Box Packing（ACT） | 28 | 44 | 64 | 88 | 52 |
+| Towels-and-Cable Bagging（ACT） | 8 | 20 | 28 | 48 | 28 |
+| Two-Towel Box Packing，Diffusion Policy 头 | 32 | 40 | 56 | 92 | 44 |
+| Two-Towel Box Packing，Flow Matching 头 | 32 | 36 | 48 | 80 | 40 |
+
+切换质量（Lidded Box Packing 开盖阶段，同一 20,000 步检查点，10 次 5 cm 箱体平移扰动 + 10 次正常 rollout，最多 5 个切换周期）：
+
+| 方法 | Cut-in 召回 | Cut-in 精度 | Cut-out 召回 | Cut-out 精度 | 正常 rollout 误触发率 |
+|---|---|---|---|---|---|
+| AutoIntervene | 1.00 | 1.00 | 1.00 | 1.00 | 0.00 |
+| LazyDAgger | 0.40 | 1.00 | 0.00 | N/A | 0.80 |
+| RND-DAgger（W_rec = 5） | 0.80 | 0.16 | 0.00 | 0.00 | 0.90 |
+| RND-DAgger（W_rec = 30） | 0.80 | 0.16 | 0.75 | 0.12 | 0.90 |
+| 去掉视觉支持 | 0.00 | N/A | N/A | N/A | 0.00 |
+| 去掉动作风险 | 0.90 | 1.00 | 0.56 | 0.56 | 0.00 |
+
+另一组消融把目标物体降低而外观几乎不变，使标称抓取失败：10 次 rollout 里带窗口前移的 cut-in 召回 1.00，去掉窗口前移只有 0.30。
+
+## 局限与注意
+
+论文没有单列局限，结论只说未来要把在线校准扩展到更多任务、扰动和操作者。自己补几点：
+
+- 「不手调分数阈值」是把手调挪到了尾部比例 α（0.05 / 0.30）、持久长度 L = 2、窗口 B、邻居数 K、M 等超参上；校准集每任务只有 6 条轨迹，5% 分位数的估计方差论文未报告。
+- 切换质量对比只在一个任务、一种扰动（5 cm 平移）、各 10 次 rollout 上做，LazyDAgger/RND-DAgger 是作者移植到 ACT 部署环境的实现。
+- 25 次 rollout 的粒度是 4%，Human R2 与 AutoIntervene R2 多项任务只差一两次；Human 基线的操作者人数未说明，其控制时间也受人的反应速度影响。
+- 支持记忆只由成功数据构成，评估的是「提案是否落在示教支持内」而非任务是否在推进：在支持内但停滞的行为（重复抓失败）只能靠窗口走到末尾这一间接机制触发。
+- 只保留成功 rollout 的干预段；每轮干预数据量由「5 个成功 rollout」这个人为设定决定，不由支持分数自适应。
 
 ## 与核心论文的关系
 
-所属家族「多机器人协作与搭档记忆（SAI 一族）」，对照阅读：[SAI 深读](../reports/03_sai_cn.md)；横向比较见[趋势与洞见](../reports/04_trends_insights_cn.md)与[设计空间矩阵](../insights/DESIGN_SPACE_MATRIX.md)。
+SAI 的阶段三是在两台耦合移动操作臂协调失败附近对 Robot A 做稀疏 DAgger 式人工干预，干预数据约占基线集的 30%，论文承认恢复没有饱和、干预多少和在哪里干预仍靠人。AutoIntervene 把「何时交人、何时交回」自动化，并用支持记忆定义「哪里」：阶段局部支持跌破阈值就是干预点，全局支持恢复就是交回点。它没有回答「多少」——每轮 5 个成功 rollout 仍是人定的；也没有涉足多机器人，实验是单控制器双臂，但按臂分组、由支持最弱的组决定风险的设计，可以映射为 SAI 里只对 Robot A 门控。
 
-## 摘要（原文）
+与 TRACE 要分清两种「记忆」。TRACE 记的是本 episode 已执行的历史：路径签名寻址 K 槽 latent，解决延迟证据下的分支歧义。AutoIntervene 的支持记忆是跨 episode 的：训练示教的（视觉嵌入, 动作块）对，回答「成功执行在这里长什么样」，不存本 episode 历史；它对历史的唯一利用是单调前移的检索窗口，一个只进不退的阶段指针，论文在动机处直接引用 TRACE 和 SCIL 说明视觉别名。两者殊途同归于「有纪律的状态更新」：TRACE 门控写入，AutoIntervene 用分方向阈值 + 持久计数 + 不回退窗口做滞回，Table V 里 RND-DAgger 单阈值管双向的失败正是缺少这种纪律的反例。
 
-Action-chunking visuomotor policies learn from demonstrations and improve temporal consistency by predicting short action sequences rather than single-step commands. Yet perception errors and execution drift can move the robot outside the demonstration distribution, while the policy continues to produce smooth action chunks that are inconsistent with the observed state. We present AutoIntervene, an online framework that selectively transfers control between an action-chunking policy and an operator during deployment. AutoIntervene evaluates proposed chunks against a visual-action support memory built from successful task executions, combining visual similarity with consistency between proposed and reference actions. Phase-local support governs policy-to-operator transfer within the current task phase, whereas global support governs the return to policy control after operator recovery. We calibrate separate switching thresholds for the two directions from empirical quantiles of evaluation-level scores on held-out expert demonstrations, avoiding direct manual tuning of score cutoffs. Intervention segments retained from successful rollouts target learner-induced states and provide corrective supervision for subsequent policy updates. Experiments on real-world bimanual manipulation tasks show higher post-adaptation task success and lower operator-control time than manual intervention. Videos and additional results are available at https://aus.bot/research/autointervene/.
+## 关联阅读
 
-*arXiv comment: 9 pages, 7 figures*
+- LazyDAgger（2104.00053）：基于动作差异、带滞回带的机器人门控 DAgger，直接基线，Table V 显示其交回控制失败。
+- Rewind-IL（2604.16683）：同组，校准的块间差异检测失败后回退到语义验证过的安全状态，「检测后重生」而非「检测后交人」。
+- PATCH（2606.16690）：同组，以当前动作块为条件的 latent patch 新颖度监控，做暂停/恢复，同样把动作块纳入监控信号。
+- TriPilot-FF（2602.09888）：同组的力反馈遥操作系统，AutoIntervene 的 leader-follower 接管接口基于它。
+- IntervenGen（2405.01472）：从少量人工干预自动生成大量纠正数据，与 AutoIntervene 互补：一个决定何时采干预，一个把每次干预放大。

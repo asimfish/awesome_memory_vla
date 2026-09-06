@@ -15,11 +15,11 @@ The list is organised around three papers from June 2026 — **EventVLA** (event
 
 **Features**:
 
-- 📄 **English PDFs of the three core papers** (`papers/pdf/`) and 🇨🇳 **layout-preserving Chinese translations** (`papers/zh/`, produced with [SuperTranslate](https://github.com/asimfish/super_translate) + DeepSeek; per-page visual QA in [papers/zh/QA_REPORT.md](papers/zh/QA_REPORT.md))
+- 📄 **English PDFs of 17 papers** (`papers/pdf/`: the three core papers plus their 14 nearest neighbours) and 🇨🇳 **layout-preserving Chinese translations** (`papers/zh/`, SuperTranslate + DeepSeek; per-page visual QA in [papers/zh/QA_REPORT.md](papers/zh/QA_REPORT.md) and [QA_SUMMARY.md](papers/zh/QA_SUMMARY.md))
 - 📝 **Three bilingual deep-dive reports**: `reports/01_eventvla_{cn,en}.md`, `reports/02_trace_{cn,en}.md`, `reports/03_sai_{cn,en}.md`, with method breakdowns, every key number, assessment and related reading; each also as PDF (`reports/pdf/`)
 - 💡 **Bilingual trends-and-insights report**: `reports/04_trends_insights_{cn,en}.md` — five technical families, a six-question design space, cross-benchmark evidence tables, ten insights, seven open problems and four research directions
 - 🧭 **Design-space matrix**: `insights/DESIGN_SPACE_MATRIX.md`, 40 methods compared on what / when / where / how much / integration point / supervision
-- 🗂️ **103 paper notes** (`notes/`, each with a one-line positioning, relation to the core papers, abstract and links)
+- 🗂️ **103 paper notes** (`notes/`): the 14 nearest neighbours (KEMO, UniMem, MemoryVLA, MemER, MEM, RMBench, RoboMME, RoboMemArena, Present-but-Not-Remembered, Chronos, muVLA, AGM, HyMeS, AutoIntervene) have hand-written deep notes from the full text (problem / method / key numbers / limitations / relation to the core papers); the other 89 carry a one-line positioning, relation to the core papers, abstract and links
 - 📚 **BibTeX** (`awesome_memory_vla.bib`)
 - 📊 **Consolidated reports**: bilingual HTML/PDF (`report/`), an HTML slide deck and a Beamer PDF deck (`slides/`)
 - 🔧 **Reproducible scripts** (`scripts/`): arXiv search, manifest, notes/README/BibTeX generation, translation, PDF rendering
@@ -73,7 +73,7 @@ Read the three analyses before the methods: Present but Not Remembered shows wit
 
     *Filippo Lazzati, Kyle Stachowicz, William Chen, Alberto Maria Metelli, Andrew Wagenmaker, Sergey Levine*
 
-3. **Present but Not Remembered: Auditing How Frozen VLAs Encode, Deploy, and Steer Visual History.** arXiv 2026. [paper](https://arxiv.org/abs/2607.03372) [note](notes/PresentNotRemembered_2607.03372.md)
+3. **Present but Not Remembered: Auditing How Frozen VLAs Encode, Deploy, and Steer Visual History.** arXiv 2026. [paper](https://arxiv.org/abs/2607.03372) [pdf](papers/pdf/PresentNotRemembered_2607.03372.pdf) [zh](papers/zh/PresentNotRemembered_2607.03372_zh.pdf) [note](notes/PresentNotRemembered_2607.03372.md)
 
     *Chih-Ting Liao, Xin Cao*
 
@@ -97,7 +97,7 @@ RMBench, RoboMME and RoboMemArena landed in spring 2026 and became the shared ta
 
     *Tianxing Chen, Yue Chen, Zixuan Li, Junyuan Tang, Kailun Su, Haoran Lu, Weijie Wan, Baijun Chen, Songling Liu, Haowen Yan, Honghao Su, Zhiyang Dou, Kaixuan Wang, Dandan Zhang, Yunze Liu, Yan Qin, Qiwei Liang, Qiwei Wu, Zijian Lin, Wenwei Lin, Yuran Wang, Minghua He, Tianshu Wu, Ruihai Wu, Jingquan Zhou, Kai-Chong Lei, Haibao Yu, Yuanfeng Ji, Weiyang Jin, Guanyu Lin, Xiaofan Li, Qi Xiong, Renjing Xu, Zhongyu Li, Wenhao Chai, Enze Xie, Ziwei Wang, Yao Mu, Hao Dong, Wojciech Matusik, Mingyu Ding, Wenbo Ding, Ping Luo, Masayoshi Tomizuka*
 
-2. **RoboMemArena: A Comprehensive and Challenging Robotic Memory Benchmark.** arXiv 2026. [paper](https://arxiv.org/abs/2605.10921) [note](notes/RoboMemArena_2605.10921.md)
+2. **RoboMemArena: A Comprehensive and Challenging Robotic Memory Benchmark.** arXiv 2026. [paper](https://arxiv.org/abs/2605.10921) [pdf](papers/pdf/RoboMemArena_2605.10921.pdf) [note](notes/RoboMemArena_2605.10921.md)
 
     *Huashuo Lei, Wenxuan Song, Huarui Zhang, Jieyuan Pei, Jiayi Chen, Haodong Yan, Han Zhao, Pengxiang Ding, Zhipeng Zhang, Lida Huang, Donglin Wang, Yan Wang, Haoang Li*
 
@@ -105,11 +105,11 @@ RMBench, RoboMME and RoboMemArena landed in spring 2026 and became the shared ta
 
     *Xueyao Chen, Jingkai Jia, Tong Yang, Yibo Fu, Wei Li, Wenqiang Zhang*
 
-4. **RoboMME: Benchmarking and Understanding Memory for Robotic Generalist Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2603.04639) [note](notes/RoboMME_2603.04639.md)
+4. **RoboMME: Benchmarking and Understanding Memory for Robotic Generalist Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2603.04639) [pdf](papers/pdf/RoboMME_2603.04639.pdf) [zh](papers/zh/RoboMME_2603.04639_zh.pdf) [note](notes/RoboMME_2603.04639.md)
 
     *Yinpei Dai, Hongze Fu, Jayjun Lee, Yuejiang Liu, Haoran Zhang, Jianing Yang, Chelsea Finn, Nima Fazeli, Joyce Chai*
 
-5. **RMBench: Memory-Dependent Robotic Manipulation Benchmark with Insights into Policy Design.** arXiv 2026. [paper](https://arxiv.org/abs/2603.01229) [note](notes/RMBench_2603.01229.md)
+5. **RMBench: Memory-Dependent Robotic Manipulation Benchmark with Insights into Policy Design.** arXiv 2026. [paper](https://arxiv.org/abs/2603.01229) [pdf](papers/pdf/RMBench_2603.01229.pdf) [zh](papers/zh/RMBench_2603.01229_zh.pdf) [note](notes/RMBench_2603.01229.md)
 
     *Tianxing Chen, Yuran Wang, Mingleyang Li, Yan Qin, Hao Shi, Zixuan Li, Yifan Hu, Yingsheng Zhang, Kaixuan Wang, Yue Chen, Hongcheng Wang, Junjie Wang, Tianhang Yang, Renjing Xu, Ruihai Wu, Yao Mu, Yaodong Yang, Hao Dong, Ping Luo*
 
@@ -125,11 +125,11 @@ RMBench, RoboMME and RoboMemArena landed in spring 2026 and became the shared ta
 
 Write only when something happened; store raw frames or their tokens. The consensus direction of mid-2026: EventVLA learns future-keyframe probabilities, KEMO uses kinematic and visual rules, UniMem trains an event classifier, WeaveLA fires on subgoal completion, Keyframe-Chaining retrieves with progress-aware queries.
 
-1. **UniMem: Unifying Multimodal Memory and Control for Vision-Language-Action Models.** arXiv 2026. [paper](https://arxiv.org/abs/2608.22869) [note](notes/UniMem_2608.22869.md)
+1. **UniMem: Unifying Multimodal Memory and Control for Vision-Language-Action Models.** arXiv 2026. [paper](https://arxiv.org/abs/2608.22869) [pdf](papers/pdf/UniMem_2608.22869.pdf) [zh](papers/zh/UniMem_2608.22869_zh.pdf) [note](notes/UniMem_2608.22869.md)
 
     *Lars Osterberg, Maggie Wang, Mac Schwager*
 
-2. **KEMO: Event-Driven Keyframe Memory for Long-Horizon Robot Manipulation with VLA Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2606.23589) [note](notes/KEMO_2606.23589.md)
+2. **KEMO: Event-Driven Keyframe Memory for Long-Horizon Robot Manipulation with VLA Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2606.23589) [pdf](papers/pdf/KEMO_2606.23589.pdf) [zh](papers/zh/KEMO_2606.23589_zh.pdf) [note](notes/KEMO_2606.23589.md)
 
     *Yihan Zeng, Minghao Ye, Yiyuan Chen, Yide Shentu, Philipp Wu, Zike Yan, Zhongyu Li*
 
@@ -237,7 +237,7 @@ Every frame enters; cost is controlled by compression, tokenisation, KV reuse or
 
     *Myungkyu Koo, Daewon Choi, Taeyoung Kim, Kyungmin Lee, Changyeon Kim, Younggyo Seo, Jinwoo Shin*
 
-23. **MemoryVLA: Perceptual-Cognitive Memory in Vision-Language-Action Models for Robotic Manipulation.** arXiv 2025. [paper](https://arxiv.org/abs/2508.19236) [note](notes/MemoryVLA_2508.19236.md)
+23. **MemoryVLA: Perceptual-Cognitive Memory in Vision-Language-Action Models for Robotic Manipulation.** arXiv 2025. [paper](https://arxiv.org/abs/2508.19236) [pdf](papers/pdf/MemoryVLA_2508.19236.pdf) [zh](papers/zh/MemoryVLA_2508.19236_zh.pdf) [note](notes/MemoryVLA_2508.19236.md)
 
     *Hao Shi, Bin Xie, Yingfei Liu, Lin Sun, Fengrong Liu, Tiancai Wang, Erjin Zhou, Haoqiang Fan, Xiangyu Zhang, Gao Huang*
 
@@ -265,7 +265,7 @@ History compressed into fixed-size vectors or slots, updated recursively. TRACE 
 
     *Bokai Lin, Yifu Xu, Xinyu Zhan, Hongjie Fang, Jialin Tian, Fu-Cheng Zhang, Yong-Lu Li, Cewu Lu, Lixin Yang*
 
-4. **Chronos: A Physics-Informed Full-History Framework for Non-Markovian Long-Horizon Manipulation.** arXiv 2026. [paper](https://arxiv.org/abs/2606.30318) [note](notes/Chronos_2606.30318.md)
+4. **Chronos: A Physics-Informed Full-History Framework for Non-Markovian Long-Horizon Manipulation.** arXiv 2026. [paper](https://arxiv.org/abs/2606.30318) [pdf](papers/pdf/Chronos_2606.30318.pdf) [zh](papers/zh/Chronos_2606.30318_zh.pdf) [note](notes/Chronos_2606.30318.md)
 
     *Yulin Zhou, Yimeng Wang, Nengyu Wang, Shaojia Xing, Shiyun Tu, Xiang Li, Jingkai Zhang, Ningbo Jiang, Yuankai Lin, Hua Yang, Xiangrui Zeng, Zhouping Yin*
 
@@ -273,7 +273,7 @@ History compressed into fixed-size vectors or slots, updated recursively. TRACE 
 
     *Kuancheng Wang, Seungho Yeom, Jinglin Cao, Yuheng Zhi, Nikhil Shinde, Michael Yip*
 
-6. **$μ$VLA: On Recurrent Memory for Partially Observable Manipulation in VLA Models.** arXiv 2026. [paper](https://arxiv.org/abs/2606.12497) [note](notes/muVLA_2606.12497.md)
+6. **$μ$VLA: On Recurrent Memory for Partially Observable Manipulation in VLA Models.** arXiv 2026. [paper](https://arxiv.org/abs/2606.12497) [pdf](papers/pdf/muVLA_2606.12497.pdf) [note](notes/muVLA_2606.12497.md)
 
     *Egor Cherepanov, Nikita Kachaev, Daniil Zelezetsky, Aydar Bulatov, Artem Pshenitsyn, Yuri Kuratov, Alexey Skrynnik, Aleksandr I. Panov, Alexey K. Kovalev*
 
@@ -337,7 +337,7 @@ History compressed into fixed-size vectors or slots, updated recursively. TRACE 
 
 A VLM / LLM / code layer maintains text, graphs or progress pointers; a low-level VLA executes. The leaders on RoboMME and RoboMemArena (PonderPounce, HyMeS, BATON) live here: for counting and procedural memory, symbolic state is currently steadier. AGM's thesis that reliable memory comes from disciplined state updates rather than capacity is the same principle as EventVLA's NMS plus cooldown and TRACE's gated writes.
 
-1. **AGM: Achievement-Grounded Memory for Closed-Loop Agents with Frozen VLA Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2608.29537) [note](notes/AGM_2608.29537.md)
+1. **AGM: Achievement-Grounded Memory for Closed-Loop Agents with Frozen VLA Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2608.29537) [pdf](papers/pdf/AGM_2608.29537.pdf) [note](notes/AGM_2608.29537.md)
 
     *Hongbo Gao, Zeyu Ni, Xin Wen, Siyu Xu, Ruifeng Li*
 
@@ -349,7 +349,7 @@ A VLM / LLM / code layer maintains text, graphs or progress pointers; a low-leve
 
     *Bingxin Xu, Yuzhang Shang, Emilio Ferrara*
 
-4. **Skills in Weights, Memory in Code: Hybrid Learning for Memory-Dependent Robot Manipulation.** arXiv 2026. [paper](https://arxiv.org/abs/2608.09410) [note](notes/SkillsWeightsMemoryCode_2608.09410.md)
+4. **Skills in Weights, Memory in Code: Hybrid Learning for Memory-Dependent Robot Manipulation.** arXiv 2026. [paper](https://arxiv.org/abs/2608.09410) [pdf](papers/pdf/SkillsWeightsMemoryCode_2608.09410.pdf) [note](notes/SkillsWeightsMemoryCode_2608.09410.md)
 
     *Yunhao Zhao, Zhenyang Ni, Haoyang Chen, Ruohan Zhang, Qi Zhu*
 
@@ -385,7 +385,7 @@ A VLM / LLM / code layer maintains text, graphs or progress pointers; a low-leve
 
     *Zijian Zeng, Fei Ding, Huiming Yang, Xianwei Li*
 
-13. **MEM: Multi-Scale Embodied Memory for Vision Language Action Models.** arXiv 2026. [paper](https://arxiv.org/abs/2603.03596) [note](notes/Mem_2603.03596.md)
+13. **MEM: Multi-Scale Embodied Memory for Vision Language Action Models.** arXiv 2026. [paper](https://arxiv.org/abs/2603.03596) [pdf](papers/pdf/Mem_2603.03596.pdf) [zh](papers/zh/Mem_2603.03596_zh.pdf) [note](notes/Mem_2603.03596.md)
 
     *Marcel Torne, Karl Pertsch, Homer Walke, Kyle Vedder, Suraj Nair, Brian Ichter, Allen Z. Ren, Haohuan Wang, Jiaming Tang, Kyle Stachowicz, Karan Dhabalia, Michael Equi, Quan Vuong, Jost Tobias Springenberg, Sergey Levine, Chelsea Finn, Danny Driess*
 
@@ -409,7 +409,7 @@ A VLM / LLM / code layer maintains text, graphs or progress pointers; a low-leve
 
     *Shahram Najam Syed, Yatharth Ahuja, Arthur Jakobsson, Jeff Ichnowski*
 
-19. **MemER: Scaling Up Memory for Robot Control via Experience Retrieval.** arXiv 2025. [paper](https://arxiv.org/abs/2510.20328) [note](notes/MemER_2510.20328.md)
+19. **MemER: Scaling Up Memory for Robot Control via Experience Retrieval.** arXiv 2025. [paper](https://arxiv.org/abs/2510.20328) [pdf](papers/pdf/MemER_2510.20328.pdf) [note](notes/MemER_2510.20328.md)
 
     *Ajay Sridhar, Jennifer Pan, Satvik Sharma, Chelsea Finn*
 
@@ -437,7 +437,7 @@ A partner's phase is a latent variable that can only be inferred from history, s
 
     *Jinhui Sun, Wei Zhou, Bowen Yang, Xinliang Xiao, Li Yang*
 
-2. **AutoIntervene: Calibrated Intervention for Action-Chunking Imitation Learning Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2608.07065) [note](notes/AutoIntervene_2608.07065.md)
+2. **AutoIntervene: Calibrated Intervention for Action-Chunking Imitation Learning Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2608.07065) [pdf](papers/pdf/AutoIntervene_2608.07065.pdf) [note](notes/AutoIntervene_2608.07065.md)
 
     *Jinhe Tang, Weiming Zhi*
 
@@ -534,6 +534,9 @@ python3 scripts/make_notes.py            # notes/
 python3 scripts/make_bib.py              # awesome_memory_vla.bib
 python3 scripts/make_readme.py           # README.md / README_en.md
 bash    scripts/translate_core.sh EventVLA_2606.20092   # SuperTranslate + DeepSeek (needs DEEPSEEK_API_KEY)
+python3 scripts/fetch_pdfs.py               # download the neighbour PDFs listed in scripts/neighbors.txt
+python3 scripts/launch_detached.py scripts/lane_e.txt   # detached batch translation lanes
+python3 scripts/apply_zh_patches.py && python3 scripts/make_zh_qa.py   # apply layout patches, summarise QA
 bash    scripts/translate_fallback_google.sh            # key-free Google-engine fallback
 python3 scripts/build_pdfs.py            # render reports/pdf/ and report/ HTML/PDF
 ```
