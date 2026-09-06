@@ -1,0 +1,11 @@
+{
+  "issue_count": 1,
+  "issues": [
+    {
+      "page": 22,
+      "code": "font_size_drift",
+      "severity": "error",
+      "message": "Page 22: block set at 8.37pt but the original at this position is 9.96pt (ratio 0.84 vs page median 0.92) at x=124.4, y=403.2: 返回一个JSON，包含：• current_subtask: 当前时间步应执行的动作，从上述列表"
+    }
+  ]
+}

@@ -3,7 +3,7 @@
 
 > **arXiv 2510.20328** · arXiv 2025 · 提交 2025-10-23 · 分类 `agentic` / 双系统、智能体与符号记忆
 > *Ajay Sridhar, Jennifer Pan, Satvik Sharma, Chelsea Finn*
-> [arXiv](https://arxiv.org/abs/2510.20328) · [PDF](https://arxiv.org/pdf/2510.20328) · [仓库内英文 PDF](../papers/pdf/MemER_2510.20328.pdf)
+> [arXiv](https://arxiv.org/abs/2510.20328) · [PDF](https://arxiv.org/pdf/2510.20328) · [仓库内英文 PDF](../papers/pdf/MemER_2510.20328.pdf) · [中文翻译 PDF](../papers/zh/MemER_2510.20328_zh.pdf)
 
 ## 一句话定位
 

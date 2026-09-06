@@ -1,0 +1,11 @@
+{
+  "issue_count": 1,
+  "issues": [
+    {
+      "page": 1,
+      "code": "text_outside_frame",
+      "severity": "error",
+      "message": "Page 1: text in the box at x=405-460, y=200-305 runs 8.7pt past its right edge: 'UniMem'"
+    }
+  ]
+}

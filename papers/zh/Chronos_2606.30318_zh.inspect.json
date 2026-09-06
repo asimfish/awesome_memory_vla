@@ -1,0 +1,11 @@
+{
+  "issue_count": 1,
+  "issues": [
+    {
+      "page": 18,
+      "code": "font_size_drift",
+      "severity": "error",
+      "message": "Page 18: block set at 8.25pt but the original at this position is 9.96pt (ratio 0.83 vs page median 0.92) at x=49.8, y=709.2: 致谢本节为双匿名审稿而有意省略。"
+    }
+  ]
+}

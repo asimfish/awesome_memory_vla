@@ -3,7 +3,7 @@
 
 > **arXiv 2606.12497** · arXiv 2026 · 提交 2026-06-10 · 分类 `latent` / latent 状态、循环与槽记忆（TRACE 一族）
 > *Egor Cherepanov, Nikita Kachaev, Daniil Zelezetsky, Aydar Bulatov, Artem Pshenitsyn, Yuri Kuratov, Alexey Skrynnik, Aleksandr I. Panov, Alexey K. Kovalev*
-> [arXiv](https://arxiv.org/abs/2606.12497) · [PDF](https://arxiv.org/pdf/2606.12497) · [仓库内英文 PDF](../papers/pdf/muVLA_2606.12497.pdf)
+> [arXiv](https://arxiv.org/abs/2606.12497) · [PDF](https://arxiv.org/pdf/2606.12497) · [仓库内英文 PDF](../papers/pdf/muVLA_2606.12497.pdf) · [中文翻译 PDF](../papers/zh/muVLA_2606.12497_zh.pdf)
 
 ## 一句话定位
 

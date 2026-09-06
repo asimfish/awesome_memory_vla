@@ -1,0 +1,35 @@
+{
+  "issue_count": 5,
+  "issues": [
+    {
+      "page": 3,
+      "code": "text_outside_frame",
+      "severity": "error",
+      "message": "Page 3: text in the box at x=35-199, y=158-188 runs 2.8pt past its bottom edge: 'Observation'"
+    },
+    {
+      "page": 3,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 3: paragraph still in English (12 words, 0 CJK chars) at x=73.2, y=79.3: Pick up the green cube and place it on the target, repea"
+    },
+    {
+      "page": 19,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 19: paragraph still in English (14 words, 0 CJK chars) at x=166.1, y=54.1: Task: put five green cubes into the bin, then press the "
+    },
+    {
+      "page": 20,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 20: paragraph still in English (23 words, 0 CJK chars) at x=76.0, y=61.7: Task: pick up the green cube and place it on the target "
+    },
+    {
+      "page": 20,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 20: paragraph still in English (23 words, 0 CJK chars) at x=81.7, y=398.5: Task: pick up the red cube and place it on the target re"
+    }
+  ]
+}

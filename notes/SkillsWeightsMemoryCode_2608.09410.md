@@ -3,7 +3,7 @@
 
 > **arXiv 2608.09410** · arXiv 2026 · 提交 2026-08-10 · 分类 `agentic` / 双系统、智能体与符号记忆
 > *Yunhao Zhao, Zhenyang Ni, Haoyang Chen, Ruohan Zhang, Qi Zhu*
-> [arXiv](https://arxiv.org/abs/2608.09410) · [PDF](https://arxiv.org/pdf/2608.09410) · [仓库内英文 PDF](../papers/pdf/SkillsWeightsMemoryCode_2608.09410.pdf)
+> [arXiv](https://arxiv.org/abs/2608.09410) · [PDF](https://arxiv.org/pdf/2608.09410) · [仓库内英文 PDF](../papers/pdf/SkillsWeightsMemoryCode_2608.09410.pdf) · [中文翻译 PDF](../papers/zh/SkillsWeightsMemoryCode_2608.09410_zh.pdf)
 
 ## 一句话定位
 

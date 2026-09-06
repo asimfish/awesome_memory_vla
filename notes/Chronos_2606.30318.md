@@ -3,7 +3,7 @@
 
 > **arXiv 2606.30318** · arXiv 2026 · 提交 2026-06-29 · 分类 `latent` / latent 状态、循环与槽记忆（TRACE 一族）
 > *Yulin Zhou, Yimeng Wang, Nengyu Wang, Shaojia Xing, Shiyun Tu, Xiang Li, Jingkai Zhang, Ningbo Jiang, Yuankai Lin, Hua Yang, Xiangrui Zeng, Zhouping Yin*
-> [arXiv](https://arxiv.org/abs/2606.30318) · [PDF](https://arxiv.org/pdf/2606.30318) · [仓库内英文 PDF](../papers/pdf/Chronos_2606.30318.pdf)
+> [arXiv](https://arxiv.org/abs/2606.30318) · [PDF](https://arxiv.org/pdf/2606.30318) · [仓库内英文 PDF](../papers/pdf/Chronos_2606.30318.pdf) · [中文翻译 PDF](../papers/zh/Chronos_2606.30318_zh.pdf)
 
 ## 一句话定位
 

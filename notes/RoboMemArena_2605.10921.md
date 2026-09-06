@@ -3,7 +3,7 @@
 
 > **arXiv 2605.10921** · arXiv 2026 · 提交 2026-05-11 · 分类 `bench` / 记忆依赖操作的基准
 > *Huashuo Lei, Wenxuan Song, Huarui Zhang, Jieyuan Pei, Jiayi Chen, Haodong Yan, Han Zhao, Pengxiang Ding, Zhipeng Zhang, Lida Huang, Donglin Wang, Yan Wang, Haoang Li*
-> [arXiv](https://arxiv.org/abs/2605.10921) · [PDF](https://arxiv.org/pdf/2605.10921) · [仓库内英文 PDF](../papers/pdf/RoboMemArena_2605.10921.pdf)
+> [arXiv](https://arxiv.org/abs/2605.10921) · [PDF](https://arxiv.org/pdf/2605.10921) · [仓库内英文 PDF](../papers/pdf/RoboMemArena_2605.10921.pdf) · [中文翻译 PDF](../papers/zh/RoboMemArena_2605.10921_zh.pdf)
 
 ## 一句话定位
 

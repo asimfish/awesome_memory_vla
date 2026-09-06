@@ -3,7 +3,7 @@
 
 > **arXiv 2607.03372** · arXiv 2026 · 提交 2026-07-03 · 分类 `survey` / 综述与分析
 > *Chih-Ting Liao, Xin Cao*
-> [arXiv](https://arxiv.org/abs/2607.03372) · [PDF](https://arxiv.org/pdf/2607.03372) · [仓库内英文 PDF](../papers/pdf/PresentNotRemembered_2607.03372.pdf)
+> [arXiv](https://arxiv.org/abs/2607.03372) · [PDF](https://arxiv.org/pdf/2607.03372) · [仓库内英文 PDF](../papers/pdf/PresentNotRemembered_2607.03372.pdf) · [中文翻译 PDF](../papers/zh/PresentNotRemembered_2607.03372_zh.pdf)
 
 ## 一句话定位
 

@@ -97,7 +97,7 @@ RMBench, RoboMME and RoboMemArena landed in spring 2026 and became the shared ta
 
     *Tianxing Chen, Yue Chen, Zixuan Li, Junyuan Tang, Kailun Su, Haoran Lu, Weijie Wan, Baijun Chen, Songling Liu, Haowen Yan, Honghao Su, Zhiyang Dou, Kaixuan Wang, Dandan Zhang, Yunze Liu, Yan Qin, Qiwei Liang, Qiwei Wu, Zijian Lin, Wenwei Lin, Yuran Wang, Minghua He, Tianshu Wu, Ruihai Wu, Jingquan Zhou, Kai-Chong Lei, Haibao Yu, Yuanfeng Ji, Weiyang Jin, Guanyu Lin, Xiaofan Li, Qi Xiong, Renjing Xu, Zhongyu Li, Wenhao Chai, Enze Xie, Ziwei Wang, Yao Mu, Hao Dong, Wojciech Matusik, Mingyu Ding, Wenbo Ding, Ping Luo, Masayoshi Tomizuka*
 
-2. **RoboMemArena: A Comprehensive and Challenging Robotic Memory Benchmark.** arXiv 2026. [paper](https://arxiv.org/abs/2605.10921) [pdf](papers/pdf/RoboMemArena_2605.10921.pdf) [note](notes/RoboMemArena_2605.10921.md)
+2. **RoboMemArena: A Comprehensive and Challenging Robotic Memory Benchmark.** arXiv 2026. [paper](https://arxiv.org/abs/2605.10921) [pdf](papers/pdf/RoboMemArena_2605.10921.pdf) [zh](papers/zh/RoboMemArena_2605.10921_zh.pdf) [note](notes/RoboMemArena_2605.10921.md)
 
     *Huashuo Lei, Wenxuan Song, Huarui Zhang, Jieyuan Pei, Jiayi Chen, Haodong Yan, Han Zhao, Pengxiang Ding, Zhipeng Zhang, Lida Huang, Donglin Wang, Yan Wang, Haoang Li*
 
@@ -273,7 +273,7 @@ History compressed into fixed-size vectors or slots, updated recursively. TRACE 
 
     *Kuancheng Wang, Seungho Yeom, Jinglin Cao, Yuheng Zhi, Nikhil Shinde, Michael Yip*
 
-6. **$μ$VLA: On Recurrent Memory for Partially Observable Manipulation in VLA Models.** arXiv 2026. [paper](https://arxiv.org/abs/2606.12497) [pdf](papers/pdf/muVLA_2606.12497.pdf) [note](notes/muVLA_2606.12497.md)
+6. **$μ$VLA: On Recurrent Memory for Partially Observable Manipulation in VLA Models.** arXiv 2026. [paper](https://arxiv.org/abs/2606.12497) [pdf](papers/pdf/muVLA_2606.12497.pdf) [zh](papers/zh/muVLA_2606.12497_zh.pdf) [note](notes/muVLA_2606.12497.md)
 
     *Egor Cherepanov, Nikita Kachaev, Daniil Zelezetsky, Aydar Bulatov, Artem Pshenitsyn, Yuri Kuratov, Alexey Skrynnik, Aleksandr I. Panov, Alexey K. Kovalev*
 
@@ -337,7 +337,7 @@ History compressed into fixed-size vectors or slots, updated recursively. TRACE 
 
 A VLM / LLM / code layer maintains text, graphs or progress pointers; a low-level VLA executes. The leaders on RoboMME and RoboMemArena (PonderPounce, HyMeS, BATON) live here: for counting and procedural memory, symbolic state is currently steadier. AGM's thesis that reliable memory comes from disciplined state updates rather than capacity is the same principle as EventVLA's NMS plus cooldown and TRACE's gated writes.
 
-1. **AGM: Achievement-Grounded Memory for Closed-Loop Agents with Frozen VLA Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2608.29537) [pdf](papers/pdf/AGM_2608.29537.pdf) [note](notes/AGM_2608.29537.md)
+1. **AGM: Achievement-Grounded Memory for Closed-Loop Agents with Frozen VLA Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2608.29537) [pdf](papers/pdf/AGM_2608.29537.pdf) [zh](papers/zh/AGM_2608.29537_zh.pdf) [note](notes/AGM_2608.29537.md)
 
     *Hongbo Gao, Zeyu Ni, Xin Wen, Siyu Xu, Ruifeng Li*
 
@@ -349,7 +349,7 @@ A VLM / LLM / code layer maintains text, graphs or progress pointers; a low-leve
 
     *Bingxin Xu, Yuzhang Shang, Emilio Ferrara*
 
-4. **Skills in Weights, Memory in Code: Hybrid Learning for Memory-Dependent Robot Manipulation.** arXiv 2026. [paper](https://arxiv.org/abs/2608.09410) [pdf](papers/pdf/SkillsWeightsMemoryCode_2608.09410.pdf) [note](notes/SkillsWeightsMemoryCode_2608.09410.md)
+4. **Skills in Weights, Memory in Code: Hybrid Learning for Memory-Dependent Robot Manipulation.** arXiv 2026. [paper](https://arxiv.org/abs/2608.09410) [pdf](papers/pdf/SkillsWeightsMemoryCode_2608.09410.pdf) [zh](papers/zh/SkillsWeightsMemoryCode_2608.09410_zh.pdf) [note](notes/SkillsWeightsMemoryCode_2608.09410.md)
 
     *Yunhao Zhao, Zhenyang Ni, Haoyang Chen, Ruohan Zhang, Qi Zhu*
 
@@ -409,7 +409,7 @@ A VLM / LLM / code layer maintains text, graphs or progress pointers; a low-leve
 
     *Shahram Najam Syed, Yatharth Ahuja, Arthur Jakobsson, Jeff Ichnowski*
 
-19. **MemER: Scaling Up Memory for Robot Control via Experience Retrieval.** arXiv 2025. [paper](https://arxiv.org/abs/2510.20328) [pdf](papers/pdf/MemER_2510.20328.pdf) [note](notes/MemER_2510.20328.md)
+19. **MemER: Scaling Up Memory for Robot Control via Experience Retrieval.** arXiv 2025. [paper](https://arxiv.org/abs/2510.20328) [pdf](papers/pdf/MemER_2510.20328.pdf) [zh](papers/zh/MemER_2510.20328_zh.pdf) [note](notes/MemER_2510.20328.md)
 
     *Ajay Sridhar, Jennifer Pan, Satvik Sharma, Chelsea Finn*
 
@@ -437,7 +437,7 @@ A partner's phase is a latent variable that can only be inferred from history, s
 
     *Jinhui Sun, Wei Zhou, Bowen Yang, Xinliang Xiao, Li Yang*
 
-2. **AutoIntervene: Calibrated Intervention for Action-Chunking Imitation Learning Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2608.07065) [pdf](papers/pdf/AutoIntervene_2608.07065.pdf) [note](notes/AutoIntervene_2608.07065.md)
+2. **AutoIntervene: Calibrated Intervention for Action-Chunking Imitation Learning Policies.** arXiv 2026. [paper](https://arxiv.org/abs/2608.07065) [pdf](papers/pdf/AutoIntervene_2608.07065.pdf) [zh](papers/zh/AutoIntervene_2608.07065_zh.pdf) [note](notes/AutoIntervene_2608.07065.md)
 
     *Jinhe Tang, Weiming Zhi*
 

@@ -1,0 +1,71 @@
+{
+  "issue_count": 11,
+  "issues": [
+    {
+      "page": 19,
+      "code": "text_outside_frame",
+      "severity": "error",
+      "message": "Page 19: text in the box at x=336-483, y=644-677 runs 120.5pt past its left edge: 'O 1175 遮挡将奶油放入微波炉，然后将爆米花放到原来放奶油的位置。'"
+    },
+    {
+      "page": 19,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 19: paragraph still in English (13 words, 0 CJK chars) at x=132.7, y=194.9: T779transferringPick and place popcorn andcookies from p"
+    },
+    {
+      "page": 19,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 19: paragraph still in English (12 words, 0 CJK chars) at x=215.3, y=228.3: T1265transferringPick and place tomato sauce, milk,and o"
+    },
+    {
+      "page": 19,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 19: paragraph still in English (17 words, 0 CJK chars) at x=132.7, y=278.2: O1020occlusionOpen all drawers in order. Putbutter into "
+    },
+    {
+      "page": 19,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 19: paragraph still in English (13 words, 0 CJK chars) at x=132.7, y=311.6: O1806occlusionOpen all drawers in order. Putbutter into "
+    },
+    {
+      "page": 20,
+      "code": "text_outside_frame",
+      "severity": "error",
+      "message": "Page 20: text in the box at x=336-483, y=387-421 runs 7.9pt past its left edge: 'O 594 计数，遮挡从桌上拿起牛奶，将其'"
+    },
+    {
+      "page": 21,
+      "code": "text_outside_frame",
+      "severity": "error",
+      "message": "Page 21: text in the box at x=71-198, y=486-524 runs 2.5pt past its bottom edge: 'order: the'"
+    },
+    {
+      "page": 21,
+      "code": "text_outside_frame",
+      "severity": "error",
+      "message": "Page 21: text in the box at x=71-140, y=486-524 runs 2.5pt past its bottom edge: 'order: the'"
+    },
+    {
+      "page": 21,
+      "code": "text_outside_frame",
+      "severity": "error",
+      "message": "Page 21: text in the box at x=71-254, y=486-524 runs 2.5pt past its bottom edge: 'order: the'"
+    },
+    {
+      "page": 21,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 21: paragraph still in English (14 words, 0 CJK chars) at x=79.2, y=599.3: Instruction: Transfer the carrotય and grapeʯ from one gr"
+    },
+    {
+      "page": 21,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 21: paragraph still in English (26 words, 0 CJK chars) at x=103.7, y=493.4: Instruction: Use the sponge to wipe the plates in order:"
+    }
+  ]
+}

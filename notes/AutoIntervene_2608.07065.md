@@ -3,7 +3,7 @@
 
 > **arXiv 2608.07065** · arXiv 2026 · 提交 2026-08-07 · 分类 `multi` / 多机器人协作与搭档记忆（SAI 一族）
 > *Jinhe Tang, Weiming Zhi*
-> [arXiv](https://arxiv.org/abs/2608.07065) · [PDF](https://arxiv.org/pdf/2608.07065) · [仓库内英文 PDF](../papers/pdf/AutoIntervene_2608.07065.pdf)
+> [arXiv](https://arxiv.org/abs/2608.07065) · [PDF](https://arxiv.org/pdf/2608.07065) · [仓库内英文 PDF](../papers/pdf/AutoIntervene_2608.07065.pdf) · [中文翻译 PDF](../papers/zh/AutoIntervene_2608.07065_zh.pdf)
 
 ## 一句话定位
 

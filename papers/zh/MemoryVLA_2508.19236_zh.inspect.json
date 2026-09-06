@@ -1,0 +1,47 @@
+{
+  "issue_count": 7,
+  "issues": [
+    {
+      "page": 4,
+      "code": "text_outside_frame",
+      "severity": "error",
+      "message": "Page 4: text in the box at x=74-487, y=164-191 runs 2.6pt past its bottom edge: 'Add & Norm'"
+    },
+    {
+      "page": 4,
+      "code": "text_outside_frame",
+      "severity": "error",
+      "message": "Page 4: text in the box at x=110-487, y=165-191 runs 2.6pt past its bottom edge: 'Add & Norm'"
+    },
+    {
+      "page": 33,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 33: paragraph still in English (17 words, 0 CJK chars) at x=156.7, y=202.0: (d) Clean Table & Count: clean the table one by one, and"
+    },
+    {
+      "page": 33,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 33: paragraph still in English (18 words, 0 CJK chars) at x=145.9, y=463.6: (f) Clean Restaurant Table: place all trash items into t"
+    },
+    {
+      "page": 34,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 34: paragraph still in English (13 words, 0 CJK chars) at x=206.2, y=581.3: (f) Pick Diverse Fruit: pick up the apple and place it i"
+    },
+    {
+      "page": 36,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 36: paragraph still in English (16 words, 0 CJK chars) at x=178.7, y=276.2: (a) Spatial: pick up the black bowl on the wooden cabine"
+    },
+    {
+      "page": 36,
+      "code": "untranslated_block",
+      "severity": "error",
+      "message": "Page 36: paragraph still in English (12 words, 0 CJK chars) at x=209.9, y=346.4: (b) Object: pick up the tomato sauce and place it in the"
+    }
+  ]
+}

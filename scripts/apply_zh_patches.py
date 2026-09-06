@@ -35,6 +35,12 @@ for key, plist in patches.items():
             page.draw_line(fitz.Point(x0, y0), fitz.Point(x1, y1), color=(0, 0, 0), width=p.get("width", 0.8))
         elif p["kind"] == "overlay_original":
             rect = fitz.Rect(*p["rect"])
+            # remove the garbled translated text objects (not just hide them), then show the original region
+            page.add_redact_annot(rect)
+            try:
+                page.apply_redactions(images=fitz.PDF_REDACT_IMAGE_NONE, graphics=fitz.PDF_REDACT_LINE_ART_NONE)
+            except TypeError:  # older PyMuPDF without the graphics argument
+                page.apply_redactions(images=fitz.PDF_REDACT_IMAGE_NONE)
             page.draw_rect(rect, color=None, fill=(1, 1, 1), overlay=True)
             page.show_pdf_page(rect, en, p["page"] - 1, clip=rect)
         else:

@@ -3,7 +3,7 @@
 
 > **arXiv 2603.04639** · arXiv 2026 · 提交 2026-03-04 · 分类 `bench` / 记忆依赖操作的基准
 > *Yinpei Dai, Hongze Fu, Jayjun Lee, Yuejiang Liu, Haoran Zhang, Jianing Yang, Chelsea Finn, Nima Fazeli, Joyce Chai*
-> [arXiv](https://arxiv.org/abs/2603.04639) · [PDF](https://arxiv.org/pdf/2603.04639) · [仓库内英文 PDF](../papers/pdf/RoboMME_2603.04639.pdf)
+> [arXiv](https://arxiv.org/abs/2603.04639) · [PDF](https://arxiv.org/pdf/2603.04639) · [仓库内英文 PDF](../papers/pdf/RoboMME_2603.04639.pdf) · [中文翻译 PDF](../papers/zh/RoboMME_2603.04639_zh.pdf)
 
 ## 一句话定位
 

@@ -24,13 +24,48 @@
 
 结论：这是检测器对竖排（旋转）文字外接框的误判，原版就是这样排的；译文保留了原版的图形与文字，不做修改。
 
+## 14 篇邻居论文
+
+逐篇的页数、体积与 inspect 结果见自动生成的 [QA_SUMMARY.md](QA_SUMMARY.md)。所有邻居论文都以 `--preserve-graphics-text --skip-overflow` 翻译。处理方式分三类：
+
+**打了补丁（`scripts/zh_patches.json`，`apply_zh_patches.py` 可重放）**
+
+| 论文 | 页 | 问题 | 处理 |
+|---|---|---|---|
+| MemoryVLA | 28 | 真机任务表最后几行被排成重叠乱码（`text_outside_frame` ×3） | 删除该区域的错排文本对象，叠回原版英文表行（x 100–512，y 561–671.5） |
+| RoboMME | 1 | 第一作者姓名被翻成中文，上标 `1†` 掉到下一行（`preserved_ink_mismatch`） | 叠回原版作者行（y 142–169） |
+| μVLA | 18 | 6 行方法对比表被排成一段散文（`table_cells_reflowed`） | 删除错排文本，叠回原版表格（y 335.8–389.5） |
+
+**核实为误报或良性（不改）**
+
+| 论文 | 页 | 报告 | 核实 |
+|---|---|---|---|
+| UniMem | 1 | 图内标签 "UniMem" 超框 8.7pt | 图内文字受保护未改动；与原版同区域 4× 放大像素比对 160,000 像素 0 差异 |
+| Present but Not Remembered | 19 | 表头保留区墨迹 0.83 | 表头完好；检测窗口包含了上一行正文，中文比英文短所以墨迹变少 |
+| MemoryVLA | 4 | 图 3 中 "Add & Norm" 标签越界 2.6pt ×2 | 图内标签，未改动 |
+
+**接受的残留（可读，不值得再调 API）**
+
+| 论文 | 页 | 残留 |
+|---|---|---|
+| Chronos | 18 | 致谢一行字号 8.25pt（原 9.96pt） |
+| MemER | 22 | 附录提示词块字号 8.37pt（原 9.96pt） |
+| MemoryVLA | 33, 34, 36 | 图内子图题保留英文（`--preserve-graphics-text` 的设计行为） |
+| AGM | 3, 19, 20 | 图内任务指令文字保留英文；图 2 标签 "Observation" 越界 2.8pt |
+| RoboMemArena | 19–21 | 附录任务表两行丢失列结构但中文内容完整可读；表内任务指令保留英文；两处标签越界 ≤ 7.9pt |
+
+其余（KEMO、MEM、RMBench、HyMeS、AutoIntervene）一次通过，0 issue。
+
 ## 复现
 
 ```bash
 bash scripts/translate_core.sh EventVLA_2606.20092          # DeepSeek，需 DEEPSEEK_API_KEY
 bash scripts/translate_core.sh TRACE_2606.14551 --margin 0.3 --min-font-size 6.2 --skip-overflow
 bash scripts/translate_core.sh SAI_2606.16490 --skip-overflow
-# TRACE 第 18 页横线补画：见本文件 §TRACE，PyMuPDF page.draw_line((108.0,398.94),(504.02,398.94), width=0.80)
+python3 scripts/fetch_pdfs.py                               # 下载 scripts/neighbors.txt 的英文 PDF
+python3 scripts/launch_detached.py scripts/lane_e.txt ...   # 邻居论文批量翻译（脱离终端）
+python3 scripts/apply_zh_patches.py                         # 重放版式补丁（TRACE 横线、MemoryVLA / RoboMME / μVLA 叠回原版）
+python3 scripts/make_zh_qa.py                               # 汇总 inspect 报告 → QA_SUMMARY.md
 ```
 
-翻译缓存（`*.translation-cache.jsonl`）与 inspect 报告（`*.inspect.json`）与 PDF 放在同一目录，可用 `--api-mode cache-only` 零成本重排。此前的 Google 引擎备胎版本已被替换。
+翻译缓存（`*.translation-cache.jsonl`）与 inspect 报告（`*.inspect.json`）与 PDF 放在同一目录，可用 `--api-mode cache-only` 零成本重排（注意：引擎逐条重试过的块不会进缓存，缺块时改用 API 模式加同一 `--cache-file`，只补翻缺失块）。此前的 Google 引擎备胎版本已被替换。

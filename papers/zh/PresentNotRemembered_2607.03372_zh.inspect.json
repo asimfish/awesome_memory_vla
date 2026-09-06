@@ -1,0 +1,11 @@
+{
+  "issue_count": 1,
+  "issues": [
+    {
+      "page": 19,
+      "code": "preserved_ink_mismatch",
+      "severity": "error",
+      "message": "Page 19: preserved region at x=108, y=250 (396x9pt) renders with ink coverage 0.83 vs original"
+    }
+  ]
+}
