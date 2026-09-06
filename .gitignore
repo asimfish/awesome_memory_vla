@@ -17,3 +17,4 @@ slides/_minted*
 build/
 __pycache__/
 translations/google_fallback/
+papers/zh/*.missing.jsonl
