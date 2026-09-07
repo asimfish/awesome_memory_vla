@@ -9,22 +9,52 @@
 
 We maintain a curated list of resources on **memory for Vision-Language-Action and visuomotor policies** — how a robot policy acts when the evidence it needs is no longer in the current observation: occluded objects, vanished cues, task progress, and the phase of a partly visible partner robot.
 
-![timeline](assets/timeline.svg)
-
 我们维护一份「记忆 VLA」资源清单：围绕 2026 年 6 月的三篇论文 **EventVLA**（事件驱动的稀疏视觉证据记忆）、**TRACE**（轨迹签名寻址的固定槽 latent 记忆）与 **SAI**（多机器人协作的非对称模仿课程）展开，向外扩展到 100 篇周边工作——综述与分析、记忆基准、事件/关键帧记忆、稠密压缩历史、latent/循环/槽记忆、双系统与符号记忆、世界模型内的记忆、多机器人搭档记忆，以及必要的背景文献。
+
+*Maintained by [asimfish](https://github.com/asimfish). Contributions welcome — see [Contributing](#contributing).*
+
+## 产物入口（Deliverables）
+
+| 想要 | 打开 | 说明 |
+|---|---|---|
+| **15 分钟拿到全部结论** | [`report/survey_slides.html`](report/survey_slides.html) · [PDF](report/survey_slides.pdf) | 32 页汇总 PPT：执行摘要 → 总览图 → 三主角 → 证据链 → 六个纵深专题 → 趋势 / 洞见 / 预测 / 缺口 / 口径账本；浏览器打开 ← → 翻页、F 全屏 |
+| **系统研读** | [`report/survey_full_report.pdf`](report/survey_full_report.pdf) · [HTML](report/survey_full_report.html) | 110 页全文报告：总览图 + 趋势洞见 + 三篇深读 + 设计矩阵 + 研究机会 + 口径账本 + 103 篇解读按十个家族合订（[英文版](report/survey_full_report_en.pdf) 51 页） |
+| **三篇主角的深读** | [EventVLA](reports/01_eventvla_cn.md) · [TRACE](reports/02_trace_cn.md) · [SAI](reports/03_sai_cn.md) | 每篇含方法拆解 / 全部关键数字 / 判读 / 与另两篇的对照；中英各一版，另有 PDF（`reports/pdf/`） |
+| **趋势与洞见** | [`reports/04_trends_insights_cn.md`](reports/04_trends_insights_cn.md) · [English](reports/04_trends_insights_en.md) | 五个家族 · 六问设计空间 · 跨基准证据 · 十个洞见 · 七个开放问题 · 四个研究方向 |
+| **研究机会清单** | [`insights/OPEN_PROBLEMS.md`](insights/OPEN_PROBLEMS.md) | 14 个无人占位的空白，按写入与寻址 / 容量与纪律 / 评测与诊断 / 路线与成本 / 多机器人排列，每条配「为什么重要 + 最小可行实验 + 相关解读」；只做一件事就做第 1 条 |
+| **数字口径账本** | [`insights/NUMBERS_LEDGER.md`](insights/NUMBERS_LEDGER.md) | 28 个头条数字逐条标注任务集 / 指标类型 / 试验规模 / 独立性 / 口径提醒——并排任何两个数字前先查此表 |
+| **设计空间矩阵** | [`insights/DESIGN_SPACE_MATRIX.md`](insights/DESIGN_SPACE_MATRIX.md) | 40 个方法 × 存什么 / 何时写 / 寻址 / 容量 / 接在哪 / 监督 |
+| **总览图** | [图 1 时间线](assets/fig1_timeline.svg) · [图 2 分类树](assets/fig2_taxonomy.svg) | 矢量 SVG；`scripts/make_figures.py` 生成，深色 PPT 版见 `assets/*_dark.svg` |
+| **论文原文与中译** | [`papers/pdf/`](papers/pdf/) · [`papers/zh/`](papers/zh/) | 17 篇英文原版 · 17 篇 [SuperTranslate](https://github.com/asimfish/super_translate) + DeepSeek 保版式中译，逐页 QA 见 [QA_REPORT](papers/zh/QA_REPORT.md) |
+| **全部解读** | [`notes/`](notes/) | 103 份笔记：14 篇邻居为基于全文的手写深读，其余为一句话定位 + 与核心论文的关系 + 摘要 |
+| **Beamer 讲稿版** | [`slides/awesome_memory_vla_deck.pdf`](slides/awesome_memory_vla_deck.pdf) | 21 页 XeLaTeX 幻灯片（beamer-skill 规范：16:9、无 overlay、参考文献页、备份页） |
+
+> 所有成功率数字都依赖各自的任务集与判定口径，**不同工作的数字禁止直接比大小**；并排前先查 [数字口径账本](insights/NUMBERS_LEDGER.md)。
+
+## 总览图
+
+![Figure 1 - Timeline](assets/fig1_timeline.svg)
+
+*图 1 · 103 项工作的时间线：按十个家族分泳道、按 arXiv 提交年月定位，★ 为三篇核心论文，橙色竖带为 2026-06 汇合月。*
+
+![Figure 2 - Taxonomy](assets/fig2_taxonomy.svg)
+
+*图 2 · 记忆 VLA 的设计空间：十个家族、26 个子类——与下文第 1–10 节一一对应。*
+
+## 为什么是现在
+
+2026 年 6 月 12–18 日，两个互不相识的团队在一周内把「决策时刻证据已经消失」这个问题推到三个层面：**TRACE**（浙大 / 悉尼）把记忆做成外挂模块，用机器人轨迹的路径签名给固定槽编地址，五个真机延迟证据任务 ACT 从 25.5 提到 69.2 阶段进度，倒放历史后路由相似度掉到 37.8；**SAI**（同组）把双机器人协作里「搭档看不全」处理成数据课程，成功率从 23–50% 提到 53–70%，30 步历史 token 把提前松手从 64.5% 压到 16.1%；**EventVLA**（中科大 / 上海 AI Lab）把「何时该记住」做成架构里的一个预测头，在自建的 RoboTwin-MeM 上从 18.0% 提到 75.2%，并用一个干净的消融证明原图记忆胜过 latent（24.9%）。同一个月里 KEMO、UniMem、WeaveLA、MemoryWAM 从不同架构出发汇合到「事件驱动的稀疏写入」，Present-but-Not-Remembered 用探针给出机理：冻结 VLA 里的历史基本是当前帧的冗余副本。春天落地的 RMBench、RoboMME、RoboMemArena 三个基准是这一切的靶子。
 
 **本仓库特色（Features）**:
 
 - 📄 **17 篇论文的英文 PDF**（`papers/pdf/`：三篇核心论文 + 14 篇最近邻居）与 🇨🇳 **保版式中文翻译 PDF**（`papers/zh/`，由 [SuperTranslate](https://github.com/asimfish/super_translate) + DeepSeek 生成，逐页视觉 QA 见 [papers/zh/QA_REPORT.md](papers/zh/QA_REPORT.md) 与 [QA_SUMMARY.md](papers/zh/QA_SUMMARY.md)）
 - 📝 **三篇逐篇深读报告（中英双语）**：`reports/01_eventvla_{cn,en}.md`、`reports/02_trace_{cn,en}.md`、`reports/03_sai_{cn,en}.md`，含方法拆解、全部关键数字、判读与关联阅读；每篇另有 PDF（`reports/pdf/`）
-- 💡 **趋势与洞见报告（中英双语）**：`reports/04_trends_insights_{cn,en}.md` —— 五个技术家族、六问设计空间、跨基准证据表、十个洞见、七个开放问题与四个研究方向
+- 💡 **趋势与洞见报告（中英双语）**：`reports/04_trends_insights_{cn,en}.md` —— 五个技术家族、六问设计空间、跨基准证据表、十个洞见、七个开放问题与四个研究方向；另有 [研究机会清单](insights/OPEN_PROBLEMS.md)（14 条，每条配最小可行实验）与 [数字口径账本](insights/NUMBERS_LEDGER.md)（28 条）
 - 🧭 **设计空间矩阵**：`insights/DESIGN_SPACE_MATRIX.md`，40 个方法按「存什么 / 何时写 / 寻址 / 容量 / 集成点 / 监督」六列横向对比
 - 🗂️ **103 篇论文笔记**（`notes/`）：14 篇最近邻居（KEMO、UniMem、MemoryVLA、MemER、MEM、RMBench、RoboMME、RoboMemArena、Present-but-Not-Remembered、Chronos、μVLA、AGM、HyMeS、AutoIntervene）为基于全文的手写深读（问题 / 方法 / 关键数字 / 局限 / 与核心论文的关系），其余 89 篇含一句话定位、与核心论文的关系、原文摘要与链接
 - 📚 **BibTeX**（`awesome_memory_vla.bib`，全部条目可直接引用）
-- 📊 **汇总报告**：中英文 HTML/PDF 合订报告（`report/`）、HTML 幻灯片与 Beamer PDF 幻灯片（`slides/`）
+- 📊 **汇总 PPT 与全文报告**：[32 页 HTML PPT](report/survey_slides.html)（[PDF](report/survey_slides.pdf)）· [110 页全文报告](report/survey_full_report.pdf)（总览图 + 趋势 + 三篇深读 + 矩阵 + 研究机会 + 口径账本 + 103 篇解读按家族合订；[英文版](report/survey_full_report_en.pdf)）· [Beamer 讲稿版](slides/awesome_memory_vla_deck.pdf)（21 页）· 总览图 [图 1 时间线](assets/fig1_timeline.svg) / [图 2 分类树](assets/fig2_taxonomy.svg)
 - 🔧 **可复现脚本**（`scripts/`）：arXiv 检索、manifest 构建、笔记/README/BibTeX 生成、翻译、PDF 渲染
-
-*Maintained by [asimfish](https://github.com/asimfish). Contributions welcome — see [Contributing](#contributing).*
 
 ## [Content](#content)
 
@@ -40,7 +70,7 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 <tr><td colspan="2"><a href="#9-multi-robot-collaboration-and-partner-memory">9. Multi-Robot Collaboration and Partner Memory (多机器人协作与搭档记忆（SAI 一族）)</a></td></tr>
 <tr><td colspan="2"><a href="#10-background-memory-mechanisms-and-trajectory-descriptors">10. Background: Memory Mechanisms and Trajectory Descriptors (背景：记忆机制与轨迹描述子)</a></td></tr>
 <tr><td colspan="2"><a href="#11-trends--insights">11. Trends & Insights (趋势与洞见)</a></td></tr>
-<tr><td colspan="2"><a href="#12-deliverables">12. Deliverables (交付物索引)</a></td></tr>
+<tr><td colspan="2"><a href="#12-recommended-reading-order">12. Recommended Reading Order (Recommended Reading Order)</a></td></tr>
 </table>
 
 **图例 / Legend**: [paper] arXiv 原文 · [pdf] 仓库内英文 PDF · [中译] 保版式中文翻译 PDF · [解读] 中文深读报告 · [note] 论文笔记（一句话定位 + 摘要）
@@ -512,19 +542,18 @@ We maintain a curated list of resources on **memory for Vision-Language-Action a
 9. 多机器人是同一个问题的另一张脸——搭档相位是从历史推断的隐变量，但还没有人用显式记忆模块做搭档状态估计
 10. 评测在分裂（一年 12 套基准），诊断在成熟（TRACE 的顺序反转负对照、探针 + 因果干预）
 
-### [12. Deliverables](#content)
+### [12. Recommended Reading Order](#content)
 
-| 交付物 | 中文 | English |
-|---|---|---|
-| EventVLA 深读 | [md](reports/01_eventvla_cn.md) · [pdf](reports/pdf/01_eventvla_cn.pdf) | [md](reports/01_eventvla_en.md) · [pdf](reports/pdf/01_eventvla_en.pdf) |
-| TRACE 深读 | [md](reports/02_trace_cn.md) · [pdf](reports/pdf/02_trace_cn.pdf) | [md](reports/02_trace_en.md) · [pdf](reports/pdf/02_trace_en.pdf) |
-| SAI 深读 | [md](reports/03_sai_cn.md) · [pdf](reports/pdf/03_sai_cn.pdf) | [md](reports/03_sai_en.md) · [pdf](reports/pdf/03_sai_en.pdf) |
-| 趋势与洞见 | [md](reports/04_trends_insights_cn.md) · [pdf](reports/pdf/04_trends_insights_cn.pdf) | [md](reports/04_trends_insights_en.md) · [pdf](reports/pdf/04_trends_insights_en.pdf) |
-| 汇总报告（合订） | [html](report/awesome_memory_vla_report_cn.html) · [pdf](report/awesome_memory_vla_report_cn.pdf) | [html](report/awesome_memory_vla_report_en.html) · [pdf](report/awesome_memory_vla_report_en.pdf) |
-| 幻灯片 | [HTML deck](slides/awesome_memory_vla_deck.html) · [Beamer PDF](slides/awesome_memory_vla_deck.pdf) | (bilingual deck) |
-| 设计空间矩阵 | [md](insights/DESIGN_SPACE_MATRIX.md) | — |
-| 原文与译文 PDF | [papers/pdf/](papers/pdf/) · [papers/zh/](papers/zh/) | |
-| BibTeX | [awesome_memory_vla.bib](awesome_memory_vla.bib) | |
+按投入时间选一条路径：
+
+| 时间 | 路径 |
+|---|---|
+| **15 分钟** | [`report/survey_slides.html`](report/survey_slides.html)（32 页 PPT）——执行摘要 → 总览图 → 三主角 → 证据链 → 六个纵深专题 → 趋势 / 洞见 / 预测 / 缺口 / 口径账本 |
+| **1 小时** | [趋势与洞见](reports/04_trends_insights_cn.md) §4 十个洞见 + [口径账本](insights/NUMBERS_LEDGER.md) → 三篇主角深读：[EventVLA](reports/01_eventvla_cn.md) · [TRACE](reports/02_trace_cn.md) · [SAI](reports/03_sai_cn.md) |
+| **半天** | 再加 [研究机会清单](insights/OPEN_PROBLEMS.md)、[设计空间矩阵](insights/DESIGN_SPACE_MATRIX.md)，以及 14 篇邻居的全文笔记：[KEMO](notes/KEMO_2606.23589.md) · [UniMem](notes/UniMem_2608.22869.md) · [MemoryVLA](notes/MemoryVLA_2508.19236.md) · [MemER](notes/MemER_2510.20328.md) · [MEM](notes/Mem_2603.03596.md) · [RMBench](notes/RMBench_2603.01229.md) · [RoboMME](notes/RoboMME_2603.04639.md) · [RoboMemArena](notes/RoboMemArena_2605.10921.md) · [Present but Not Remembered](notes/PresentNotRemembered_2607.03372.md) · [Chronos](notes/Chronos_2606.30318.md) · [μVLA](notes/muVLA_2606.12497.md) · [AGM](notes/AGM_2608.29537.md) · [HyMeS](notes/SkillsWeightsMemoryCode_2608.09410.md) · [AutoIntervene](notes/AutoIntervene_2608.07065.md) |
+| **系统研读** | [`report/survey_full_report.pdf`](report/survey_full_report.pdf)（110 页）——总览图与趋势前置，103 篇解读按十个家族合订；或按下方第 1–10 节顺序逐节阅读 README |
+
+按兴趣直达：想知道 **何时写** → 第 4 节事件记忆 + [EventVLA](reports/01_eventvla_cn.md)；想知道 **怎么寻址** → [TRACE](reports/02_trace_cn.md) + 第 6 节；想知道 **基准到底测了什么** → 第 3 节 + [口径账本](insights/NUMBERS_LEDGER.md)；想知道 **双系统与端到端谁赢** → 第 7 节 + [AGM](notes/AGM_2608.29537.md) / [HyMeS](notes/SkillsWeightsMemoryCode_2608.09410.md)；想知道 **多机器人** → 第 9 节 + [SAI](reports/03_sai_cn.md)。
 
 ### Reproduce (复现)
 
@@ -538,8 +567,13 @@ python3 scripts/fetch_pdfs.py               # 下载 scripts/neighbors.txt 里�
 python3 scripts/launch_detached.py scripts/lane_e.txt   # 脱离终端的批量翻译通道
 python3 scripts/apply_zh_patches.py && python3 scripts/make_zh_qa.py   # 应用版式补丁并汇总 QA
 bash    scripts/translate_fallback_google.sh            # 免 key 的 Google 引擎备胎版
+python3 scripts/make_figures.py          # fig1 timeline / fig2 taxonomy SVG (+ dark) and PDFs
 python3 scripts/build_pdfs.py            # 渲染 reports/pdf/ 与 report/ 的 HTML/PDF
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --no-pdf-header-footer \
+  --print-to-pdf=report/survey_slides.pdf "file://$PWD/report/survey_slides.html"   # deck PDF
 ```
+
+工具致谢：[super_translate](https://github.com/asimfish/super_translate)（PDF 保版式翻译）· [ppt-master](https://github.com/hugohe3/ppt-master)（PPT 叙事模式参考）· [beamer-skill](https://github.com/Noi1r/beamer-skill)（Beamer 讲稿版规范）· [anti-defensive-writing](https://github.com/Kiterlin/anti-defensive-writing) / [shuorenhua](https://github.com/MrGeDiao/shuorenhua)（写作风格约束）· [PaperOrchestra](https://github.com/Ar9av/PaperOrchestra)（LaTeX 写作流水线参考）· 列表规范参考 [awesome-ml4co](https://github.com/Thinklab-SJTU/awesome-ml4co)。
 
 ## Contributing
 

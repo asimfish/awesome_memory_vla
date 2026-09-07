@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="757" viewBox="0 0 1500 757" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, Helvetica, Arial, sans-serif">
+<rect width="1500" height="757" fill="#0b1220"/>
+<text x="40" y="30" font-size="17" font-weight="700" fill="#e8eefb">图 2 · 记忆 VLA 的设计空间：十个家族、二十六个子类——与 README 第 1–10 节一一对应</text>
+<text x="40" y="50" font-size="12" fill="#93a3c0">Figure 2 · The design space of memory for VLA policies: ten families, twenty-six sub-classes, matching README sections 1–10</text>
+<line x1="580" y1="90.5" x2="630" y2="90.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="90.5" r="3" fill="#d62728"/>
+<text x="640" y="95.0" font-size="12.5" fill="#e8eefb">架构：前瞻式关键帧写入</text>
+<text x="1010" y="95.0" font-size="11.5" fill="#93a3c0">EventVLA</text>
+<line x1="580" y1="111.5" x2="630" y2="111.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="111.5" r="3" fill="#d62728"/>
+<text x="640" y="116.0" font-size="12.5" fill="#e8eefb">模块：轨迹签名寻址槽</text>
+<text x="1010" y="116.0" font-size="11.5" fill="#93a3c0">TRACE</text>
+<line x1="580" y1="132.5" x2="630" y2="132.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="132.5" r="3" fill="#d62728"/>
+<text x="640" y="137.0" font-size="12.5" fill="#e8eefb">数据：非对称课程</text>
+<text x="1010" y="137.0" font-size="11.5" fill="#93a3c0">SAI</text>
+<rect x="330" y="100.5" width="250" height="22" rx="6" fill="#d62728" opacity="0.92"/>
+<text x="455" y="116.0" font-size="12.5" font-weight="700" text-anchor="middle" fill="#ffffff">1. 核心论文 Core (3)</text>
+<line x1="580" y1="90.5" x2="580" y2="132.5" stroke="#2e405f" stroke-width="1"/>
+<line x1="580" y1="159.5" x2="630" y2="159.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="159.5" r="3" fill="#7f7f7f"/>
+<text x="640" y="164.0" font-size="12.5" fill="#e8eefb">VLA / WAM 综述</text>
+<text x="1010" y="164.0" font-size="11.5" fill="#93a3c0">VLASurvey, WAMSurvey</text>
+<line x1="580" y1="180.5" x2="630" y2="180.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="180.5" r="3" fill="#7f7f7f"/>
+<text x="640" y="185.0" font-size="12.5" fill="#e8eefb">机理审计：历史 ≈ 当前帧副本</text>
+<text x="1010" y="185.0" font-size="11.5" fill="#93a3c0">PresentNotRemembered</text>
+<line x1="580" y1="201.5" x2="630" y2="201.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="201.5" r="3" fill="#7f7f7f"/>
+<text x="640" y="206.0" font-size="12.5" fill="#e8eefb">长上下文与动作块分析</text>
+<text x="1010" y="206.0" font-size="11.5" fill="#93a3c0">LongContextDP, WhyChunking</text>
+<rect x="330" y="169.5" width="250" height="22" rx="6" fill="#7f7f7f" opacity="0.92"/>
+<text x="455" y="185.0" font-size="12.5" font-weight="700" text-anchor="middle" fill="#ffffff">2. 综述与分析 Surveys (6)</text>
+<line x1="580" y1="159.5" x2="580" y2="201.5" stroke="#2e405f" stroke-width="1"/>
+<line x1="580" y1="228.5" x2="630" y2="228.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="228.5" r="3" fill="#8c564b"/>
+<text x="640" y="233.0" font-size="12.5" fill="#e8eefb">记忆分类基准（时间/空间/物体/过程）</text>
+<text x="1010" y="233.0" font-size="11.5" fill="#93a3c0">RoboMME, RoboMemArena</text>
+<line x1="580" y1="249.5" x2="630" y2="249.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="249.5" r="3" fill="#8c564b"/>
+<text x="640" y="254.0" font-size="12.5" fill="#e8eefb">RoboTwin 系：RMBench, RoboTwin-MeM</text>
+<text x="1010" y="254.0" font-size="11.5" fill="#93a3c0">RMBench, EventVLA</text>
+<line x1="580" y1="270.5" x2="630" y2="270.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="270.5" r="3" fill="#8c564b"/>
+<text x="640" y="275.0" font-size="12.5" fill="#e8eefb">RL 出身 / 真机长时程</text>
+<text x="1010" y="275.0" font-size="11.5" fill="#93a3c0">MIKASA-Robo, LongBench</text>
+<rect x="330" y="238.5" width="250" height="22" rx="6" fill="#8c564b" opacity="0.92"/>
+<text x="455" y="254.0" font-size="12.5" font-weight="700" text-anchor="middle" fill="#ffffff">3. 记忆基准 Benchmarks (7)</text>
+<line x1="580" y1="228.5" x2="580" y2="270.5" stroke="#2e405f" stroke-width="1"/>
+<line x1="580" y1="297.5" x2="630" y2="297.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="297.5" r="3" fill="#ff7f0e"/>
+<text x="640" y="302.0" font-size="12.5" fill="#e8eefb">学习的写入触发</text>
+<text x="1010" y="302.0" font-size="11.5" fill="#93a3c0">EventVLA</text>
+<line x1="580" y1="318.5" x2="630" y2="318.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="318.5" r="3" fill="#ff7f0e"/>
+<text x="640" y="323.0" font-size="12.5" fill="#e8eefb">规则 / 分类器触发</text>
+<text x="1010" y="323.0" font-size="11.5" fill="#93a3c0">KEMO, UniMem</text>
+<line x1="580" y1="339.5" x2="630" y2="339.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="339.5" r="3" fill="#ff7f0e"/>
+<text x="640" y="344.0" font-size="12.5" fill="#e8eefb">子目标完成触发</text>
+<text x="1010" y="344.0" font-size="11.5" fill="#93a3c0">WeaveLA, Keyframe-Chaining</text>
+<rect x="330" y="307.5" width="250" height="22" rx="6" fill="#ff7f0e" opacity="0.92"/>
+<text x="455" y="323.0" font-size="12.5" font-weight="700" text-anchor="middle" fill="#ffffff">4. 事件/关键帧记忆 Event (5)</text>
+<line x1="580" y1="297.5" x2="580" y2="339.5" stroke="#2e405f" stroke-width="1"/>
+<line x1="580" y1="366.5" x2="630" y2="366.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="366.5" r="3" fill="#1f77b4"/>
+<text x="640" y="371.0" font-size="12.5" fill="#e8eefb">记忆库 + 检索</text>
+<text x="1010" y="371.0" font-size="11.5" fill="#93a3c0">MemoryVLA, HALO</text>
+<line x1="580" y1="387.5" x2="630" y2="387.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="387.5" r="3" fill="#1f77b4"/>
+<text x="640" y="392.0" font-size="12.5" fill="#e8eefb">压缩为少量 token</text>
+<text x="1010" y="392.0" font-size="11.5" fill="#93a3c0">ContextVLA, NativeMEM, HAMLET</text>
+<line x1="580" y1="408.5" x2="630" y2="408.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="408.5" r="3" fill="#1f77b4"/>
+<text x="640" y="413.0" font-size="12.5" fill="#e8eefb">免训练 / 零参数</text>
+<text x="1010" y="413.0" font-size="11.5" fill="#93a3c0">TempoFit, StreamPI, DySta</text>
+<rect x="330" y="376.5" width="250" height="22" rx="6" fill="#1f77b4" opacity="0.92"/>
+<text x="455" y="392.0" font-size="12.5" font-weight="700" text-anchor="middle" fill="#ffffff">5. 稠密压缩历史 Dense (25)</text>
+<line x1="580" y1="366.5" x2="580" y2="408.5" stroke="#2e405f" stroke-width="1"/>
+<line x1="580" y1="435.5" x2="630" y2="435.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="435.5" r="3" fill="#2ca02c"/>
+<text x="640" y="440.0" font-size="12.5" fill="#e8eefb">寻址式槽记忆</text>
+<text x="1010" y="440.0" font-size="11.5" fill="#93a3c0">TRACE, ELMUR</text>
+<line x1="580" y1="456.5" x2="630" y2="456.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="456.5" r="3" fill="#2ca02c"/>
+<text x="640" y="461.0" font-size="12.5" fill="#e8eefb">循环 / SSM 状态</text>
+<text x="1010" y="461.0" font-size="11.5" fill="#93a3c0">muVLA, Chronos, MTIL</text>
+<line x1="580" y1="477.5" x2="630" y2="477.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="477.5" r="3" fill="#2ca02c"/>
+<text x="640" y="482.0" font-size="12.5" fill="#e8eefb">进度信念 / 动作历史</text>
+<text x="1010" y="482.0" font-size="11.5" fill="#93a3c0">TFP, CAMP, RB-VLA</text>
+<rect x="330" y="445.5" width="250" height="22" rx="6" fill="#2ca02c" opacity="0.92"/>
+<text x="455" y="461.0" font-size="12.5" font-weight="700" text-anchor="middle" fill="#ffffff">6. latent/循环/槽 Latent (20)</text>
+<line x1="580" y1="435.5" x2="580" y2="477.5" stroke="#2e405f" stroke-width="1"/>
+<line x1="580" y1="504.5" x2="630" y2="504.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="504.5" r="3" fill="#9467bd"/>
+<text x="640" y="509.0" font-size="12.5" fill="#e8eefb">文本 / 草稿板记忆</text>
+<text x="1010" y="509.0" font-size="11.5" fill="#93a3c0">MEM, Notes-to-Self</text>
+<line x1="580" y1="525.5" x2="630" y2="525.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="525.5" r="3" fill="#9467bd"/>
+<text x="640" y="530.0" font-size="12.5" fill="#e8eefb">高层选帧 + 低层执行</text>
+<text x="1010" y="530.0" font-size="11.5" fill="#93a3c0">MemER, HELM</text>
+<line x1="580" y1="546.5" x2="630" y2="546.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="546.5" r="3" fill="#9467bd"/>
+<text x="640" y="551.0" font-size="12.5" fill="#e8eefb">验证后推进的符号状态</text>
+<text x="1010" y="551.0" font-size="11.5" fill="#93a3c0">AGM, HyMeS, BATON</text>
+<rect x="330" y="514.5" width="250" height="22" rx="6" fill="#9467bd" opacity="0.92"/>
+<text x="455" y="530.0" font-size="12.5" font-weight="700" text-anchor="middle" fill="#ffffff">7. 双系统/符号 Agentic (19)</text>
+<line x1="580" y1="504.5" x2="580" y2="546.5" stroke="#2e405f" stroke-width="1"/>
+<line x1="580" y1="573.5" x2="630" y2="573.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="573.5" r="3" fill="#17becf"/>
+<text x="640" y="578.0" font-size="12.5" fill="#e8eefb">预测式记忆</text>
+<text x="1010" y="578.0" font-size="11.5" fill="#93a3c0">MemoryWAM, MemoryVAM, TriVLA</text>
+<rect x="330" y="562.5" width="250" height="22" rx="6" fill="#17becf" opacity="0.92"/>
+<text x="455" y="578.0" font-size="12.5" font-weight="700" text-anchor="middle" fill="#ffffff">8. 世界模型内记忆 World (3)</text>
+<line x1="580" y1="573.5" x2="580" y2="573.5" stroke="#2e405f" stroke-width="1"/>
+<line x1="580" y1="600.5" x2="630" y2="600.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="600.5" r="3" fill="#e377c2"/>
+<text x="640" y="605.0" font-size="12.5" fill="#e8eefb">搭档分布课程</text>
+<text x="1010" y="605.0" font-size="11.5" fill="#93a3c0">SAI</text>
+<line x1="580" y1="621.5" x2="630" y2="621.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="621.5" r="3" fill="#e377c2"/>
+<text x="640" y="626.0" font-size="12.5" fill="#e8eefb">多臂数据采集</text>
+<text x="1010" y="626.0" font-size="11.5" fill="#93a3c0">HATS, Duet, Tri-Manual</text>
+<line x1="580" y1="642.5" x2="630" y2="642.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="642.5" r="3" fill="#e377c2"/>
+<text x="640" y="647.0" font-size="12.5" fill="#e8eefb">干预与交接</text>
+<text x="1010" y="647.0" font-size="11.5" fill="#93a3c0">AutoIntervene, IntervenGen</text>
+<rect x="330" y="610.5" width="250" height="22" rx="6" fill="#e377c2" opacity="0.92"/>
+<text x="455" y="626.0" font-size="12.5" font-weight="700" text-anchor="middle" fill="#ffffff">9. 多机器人搭档 Multi-robot (9)</text>
+<line x1="580" y1="600.5" x2="580" y2="642.5" stroke="#2e405f" stroke-width="1"/>
+<line x1="580" y1="669.5" x2="630" y2="669.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="669.5" r="3" fill="#bcbd22"/>
+<text x="640" y="674.0" font-size="12.5" fill="#e8eefb">外部记忆机制</text>
+<text x="1010" y="674.0" font-size="11.5" fill="#93a3c0">MANN, RMT, Titans</text>
+<line x1="580" y1="690.5" x2="630" y2="690.5" stroke="#2e405f" stroke-width="1"/>
+<circle cx="630" cy="690.5" r="3" fill="#bcbd22"/>
+<text x="640" y="695.0" font-size="12.5" fill="#e8eefb">路径签名 / 交互式模仿</text>
+<text x="1010" y="695.0" font-size="11.5" fill="#93a3c0">Signatory, DAgger</text>
+<rect x="330" y="669.0" width="250" height="22" rx="6" fill="#bcbd22" opacity="0.92"/>
+<text x="455" y="684.5" font-size="12.5" font-weight="700" text-anchor="middle" fill="#ffffff">10. 背景 Background (6)</text>
+<line x1="580" y1="669.5" x2="580" y2="690.5" stroke="#2e405f" stroke-width="1"/>
+<rect x="60" y="369.8" width="200" height="52" rx="8" fill="#111b2e" stroke="#2e405f"/>
+<text x="160" y="391.8" font-size="14" font-weight="700" text-anchor="middle" fill="#e8eefb">记忆 VLA</text>
+<text x="160" y="408.8" font-size="11.5" font-weight="400" text-anchor="middle" fill="#e8eefb">Memory for VLA policies</text>
+<line x1="260" y1="395.8" x2="300" y2="395.8" stroke="#2e405f" stroke-width="1.2"/>
+<line x1="300" y1="111.5" x2="300" y2="680.0" stroke="#2e405f" stroke-width="1.2"/>
+<line x1="300" y1="111.5" x2="330" y2="111.5" stroke="#2e405f" stroke-width="1.2"/>
+<line x1="300" y1="180.5" x2="330" y2="180.5" stroke="#2e405f" stroke-width="1.2"/>
+<line x1="300" y1="249.5" x2="330" y2="249.5" stroke="#2e405f" stroke-width="1.2"/>
+<line x1="300" y1="318.5" x2="330" y2="318.5" stroke="#2e405f" stroke-width="1.2"/>
+<line x1="300" y1="387.5" x2="330" y2="387.5" stroke="#2e405f" stroke-width="1.2"/>
+<line x1="300" y1="456.5" x2="330" y2="456.5" stroke="#2e405f" stroke-width="1.2"/>
+<line x1="300" y1="525.5" x2="330" y2="525.5" stroke="#2e405f" stroke-width="1.2"/>
+<line x1="300" y1="573.5" x2="330" y2="573.5" stroke="#2e405f" stroke-width="1.2"/>
+<line x1="300" y1="621.5" x2="330" y2="621.5" stroke="#2e405f" stroke-width="1.2"/>
+<line x1="300" y1="680.0" x2="330" y2="680.0" stroke="#2e405f" stroke-width="1.2"/>
+</svg>

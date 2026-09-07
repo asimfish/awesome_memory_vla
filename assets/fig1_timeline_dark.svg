@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="640" viewBox="0 0 1500 640" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, Helvetica, Arial, sans-serif">
+<rect width="1500" height="640" fill="#0b1220"/>
+<text x="230" y="30" font-size="17" font-weight="700" fill="#e8eefb">图 1 · 103 项工作的时间线：按十个家族分泳道、按 arXiv 提交年月定位，★ 为三篇核心论文，橙色竖带为 2026-06 汇合月</text>
+<text x="230" y="50" font-size="12" fill="#93a3c0">Figure 1 · Timeline of 103 works: one lane per family, positioned by arXiv month; ★ = the three core papers; orange band = the June-2026 convergence</text>
+<rect x="1335.7" y="70" width="18.0" height="500" fill="rgba(251,191,36,0.18)"/>
+<text x="1344.7" y="62" font-size="11" text-anchor="middle" fill="#d97706" font-weight="600">2026-06</text>
+<rect x="230" y="70.0" width="1230" height="50.0" fill="#111b2e"/>
+<text x="218" y="99.0" font-size="12.5" text-anchor="end" fill="#e8eefb">核心论文 Core <tspan fill="#93a3c0">(3)</tspan></text>
+<circle cx="8" cy="95.0" r="5" fill="#d62728"/>
+<text x="218" y="149.0" font-size="12.5" text-anchor="end" fill="#e8eefb">综述与分析 Surveys <tspan fill="#93a3c0">(6)</tspan></text>
+<circle cx="8" cy="145.0" r="5" fill="#7f7f7f"/>
+<rect x="230" y="170.0" width="1230" height="50.0" fill="#111b2e"/>
+<text x="218" y="199.0" font-size="12.5" text-anchor="end" fill="#e8eefb">记忆基准 Benchmarks <tspan fill="#93a3c0">(7)</tspan></text>
+<circle cx="8" cy="195.0" r="5" fill="#8c564b"/>
+<text x="218" y="249.0" font-size="12.5" text-anchor="end" fill="#e8eefb">事件/关键帧记忆 Event <tspan fill="#93a3c0">(5)</tspan></text>
+<circle cx="8" cy="245.0" r="5" fill="#ff7f0e"/>
+<rect x="230" y="270.0" width="1230" height="50.0" fill="#111b2e"/>
+<text x="218" y="299.0" font-size="12.5" text-anchor="end" fill="#e8eefb">稠密压缩历史 Dense <tspan fill="#93a3c0">(25)</tspan></text>
+<circle cx="8" cy="295.0" r="5" fill="#1f77b4"/>
+<text x="218" y="349.0" font-size="12.5" text-anchor="end" fill="#e8eefb">latent/循环/槽 Latent <tspan fill="#93a3c0">(20)</tspan></text>
+<circle cx="8" cy="345.0" r="5" fill="#2ca02c"/>
+<rect x="230" y="370.0" width="1230" height="50.0" fill="#111b2e"/>
+<text x="218" y="399.0" font-size="12.5" text-anchor="end" fill="#e8eefb">双系统/符号 Agentic <tspan fill="#93a3c0">(19)</tspan></text>
+<circle cx="8" cy="395.0" r="5" fill="#9467bd"/>
+<text x="218" y="449.0" font-size="12.5" text-anchor="end" fill="#e8eefb">世界模型内记忆 World <tspan fill="#93a3c0">(3)</tspan></text>
+<circle cx="8" cy="445.0" r="5" fill="#17becf"/>
+<rect x="230" y="470.0" width="1230" height="50.0" fill="#111b2e"/>
+<text x="218" y="499.0" font-size="12.5" text-anchor="end" fill="#e8eefb">多机器人搭档 Multi-robot <tspan fill="#93a3c0">(9)</tspan></text>
+<circle cx="8" cy="495.0" r="5" fill="#e377c2"/>
+<text x="218" y="549.0" font-size="12.5" text-anchor="end" fill="#e8eefb">背景 Background <tspan fill="#93a3c0">(6)</tspan></text>
+<circle cx="8" cy="545.0" r="5" fill="#bcbd22"/>
+<line x1="230" y1="574" x2="1460" y2="574" stroke="#93a3c0" stroke-width="1"/>
+<line x1="230.0" y1="574" x2="230.0" y2="580" stroke="#93a3c0"/>
+<text x="230.0" y="594" font-size="11" text-anchor="middle" fill="#93a3c0">2024-01</text>
+<line x1="268.4" y1="574" x2="268.4" y2="577" stroke="#2e405f"/>
+<line x1="306.9" y1="574" x2="306.9" y2="577" stroke="#2e405f"/>
+<line x1="345.3" y1="574" x2="345.3" y2="580" stroke="#93a3c0"/>
+<text x="345.3" y="594" font-size="11" text-anchor="middle" fill="#93a3c0">2024-04</text>
+<line x1="383.8" y1="574" x2="383.8" y2="577" stroke="#2e405f"/>
+<line x1="422.2" y1="574" x2="422.2" y2="577" stroke="#2e405f"/>
+<line x1="460.6" y1="574" x2="460.6" y2="580" stroke="#93a3c0"/>
+<text x="460.6" y="594" font-size="11" text-anchor="middle" fill="#93a3c0">2024-07</text>
+<line x1="499.1" y1="574" x2="499.1" y2="577" stroke="#2e405f"/>
+<line x1="537.5" y1="574" x2="537.5" y2="577" stroke="#2e405f"/>
+<line x1="575.9" y1="574" x2="575.9" y2="580" stroke="#93a3c0"/>
+<text x="575.9" y="594" font-size="11" text-anchor="middle" fill="#93a3c0">2024-10</text>
+<line x1="614.4" y1="574" x2="614.4" y2="577" stroke="#2e405f"/>
+<line x1="652.8" y1="574" x2="652.8" y2="577" stroke="#2e405f"/>
+<line x1="691.2" y1="574" x2="691.2" y2="580" stroke="#93a3c0"/>
+<text x="691.2" y="594" font-size="11" text-anchor="middle" fill="#93a3c0">2025-01</text>
+<line x1="729.7" y1="574" x2="729.7" y2="577" stroke="#2e405f"/>
+<line x1="768.1" y1="574" x2="768.1" y2="577" stroke="#2e405f"/>
+<line x1="806.6" y1="574" x2="806.6" y2="580" stroke="#93a3c0"/>
+<text x="806.6" y="594" font-size="11" text-anchor="middle" fill="#93a3c0">2025-04</text>
+<line x1="845.0" y1="574" x2="845.0" y2="577" stroke="#2e405f"/>
+<line x1="883.4" y1="574" x2="883.4" y2="577" stroke="#2e405f"/>
+<line x1="921.9" y1="574" x2="921.9" y2="580" stroke="#93a3c0"/>
+<text x="921.9" y="594" font-size="11" text-anchor="middle" fill="#93a3c0">2025-07</text>
+<line x1="960.3" y1="574" x2="960.3" y2="577" stroke="#2e405f"/>
+<line x1="998.8" y1="574" x2="998.8" y2="577" stroke="#2e405f"/>
+<line x1="1037.2" y1="574" x2="1037.2" y2="580" stroke="#93a3c0"/>
+<text x="1037.2" y="594" font-size="11" text-anchor="middle" fill="#93a3c0">2025-10</text>
+<line x1="1075.6" y1="574" x2="1075.6" y2="577" stroke="#2e405f"/>
+<line x1="1114.1" y1="574" x2="1114.1" y2="577" stroke="#2e405f"/>
+<line x1="1152.5" y1="574" x2="1152.5" y2="580" stroke="#93a3c0"/>
+<text x="1152.5" y="594" font-size="11" text-anchor="middle" fill="#93a3c0">2026-01</text>
+<line x1="1190.9" y1="574" x2="1190.9" y2="577" stroke="#2e405f"/>
+<line x1="1229.4" y1="574" x2="1229.4" y2="577" stroke="#2e405f"/>
+<line x1="1267.8" y1="574" x2="1267.8" y2="580" stroke="#93a3c0"/>
+<text x="1267.8" y="594" font-size="11" text-anchor="middle" fill="#93a3c0">2026-04</text>
+<line x1="1306.2" y1="574" x2="1306.2" y2="577" stroke="#2e405f"/>
+<line x1="1344.7" y1="574" x2="1344.7" y2="577" stroke="#2e405f"/>
+<line x1="1383.1" y1="574" x2="1383.1" y2="580" stroke="#93a3c0"/>
+<text x="1383.1" y="594" font-size="11" text-anchor="middle" fill="#93a3c0">2026-07</text>
+<line x1="1421.6" y1="574" x2="1421.6" y2="577" stroke="#2e405f"/>
+<line x1="1460.0" y1="574" x2="1460.0" y2="577" stroke="#2e405f"/>
+<text x="1344.7" y="90.5" font-size="15" text-anchor="middle" fill="#d62728"><title>TRACE: TRACE: Trajectory-Routed Causal Memory for Delayed-Evidence Visuomotor Imitation</title>&#9733;</text>
+<text x="1344.7" y="100.0" font-size="15" text-anchor="middle" fill="#d62728"><title>SAI: Robots that Collaborate: Sequential Asymmetric Imitation for Learning Coupled Robot Policies</title>&#9733;</text>
+<text x="1344.7" y="109.5" font-size="15" text-anchor="middle" fill="#d62728"><title>EventVLA: EventVLA: Event-Driven Visual Evidence Memory for Long-Horizon Vision-Language-Action Policies</title>&#9733;</text>
+<circle cx="960.3" cy="145.0" r="4.3" fill="#7f7f7f" stroke="#0b1220" stroke-width="0.8"><title>VLASurvey: Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey (2508.13073)</title></circle>
+<circle cx="1344.7" cy="140.2" r="4.3" fill="#7f7f7f" stroke="#0b1220" stroke-width="0.8"><title>LongContextDP: Training and Evaluating Diffusion Policies with Long Context Lengths (2606.16447)</title></circle>
+<circle cx="1344.7" cy="149.8" r="4.3" fill="#7f7f7f" stroke="#0b1220" stroke-width="0.8"><title>WAMSurvey: World Action Models: A Survey (2606.20781)</title></circle>
+<circle cx="1383.1" cy="145.0" r="4.3" fill="#7f7f7f" stroke="#0b1220" stroke-width="0.8"><title>PresentNotRemembered: Present but Not Remembered: Auditing How Frozen VLAs Encode, Deploy, and Steer Visual History (2607.03372)</title></circle>
+<circle cx="1421.6" cy="140.2" r="4.3" fill="#7f7f7f" stroke="#0b1220" stroke-width="0.8"><title>WeightsOrSkills: Weights or Skills? A Survey of Robot-Learning Techniques: from Action-Predicting Weights to Robots that Write their Own Skills (2608.01851)</title></circle>
+<circle cx="1421.6" cy="149.8" r="4.3" fill="#7f7f7f" stroke="#0b1220" stroke-width="0.8"><title>WhyChunking: Why Does Action Chunking Improve Behavioral Cloning Performance in Robotic Control? (2608.02547)</title></circle>
+<circle cx="1344.7" cy="285.5" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>MemoryVLApp: MemoryVLA++: Temporal Modeling via Memory and Imagination in Vision-Language-Action Models (2606.09827)</title></circle>
+<circle cx="1344.7" cy="295.0" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>ScalingSTM: Scaling Short-Term Memory of Visuomotor Policies for Long-Horizon Tasks (2606.16178)</title></circle>
+<circle cx="1344.7" cy="304.5" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>MemoryRetrievalVisuomotor: Memory Retrieval in Visuomotor Policies for Long-Horizon Robot Control (2606.25136)</title></circle>
+<circle cx="1229.4" cy="190.2" r="4.3" fill="#8c564b" stroke="#0b1220" stroke-width="0.8"><title>RMBench: RMBench: Memory-Dependent Robotic Manipulation Benchmark with Insights into Policy Design (2603.01229)</title></circle>
+<circle cx="1229.4" cy="199.8" r="4.3" fill="#8c564b" stroke="#0b1220" stroke-width="0.8"><title>RoboMME: RoboMME: Benchmarking and Understanding Memory for Robotic Generalist Policies (2603.04639)</title></circle>
+<circle cx="1306.2" cy="195.0" r="4.3" fill="#8c564b" stroke="#0b1220" stroke-width="0.8"><title>RoboMemArena: RoboMemArena: A Comprehensive and Challenging Robotic Memory Benchmark (2605.10921)</title></circle>
+<circle cx="729.7" cy="195.0" r="4.3" fill="#8c564b" stroke="#0b1220" stroke-width="0.8"><title>MIKASA-Robo: Memory, Benchmark &amp; Robots: A Benchmark for Solving Complex Tasks with Reinforcement Learning (2502.10550)</title></circle>
+<circle cx="883.4" cy="195.0" r="4.3" fill="#8c564b" stroke="#0b1220" stroke-width="0.8"><title>RoboCerebra: RoboCerebra: A Large-scale Benchmark for Long-horizon Robotic Manipulation Evaluation (2506.06677)</title></circle>
+<circle cx="1267.8" cy="195.0" r="4.3" fill="#8c564b" stroke="#0b1220" stroke-width="0.8"><title>LongBench: LongBench: Evaluating Robotic Manipulation Policies on Real-World Long-Horizon Tasks (2604.16788)</title></circle>
+<circle cx="998.8" cy="345.0" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>MEMBOT: MEMBOT: Memory-Based Robot in Intermittent POMDP (2509.11225)</title></circle>
+<circle cx="1383.1" cy="195.0" r="4.3" fill="#8c564b" stroke="#0b1220" stroke-width="0.8"><title>RoboDojo: RoboDojo: A Unified Sim-and-Real Benchmark for Comprehensive Evaluation of Generalist Robot Manipulation Policies (2607.04434)</title></circle>
+<circle cx="1344.7" cy="240.2" r="4.3" fill="#ff7f0e" stroke="#0b1220" stroke-width="0.8"><title>WeaveLA: WeaveLA: Event Driven Cross-Subtask Latent Memory Weaving for Repetitive Robot Manipulation (2606.17463)</title></circle>
+<circle cx="1344.7" cy="249.8" r="4.3" fill="#ff7f0e" stroke="#0b1220" stroke-width="0.8"><title>KEMO: KEMO: Event-Driven Keyframe Memory for Long-Horizon Robot Manipulation with VLA Policies (2606.23589)</title></circle>
+<circle cx="1229.4" cy="240.2" r="4.3" fill="#ff7f0e" stroke="#0b1220" stroke-width="0.8"><title>KeyframeChaining: Non-Markovian Long-Horizon Robot Manipulation via Keyframe Chaining (2603.01465)</title></circle>
+<circle cx="1229.4" cy="249.8" r="4.3" fill="#ff7f0e" stroke="#0b1220" stroke-width="0.8"><title>Bi-HIL: Bi-HIL: Bilateral Control-Based Multimodal Hierarchical Imitation Learning via Subtask-Level Progress Rate and Keyframe Memory for Long-Horizon Contact-Rich Robotic Manipulation (2603.13315)</title></circle>
+<circle cx="960.3" cy="295.0" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>MemoryVLA: MemoryVLA: Perceptual-Cognitive Memory in Vision-Language-Action Models for Robotic Manipulation (2508.19236)</title></circle>
+<circle cx="1037.2" cy="290.2" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>HAMLET: HAMLET: Switch your Vision-Language-Action Model into a History-Aware Policy (2510.00695)</title></circle>
+<circle cx="1037.2" cy="299.8" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>ContextVLA: ContextVLA: Vision-Language-Action Model with Amortized Multi-Frame Context (2510.04246)</title></circle>
+<circle cx="883.4" cy="295.0" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>CronusVLA: CronusVLA: Towards Efficient and Robust Manipulation via Multi-Frame Vision-Language-Action Modeling (2506.19816)</title></circle>
+<circle cx="1383.1" cy="280.8" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>HiMe: HiMe: Hierarchical Embodied Memory for Long-Horizon Vision-Language-Action Control (2607.03449)</title></circle>
+<circle cx="1383.1" cy="290.2" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>NativeMEM: NativeMEM: Native Memory Compression for Long-Horizon Robotic Manipulation (2607.06678)</title></circle>
+<circle cx="1383.1" cy="299.8" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>DualLatentMemory: Dual Latent Memory in Vision-Language-Action Models for Robotic Manipulation (2607.07608)</title></circle>
+<circle cx="1383.1" cy="309.2" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>FibVLA: FibVLA: An Efficient Temporal Vision-Language-Action Model with Fibonacci Sampling (2607.29596)</title></circle>
+<circle cx="1114.1" cy="290.2" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>HiF-VLA: HiF-VLA: Hindsight, Insight and Foresight through Motion Representation for Vision-Language-Action Models (2512.09928)</title></circle>
+<circle cx="1114.1" cy="299.8" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>LoLA: LoLA: Long Horizon Latent Action Learning for General Robot Manipulation (2512.20166)</title></circle>
+<circle cx="1190.9" cy="290.2" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>StaticDynamic: Efficient Long-Horizon Vision-Language-Action Models via Static-Dynamic Disentanglement (2602.03983)</title></circle>
+<circle cx="1190.9" cy="299.8" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>DualMemoryVLA: Global Prior Meets Local Consistency: Dual-Memory Augmented Vision-Language-Action Model for Efficient Robotic Manipulation (2602.20200)</title></circle>
+<circle cx="1229.4" cy="285.5" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>TempoFit: TempoFit: Plug-and-Play Layer-Wise Temporal KV Memory for Long-Horizon Vision-Language-Action Manipulation (2603.07647)</title></circle>
+<circle cx="1229.4" cy="295.0" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>AnchorVLA4D: AnchorVLA4D: an Anchor-Based Spatial-Temporal Vision-Language-Action Model for Robotic Manipulation (2603.12730)</title></circle>
+<circle cx="1229.4" cy="304.5" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>ST-VLA: ST-VLA: Enabling 4D-Aware Spatiotemporal Understanding for General Robot Manipulation (2603.13788)</title></circle>
+<circle cx="1421.6" cy="245.0" r="4.3" fill="#ff7f0e" stroke="#0b1220" stroke-width="0.8"><title>UniMem: UniMem: Unifying Multimodal Memory and Control for Vision-Language-Action Models (2608.22869)</title></circle>
+<circle cx="1421.6" cy="280.8" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>BridgeVLApp: BridgeVLA++: A Data-Efficient, Generalizable, and Memory-Augmented Vision-Language-Action Framework for 3D Manipulation (2608.05042)</title></circle>
+<circle cx="1421.6" cy="290.2" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>AtlasVLA: AtlasVLA: Persistent World-Ego State Modeling for Vision-Language-Action Models (2608.06729)</title></circle>
+<circle cx="1421.6" cy="299.8" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>RememberSmarter: Remember Smarter: Visual History Compressor and Hyperbolic Experience Space for Robotic Memory (2608.15269)</title></circle>
+<circle cx="1421.6" cy="309.2" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>StreamPI: StreamPI: Streaming Multimodal Temporal Modeling for Vision-Language-Action Models (2608.26067)</title></circle>
+<circle cx="652.8" cy="295.0" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>TraceVLA: TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist Robotic Policies (2412.10345)</title></circle>
+<circle cx="1075.6" cy="290.2" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>AVA-VLA: AVA-VLA: Improving Vision-Language-Action models with Active Visual Attention (2511.18960)</title></circle>
+<circle cx="1075.6" cy="299.8" r="4.3" fill="#1f77b4" stroke="#0b1220" stroke-width="0.8"><title>CycleManip: CycleManip: Enabling Cyclic Task Manipulation via Effective Historical Perception and Understanding (2512.01022)</title></circle>
+<circle cx="1229.4" cy="335.5" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>VPWEM: VPWEM: Non-Markovian Visuomotor Policy with Working and Episodic Memory (2603.04910)</title></circle>
+<circle cx="1229.4" cy="345.0" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>VQ-Memory: Beyond Short-Horizon: VQ-Memory for Robust Long-Horizon Manipulation in Non-Markovian Simulation Benchmarks (2603.09513)</title></circle>
+<circle cx="1229.4" cy="354.5" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>MemoAct: MemoAct: Atkinson-Shiffrin-Inspired Hierarchical Memory-Augmented Policy for Robotic Manipulation (2603.18494)</title></circle>
+<circle cx="1344.7" cy="326.0" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>muVLA: $μ$VLA: On Recurrent Memory for Partially Observable Manipulation in VLA Models (2606.12497)</title></circle>
+<circle cx="1344.7" cy="335.5" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>ActionEffectMemory: Action-Effect Memory Pretraining for Robot Manipulation (2606.12499)</title></circle>
+<circle cx="1344.7" cy="345.0" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>BehavioralMemories: Remember what you did?: Learning Behavioral Memories for Partially Observable Object Manipulation (2606.21188)</title></circle>
+<circle cx="1344.7" cy="354.5" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>Chronos: Chronos: A Physics-Informed Full-History Framework for Non-Markovian Long-Horizon Manipulation (2606.30318)</title></circle>
+<circle cx="1344.7" cy="364.0" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>ChronoFlow: ChronoFlow-Policy: Unifying Past-Current-Future Interaction Flow in Visuomotor Policy Learning (2606.31493)</title></circle>
+<circle cx="1190.9" cy="345.0" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>RecursiveBeliefVLA: Recursive Belief Vision Language Action Models (2602.20659)</title></circle>
+<circle cx="845.0" cy="340.2" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>PastTokenPrediction: Learning Long-Context Diffusion Policies via Past-Token Prediction (2505.09561)</title></circle>
+<circle cx="845.0" cy="349.8" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>MTIL: MTIL: Encoding Full History with Mamba for Temporal Imitation Learning (2505.12410)</title></circle>
+<circle cx="1306.2" cy="345.0" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>DSSP: DSSP: Diffusion State Space Policy with Full-History Encoding (2605.14598)</title></circle>
+<circle cx="1267.8" cy="345.0" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>GatedMemoryPolicy: Gated Memory Policy: In-Context Memorization and Adaptation (2604.18933)</title></circle>
+<circle cx="1075.6" cy="345.0" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>EmbodiedSlotSSM: Rethinking Progression of Memory State in Robotic Manipulation: An Object-Centric Perspective (2511.11478)</title></circle>
+<circle cx="1383.1" cy="340.2" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>TFP: TFP: Temporally Conditioned Memory-Fusion Policies for Visuomotor Learning (2607.08283)</title></circle>
+<circle cx="1383.1" cy="349.8" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>FM-VLA: FM-VLA: Force-based Memory for Vision-Language-Action Models in Contact-Rich Manipulation (2607.18231)</title></circle>
+<circle cx="1037.2" cy="345.0" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>ELMUR: ELMUR: External Layer Memory with Update/Rewrite for Long-Horizon RL Problems (2510.07151)</title></circle>
+<circle cx="614.4" cy="345.0" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>MemoryFromDemos: Learning Memory Mechanisms for Decision Making through Demonstrations (2411.07954)</title></circle>
+<circle cx="691.2" cy="345.0" r="4.3" fill="#2ca02c" stroke="#0b1220" stroke-width="0.8"><title>SAM2Act: SAM2Act: Integrating Visual Foundation Model with A Memory Architecture for Robotic Manipulation (2501.18564)</title></circle>
+<circle cx="1037.2" cy="395.0" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>MemER: MemER: Scaling Up Memory for Robot Control via Experience Retrieval (2510.20328)</title></circle>
+<circle cx="1229.4" cy="395.0" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>Mem: MEM: Multi-Scale Embodied Memory for Vision Language Action Models (2603.03596)</title></circle>
+<circle cx="1075.6" cy="385.5" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>ExpReS-VLA: ExpReS-VLA: Specializing Vision-Language-Action Models Through Experience Replay and Retrieval (2511.06202)</title></circle>
+<circle cx="1075.6" cy="395.0" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>MAP-VLA: MAP-VLA: Memory-Augmented Prompting for Vision-Language-Action Model in Robotic Manipulation (2511.09516)</title></circle>
+<circle cx="1075.6" cy="404.5" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>EchoVLA: EchoVLA: Robotic Vision-Language-Action Model with Synergistic Declarative Memory for Mobile Manipulation (2511.18112)</title></circle>
+<circle cx="1190.9" cy="395.0" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>NotesToSelf: Notes-to-Self: Scratchpad Augmented VLAs for Memory Dependent Manipulation Tasks (2602.21013)</title></circle>
+<circle cx="1421.6" cy="361.8" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>ChainVLA: ChainVLA: Chaining Vision-Language-Action Queries through a Unified Execution State for Long-Horizon Manipulation (2608.02326)</title></circle>
+<circle cx="1421.6" cy="371.2" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>ExplicitLanguageMemory: Explicit Language Memory for Long-Horizon Planning in Vision-Language-Action Models (2608.04765)</title></circle>
+<circle cx="1421.6" cy="380.8" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>SkillMemo: SkillMemo: Expert-guided Skill Memory Framework for Compositional Embodied Manipulation (2608.05970)</title></circle>
+<circle cx="1421.6" cy="390.2" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>OnEvoMemory: OnEvoMemory: Evolving Memory through Online Robot Rollouts for Pretrained Robot Policies (2608.08749)</title></circle>
+<circle cx="1421.6" cy="399.8" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>SkillsWeightsMemoryCode: Skills in Weights, Memory in Code: Hybrid Learning for Memory-Dependent Robot Manipulation (2608.09410)</title></circle>
+<circle cx="1421.6" cy="409.2" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>BATON: Don't Drop the BATON: Long-Horizon Robot Manipulation via Agentic Subtask Exploration and Transition-aware Memory (2608.16889)</title></circle>
+<circle cx="1421.6" cy="418.8" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>PonderPounce: PonderPounce: A Pretrained MLLM as an Episode Context Engine for Robot Control (2608.24115)</title></circle>
+<circle cx="1421.6" cy="428.2" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>AGM: AGM: Achievement-Grounded Memory for Closed-Loop Agents with Frozen VLA Policies (2608.29537)</title></circle>
+<circle cx="1267.8" cy="390.2" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>HELM: HELM: Harness-Enhanced Long-horizon Memory for Vision-Language-Action Manipulation (2604.18791)</title></circle>
+<circle cx="1267.8" cy="399.8" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>CodeGraphVLP: CodeGraphVLP: Code-as-Planner Meets Semantic-Graph State for Non-Markovian Vision-Language-Action Models (2604.22238)</title></circle>
+<circle cx="1383.1" cy="395.0" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>HarnessVLA: Harness VLA: Steering Frozen VLAs into Reliable Manipulation Primitives via Memory-Guided Agents (2607.08448)</title></circle>
+<circle cx="1152.5" cy="395.0" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>ActionSketcher: Action-Sketcher: From Reasoning to Action via Visual Sketches for Long-Horizon Robotic Manipulation (2601.01618)</title></circle>
+<circle cx="1344.7" cy="395.0" r="4.3" fill="#9467bd" stroke="#0b1220" stroke-width="0.8"><title>GeneralVLA-2: GeneralVLA-2: Geometry-Aware Reconstruction and Governed Memory for Robot Planning (2606.17480)</title></circle>
+<circle cx="1344.7" cy="440.2" r="4.3" fill="#17becf" stroke="#0b1220" stroke-width="0.8"><title>MemoryVAM: MemoryVAM: Integrating Memory into Video Action Model for Robot Manipulation (2606.20679)</title></circle>
+<circle cx="1344.7" cy="449.8" r="4.3" fill="#17becf" stroke="#0b1220" stroke-width="0.8"><title>MemoryWAM: MemoryWAM: Efficient World Action Modeling with Persistent Memory (2606.20562)</title></circle>
+<circle cx="921.9" cy="445.0" r="4.3" fill="#17becf" stroke="#0b1220" stroke-width="0.8"><title>TriVLA: TriVLA: A Triple-System-Based Unified Vision-Language-Action Model with Episodic World Modeling for General Robot Control (2507.01424)</title></circle>
+<circle cx="1344.7" cy="490.2" r="4.3" fill="#e377c2" stroke="#0b1220" stroke-width="0.8"><title>HATS: HATS: A Human-Agent Teleoperation System for Multi-Arm Data Collection (2606.16491)</title></circle>
+<circle cx="1344.7" cy="499.8" r="4.3" fill="#e377c2" stroke="#0b1220" stroke-width="0.8"><title>Duet: Duet: Dual-Robot Understanding via Efficient Teaching (2606.20990)</title></circle>
+<circle cx="1383.1" cy="495.0" r="4.3" fill="#e377c2" stroke="#0b1220" stroke-width="0.8"><title>TriManual: Tri-Manual Visuomotor Imitation Learning of Robot Policies (2607.25731)</title></circle>
+<circle cx="1190.9" cy="495.0" r="4.3" fill="#e377c2" stroke="#0b1220" stroke-width="0.8"><title>TriPilot-FF: TriPilot-FF: Coordinated Whole-Body Teleoperation with Force Feedback (2602.09888)</title></circle>
+<circle cx="1421.6" cy="490.2" r="4.3" fill="#e377c2" stroke="#0b1220" stroke-width="0.8"><title>AutoIntervene: AutoIntervene: Calibrated Intervention for Action-Chunking Imitation Learning Policies (2608.07065)</title></circle>
+<circle cx="1421.6" cy="499.8" r="4.3" fill="#e377c2" stroke="#0b1220" stroke-width="0.8"><title>TwoHeadsAgree: Making two action heads agree: coordination mechanisms and a runtime collapse certificate for flow-matching policies (2608.15748)</title></circle>
+<circle cx="230.0" cy="495.0" r="4.3" fill="#e377c2" stroke="#0b1220" stroke-width="0.8"><title>MobileALOHA: Mobile ALOHA: Learning Bimanual Mobile Manipulation with Low-Cost Whole-Body Teleoperation (2401.02117)</title></circle>
+<circle cx="383.8" cy="495.0" r="4.3" fill="#e377c2" stroke="#0b1220" stroke-width="0.8"><title>IntervenGen: IntervenGen: Interventional Data Generation for Robust and Data-Efficient Robot Imitation Learning (2405.01472)</title></circle>
+<circle cx="768.1" cy="495.0" r="4.3" fill="#e377c2" stroke="#0b1220" stroke-width="0.8"><title>DecoupledBimanual: Rethinking Bimanual Robotic Manipulation: Learning with Decoupled Interaction Framework (2503.09186)</title></circle>
+<circle cx="-461.9" cy="545.0" r="4.3" fill="#bcbd22" stroke="#0b1220" stroke-width="0.8"><title>RMT: Recurrent Memory Transformer (2207.06881)</title></circle>
+<circle cx="652.8" cy="545.0" r="4.3" fill="#bcbd22" stroke="#0b1220" stroke-width="0.8"><title>Titans: Titans: Learning to Memorize at Test Time (2501.00663)</title></circle>
+<circle cx="-3306.2" cy="545.0" r="4.3" fill="#bcbd22" stroke="#0b1220" stroke-width="0.8"><title>MANN: One-shot Learning with Memory-Augmented Neural Networks (1605.06065)</title></circle>
+<circle cx="-1615.0" cy="545.0" r="4.3" fill="#bcbd22" stroke="#0b1220" stroke-width="0.8"><title>Signatory: Signatory: differentiable computations of the signature and logsignature transforms, on both CPU and GPU (2001.00706)</title></circle>
+<circle cx="460.6" cy="545.0" r="4.3" fill="#bcbd22" stroke="#0b1220" stroke-width="0.8"><title>ExplorativeILSignature: Explorative Imitation Learning: A Path Signature Approach for Continuous Environments (2407.04856)</title></circle>
+<circle cx="-5843.1" cy="545.0" r="4.3" fill="#bcbd22" stroke="#0b1220" stroke-width="0.8"><title>DAgger: A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning (1011.0686)</title></circle>
+<text x="1360.7" y="83.0" font-size="11.5" font-weight="700" fill="#d62728">TRACE (06-12)</text>
+<text x="1360.7" y="97.0" font-size="11.5" font-weight="700" fill="#d62728">SAI (06-15)</text>
+<text x="1360.7" y="111.0" font-size="11.5" font-weight="700" fill="#d62728">EventVLA (06-18)</text>
+</svg>

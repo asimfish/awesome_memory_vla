@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>记忆 VLA 全景调研 · EventVLA × TRACE × SAI</title>
+<style>
+:root{--bg:#0a0e14;--panel:#10161f;--panel2:#151d29;--line:#1f2a3a;--txt:#e6edf3;--dim:#8b98a9;--faint:#5a6675;--cyan:#22d3ee;--amber:#fbbf24;--green:#34d399;--red:#f87171;--violet:#a78bfa}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#000;color:var(--txt);font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+.num{font-family:"SF Mono",Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.deck{width:100vw;height:100vh;overflow:hidden;position:relative}
+.slide{position:absolute;inset:0;display:none;background:var(--bg);padding:44px 64px 56px}
+.slide.active{display:flex;flex-direction:column}
+.slide-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;color:var(--faint);font-size:12.5px;letter-spacing:.08em}
+.slide h1{font-size:30px;font-weight:700;line-height:1.32;margin-bottom:16px}
+.slide h1 .c{color:var(--cyan)} .slide h1 .a{color:var(--amber)}
+.kicker{font-size:12.5px;color:var(--cyan);letter-spacing:.22em;margin-bottom:8px;font-weight:600}
+.body{flex:1;display:flex;flex-direction:column;min-height:0;justify-content:center}
+.body.grid2,.body.grid3,.body.grid32,.body.grid23{display:grid;align-content:center}
+.foot{position:absolute;left:68px;right:68px;bottom:20px;display:flex;justify-content:space-between;color:var(--faint);font-size:11.5px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.grid32{display:grid;grid-template-columns:3fr 2fr;gap:18px}.grid23{display:grid;grid-template-columns:2fr 3fr;gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 18px}
+.card h3{font-size:16px;margin-bottom:7px;font-weight:600;color:var(--cyan)}
+.card.a h3{color:var(--amber)} .card.g h3{color:var(--green)} .card.v h3{color:var(--violet)} .card.r h3{color:var(--red)}
+.card p,.card li{font-size:14.5px;line-height:1.62;color:var(--dim)}
+.card .big{font-size:32px;font-weight:700;color:var(--txt);line-height:1.1}
+strong{color:var(--txt);font-weight:600}
+b.c{color:var(--cyan)} b.a{color:var(--amber)} b.g{color:var(--green)} b.r{color:var(--red)} b.v{color:var(--violet)}
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:600;letter-spacing:.05em;vertical-align:2px;margin-right:6px}
+.tag-c{background:rgba(34,211,238,.12);color:var(--cyan);border:1px solid rgba(34,211,238,.35)}
+.tag-a{background:rgba(251,191,36,.12);color:var(--amber);border:1px solid rgba(251,191,36,.35)}
+.tag-g{background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.35)}
+.tag-v{background:rgba(167,139,250,.12);color:var(--violet);border:1px solid rgba(167,139,250,.35)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{color:var(--dim);font-weight:600;text-align:left;padding:7px 9px;border-bottom:1.5px solid var(--line);white-space:nowrap;font-size:12.5px}
+td{padding:6px 9px;border-bottom:1px solid var(--line);color:var(--txt);line-height:1.45;vertical-align:top}
+table.dense td{padding:7px 9px;line-height:1.45;font-size:14.5px} table.dense th{padding:6px 9px;font-size:12.5px}
+td.dim{color:var(--dim)} td.n,th.n{text-align:right} tr:last-child td{border-bottom:none}
+ul.tight{list-style:none} ul.tight li{padding-left:1.1em;position:relative;margin-bottom:7px;font-size:15px;line-height:1.6;color:var(--txt)}
+ul.tight li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:2px;background:var(--cyan)}
+ul.tight.amber li::before{background:var(--amber)} ul.tight.red li::before{background:var(--red)}
+ol.steps{padding-left:22px} ol.steps li{font-size:15px;line-height:1.62;margin-bottom:9px;color:var(--txt)}
+.callout{border-left:3px solid var(--cyan);background:var(--panel);padding:12px 18px;border-radius:0 8px 8px 0;margin-top:auto}
+.callout.a{border-color:var(--amber)} .callout p{font-size:15px;color:var(--txt);line-height:1.6}
+.src{color:var(--faint);font-size:12px;margin-top:8px}
+.bar-row{display:flex;align-items:center;gap:10px;margin:9px 0}
+.bar-label{width:260px;font-size:14px;color:var(--dim);text-align:right;flex-shrink:0}
+.bar-track{flex:1;height:26px;background:var(--panel2);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:12px;font-weight:700;min-width:36px;color:#061018}
+.fig{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+.fig img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px}
+.kpi{display:flex;gap:14px}
+.kpi .k{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi .v{font-size:36px;font-weight:800;line-height:1.05;color:var(--cyan)} .kpi .v.a{color:var(--amber)} .kpi .v.g{color:var(--green)} .kpi .v.v{color:var(--violet)}
+.kpi .l{font-size:14px;color:var(--dim);margin-top:6px;line-height:1.5}
+.title-slide{justify-content:center}
+.title-slide h1{font-size:40px;line-height:1.25}
+.title-slide .sub{font-size:18px;color:var(--dim);margin-top:6px}
+.nav-hint{position:fixed;right:20px;top:10px;color:var(--faint);font-size:11px;z-index:99}
+.progress{position:fixed;top:0;left:0;height:2.5px;background:linear-gradient(90deg,var(--cyan),var(--amber));z-index:100;transition:width .25s}
+.pageno{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;color:var(--faint);font-size:12px;z-index:99}
+code{font-family:"SF Mono",Menlo,monospace;font-size:.9em;background:var(--panel2);padding:1px 5px;border-radius:4px;color:#c7d2fe}
+@page{size:1280px 720px;margin:0}
+@media print{
+  html,body{background:#000}
+  .deck{width:1280px;height:auto;overflow:visible}
+  .slide{position:relative;display:flex !important;flex-direction:column;width:1280px;height:720px;inset:auto;page-break-after:always;break-after:page;overflow:hidden}
+  .slide:last-child{page-break-after:auto}
+  .nav-hint,.progress,.pageno{display:none}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="nav-hint">← → 翻页 · F 全屏 · P 打印为 PDF</div>
+<div class="pageno" id="pageno"></div>
+<div class="deck" id="deck">
+
+<!-- 1 -->
+<section class="slide active title-slide">
+  <div class="kicker">awesome_memory_vla · 2026-09</div>
+  <h1>证据消失之后，策略靠什么行动<br><span class="c">记忆 VLA 全景调研</span>：EventVLA × TRACE × SAI</h1>
+  <p class="sub">Memory for vision-language-action policies — three June-2026 papers and a 103-paper landscape</p>
+  <div class="kpi" style="margin-top:28px">
+    <div class="k"><div class="v">3</div><div class="l">核心论文全文深读<br>架构 / 模块 / 数据三个层面</div></div>
+    <div class="k"><div class="v a">17</div><div class="l">篇有英文 PDF + DeepSeek 中译<br>其中 14 篇邻居也有全文笔记</div></div>
+    <div class="k"><div class="v g">103</div><div class="l">项工作 · 十个家族 · 26 个子类<br>每篇一句话定位</div></div>
+    <div class="k"><div class="v v">10 / 6 / 14</div><div class="l">洞见 / 可证伪预测 / 研究机会<br>另附 28 条数字口径账本</div></div>
+  </div>
+  <div class="foot"><span>github.com/asimfish/awesome_memory_vla</span><span>1 / 32</span></div>
+</section>
+
+<!-- 2 executive summary -->
+<section class="slide">
+  <div class="kicker">Executive summary</div>
+  <h1>十条结论：<span class="c">记忆的问题不是"要不要"，而是"记什么、何时写、写到哪、存多少"</span></h1>
+  <div class="body grid2">
+    <ol class="steps">
+      <li><strong>标准 VLA 是马尔可夫的</strong>，而操作任务不是：掀盖看一眼、读一张数字卡、看别人点一遍顺序——证据出现后就消失。</li>
+      <li><strong>前沿从"存多少"转到了"何时写"</strong>：EventVLA / KEMO / UniMem / WeaveLA / MemoryWAM 在 2026 年 6–8 月从不同架构同时转向事件驱动的稀疏写入。</li>
+      <li><strong>历史大多是当前帧的冗余副本</strong>（Present but Not Remembered 的探针审计）；记忆增强应注入只属于过去的信息。</li>
+      <li><strong>原图还是 latent 取决于要恢复多少比特</strong>：EventVLA 的 24.9 vs 75.2 与 TRACE 的 69.23 并不矛盾。</li>
+      <li><strong>寻址被低估</strong>：TRACE 用轨迹签名让写入时刻与读取时刻有稳定对应，倒放历史路由相似度掉到 37.8。</li>
+    </ol>
+    <ol class="steps" start="6">
+      <li><strong>可靠性来自有纪律的状态更新，不是容量</strong>：AGM 验证后推进、EventVLA NMS + 冷却、TRACE 门控写入是同一原则。</li>
+      <li><strong>计数与过程记忆上双系统仍领先</strong>：RoboMME / RoboMemArena 榜首都是高层管状态的方案。</li>
+      <li><strong>记忆的成本趋近于零</strong>：NativeMEM 每帧 1 token、TempoFit 免训练、StreamPI 零参数；EventVLA 的 3× 延迟是短板。</li>
+      <li><strong>多机器人是同一问题的另一张脸</strong>：搭档相位是从历史推断的隐变量（SAI），但还没有人给它显式记忆。</li>
+      <li><strong>评测在分裂、诊断在成熟</strong>：一年 12 套基准；并排任何两个数字之前先查口径账本。</li>
+    </ol>
+  </div>
+  <div class="foot"><span>详见 reports/04_trends_insights_cn.md</span><span>2 / 32</span></div>
+</section>
+
+<!-- 3 how to read -->
+<section class="slide">
+  <div class="kicker">How to read</div>
+  <h1>32 页怎么读：<span class="c">先看两张总览图，再沿"主角 → 证据链 → 纵深专题 → 判断"走一遍</span></h1>
+  <div class="body grid3">
+    <div class="card"><h3>p4–5 · 总览</h3><p>时间线（十个泳道，2026-06 汇合月）与分类树（十个家族、26 个子类）。</p></div>
+    <div class="card a"><h3>p6–12 · 三个主角</h3><p>旧范式为什么失效 → EventVLA（架构）、TRACE（模块）、SAI（数据）各两页：机制、数字、代价、留意点。</p></div>
+    <div class="card g"><h3>p13–17 · 路线与证据链</h3><p>同一目标五条路线；17 篇六问对照矩阵；RMBench / RoboMME / RoboMemArena / 真机四条证据链。</p></div>
+    <div class="card v"><h3>p18–23 · 六个纵深专题</h3><p>何时写 · 原图还是 latent · 寻址 · 双系统 vs 端到端 · 成本归零 · 多机器人。</p></div>
+    <div class="card"><h3>p24–29 · 判断</h3><p>趋势、十个洞见、六条可证伪预测、十四个研究机会、口径账本。</p></div>
+    <div class="card r"><h3>p30–32 · 方法论与交付物</h3><p>三篇论文教的三件事；仓库里有什么、怎么复现。</p></div>
+  </div>
+  <div class="foot"><span>15 分钟拿到全部结论；1 小时读三篇深读；半天读 14 篇邻居笔记</span><span>3 / 32</span></div>
+</section>
+
+<!-- 4 timeline -->
+<section class="slide">
+  <div class="kicker">Overview · Figure 1</div>
+  <h1>时间线：2025 年 24 篇、2026 年 1–5 月 23 篇，<span class="a">6 月一个月 20 篇</span></h1>
+  <div class="fig"><img src="../assets/fig1_timeline_dark.svg" alt="timeline"></div>
+  <p class="src">RMBench（3-01）、RoboMME（3-04）、RoboMemArena（5-11）三个基准春天落地，夏天的方法论文是对这些靶子的第一轮回应；三篇核心论文全部落在 6 月 12–18 日。</p>
+  <div class="foot"><span>assets/fig1_timeline.svg · 数据 scripts/papers_manifest.json</span><span>4 / 32</span></div>
+</section>
+
+<!-- 5 taxonomy -->
+<section class="slide">
+  <div class="kicker">Overview · Figure 2</div>
+  <h1>分类体系：<span class="c">十个家族、26 个子类</span>——按"记忆放在哪、以什么形式存在"划分</h1>
+  <div class="fig"><img src="../assets/fig2_taxonomy_dark.svg" alt="taxonomy"></div>
+  <div class="foot"><span>assets/fig2_taxonomy.svg · 与 README 第 1–10 节一一对应</span><span>5 / 32</span></div>
+</section>
+
+<!-- 6 old paradigm -->
+<section class="slide">
+  <div class="kicker">Why now</div>
+  <h1>旧范式：<span class="a">a<sub>t</sub> = π(o<sub>t</sub>, l)</span> 默认一切可见；加长窗口是默认答案，但历史没有被"记住"</h1>
+  <div class="body grid2">
+    <div class="card">
+      <h3>三类既有路线，各有一个具体的失败方式</h3>
+      <table class="dense">
+        <tr><th>路线</th><th>代表</th><th>失败方式</th></tr>
+        <tr><td>双系统</td><td class="dim">MemER, Mem-0, MEM</td><td>延迟高、误差沿层级传播</td></tr>
+        <tr><td>循环 / 隐状态</td><td class="dim">AVA-VLA, RMT</td><td>信息瓶颈，细粒度视觉细节丢失</td></tr>
+        <tr><td>帧缓冲</td><td class="dim">MemoryVLA, CronusVLA, ContextVLA</td><td>无选择堆帧，冗余淹没稀疏证据</td></tr>
+      </table>
+      <p class="src">EventVLA §1–2 的诊断</p>
+    </div>
+    <div class="card a">
+      <h3>为什么帧堆叠收益不稳定：历史 ≈ 当前帧的副本</h3>
+      <p>Liao &amp; Cao 对 Octo-Small / Octo-Base / CronusVLA-0.5B 做逐层线性探针 + 因果交换干预：过去帧内容全网络可解码（A₁ 0.39 / 0.36 / 0.14），但<strong>只属于历史的信息几乎为零</strong>（A₄ +0.019 / +0.015 / −0.011）；历史只在当前帧被全黑遮挡时才被因果使用，且能否用注入的历史驾驭动作因架构而异（Octo 不能，CronusVLA +0.167）。</p>
+      <p style="margin-top:8px"><b class="a">设计准则</b>：注入过去独有的信息，而不是更多的历史——这正是稀疏事件帧、签名增量、动作历史压缩在做的事。</p>
+    </div>
+  </div>
+  <div class="foot"><span>Present but Not Remembered, arXiv 2607.03372</span><span>6 / 32</span></div>
+</section>
+
+<!-- 7 three protagonists -->
+<section class="slide">
+  <div class="kicker">Protagonists</div>
+  <h1>三篇论文，一个问题，<span class="c">三个层面</span>：架构 · 模块 · 数据</h1>
+  <div class="body">
+    <div class="grid3" style="margin-bottom:14px">
+      <div class="card"><h3><span class="tag tag-c">2606.20092</span>EventVLA · 架构</h3><p>USTC / 上海 AI Lab。KEM 头从 VLA 隐状态预测未来 50 步的关键帧概率，存<strong>原图</strong>，5 帧 FIFO；RoboTwin-MeM 18.0 → <b class="c">75.2</b>。</p></div>
+      <div class="card g"><h3><span class="tag tag-g">2606.14551</span>TRACE · 模块</h3><p>浙大 / 悉尼大学。外挂 K 槽 latent 记忆，用机器人轨迹的<strong>路径签名</strong>做读写地址；ACT 25.5 → <b class="g">69.2</b>，顺序反转 37.8。</p></div>
+      <div class="card a"><h3><span class="tag tag-a">2606.16490</span>SAI · 数据</h3><p>浙大 / 悉尼大学。单遥操作者三阶段<strong>非对称课程</strong>学双机器人耦合策略；历史 token 把提前松手 64.5% → <b class="a">16.1%</b>。</p></div>
+    </div>
+    <table class="dense">
+      <tr><th></th><th>EventVLA</th><th>TRACE</th><th>SAI</th></tr>
+      <tr><td class="dim">看不见的是什么</td><td>消失的视觉证据</td><td>早期分支线索</td><td>搭档内部相位</td></tr>
+      <tr><td class="dim">记忆内容</td><td>原始图像帧</td><td>512 维 latent 槽</td><td>GRU 隐状态</td></tr>
+      <tr><td class="dim">何时写</td><td>学习的关键帧概率 + NMS + 冷却</td><td>每步，门控</td><td>每步</td></tr>
+      <tr><td class="dim">寻址</td><td>时间拼接 + 注意力</td><td>轨迹路径签名</td><td>无</td></tr>
+      <tr><td class="dim">代价</td><td>吞吐 2.91 → 0.94 Hz</td><td>+2.1 ms / 步</td><td>干预数据 ≈ 30%</td></tr>
+    </table>
+  </div>
+  <div class="foot"><span>三篇都拒绝"加长窗口"这一默认答案，都用有界的历史表征</span><span>7 / 32</span></div>
+</section>
+
+<!-- 8 EventVLA mechanism -->
+<section class="slide">
+  <div class="kicker">EventVLA · mechanism</div>
+  <h1>EventVLA：把"何时该记住"<span class="c">变成一个可学习的预测问题</span></h1>
+  <div class="body grid2">
+    <div class="card">
+      <h3>记忆 M<sub>t</sub> = A<sub>t</sub> ∪ E<sub>t</sub></h3>
+      <ul class="tight">
+        <li>锚帧 A<sub>t</sub> = {o₀} ∪ {o<sub>t−30</sub>, o<sub>t−15</sub>}：全局布局 + 运动线索（规则）</li>
+        <li>事件帧 E<sub>t</sub>：KEM 写入，N<sub>max</sub> = 5，FIFO</li>
+        <li>concat([A<sub>t</sub>, E<sub>t−1</sub>, o<sub>t</sub>]) 直接进 VLM 视觉编码器——"读"就是多帧注意力</li>
+      </ul>
+      <p class="src num" style="font-size:13px;color:#c7d2fe;margin-top:10px">p̂<sub>t</sub> = σ(MLP(h<sub>t</sub>)) ∈ [0,1]<sup>H</sup>, H = 50 ； p̂<sub>t</sub><sup>i</sup> ≥ 0.55 ⇒ 存 o<sub>t+i</sub></p>
+      <p class="src">1-D NMS（w = 8）+ 冷却（C = 10）防止同一事件灌满缓冲区</p>
+    </div>
+    <div class="card a">
+      <h3>训练与"为什么按整块预测"</h3>
+      <ul class="tight amber">
+        <li>标签：Qwen3-VL-235B 离线看演示输出关键帧步（仿真误差 &lt; 10 步，真机 &lt; 50 步）</li>
+        <li>软标签：升余弦核 y = ½(1 + cos π|t+i−t*|/R)；L = L<sub>action</sub> + 0.1·L<sub>kem</sub></li>
+        <li>师生课程：真值缓冲 → 自身预测，α: 1 → 0</li>
+      </ul>
+      <p style="margin-top:10px">事件常在一个动作块中途出现又消失，逐步分类器来不及；共享 h<sub>t</sub> 让 KEM 知道策略接下来要做什么，能<b class="a">预约</b>一次写入。</p>
+    </div>
+  </div>
+  <div class="foot"><span>基座 QwenOFT（Qwen3-VL-4B）/ 真机 π₀.₅ · reports/01_eventvla_cn.md</span><span>8 / 32</span></div>
+</section>
+
+<!-- 9 EventVLA numbers -->
+<section class="slide">
+  <div class="kicker">EventVLA · evidence</div>
+  <h1>同一个骨干、同一份数据，只多了 5 帧：<span class="c">18.0 → 75.2</span>；原图 vs latent 75.2 vs 24.9</h1>
+  <div class="body grid32">
+    <div class="card">
+      <div class="bar-row"><div class="bar-label">π₀.₅（无记忆）</div><div class="bar-track"><div class="bar-fill" style="width:8%;background:#5a6675">7.8</div></div></div>
+      <div class="bar-row"><div class="bar-label">MemER（双系统）</div><div class="bar-track"><div class="bar-fill" style="width:11%;background:#5a6675">10.5</div></div></div>
+      <div class="bar-row"><div class="bar-label">MemoryVLA (QwenOFT)（帧缓冲）</div><div class="bar-track"><div class="bar-fill" style="width:11%;background:#5a6675">10.8</div></div></div>
+      <div class="bar-row"><div class="bar-label">EventVLA 仅锚帧</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:#8b98a9">18.0</div></div></div>
+      <div class="bar-row"><div class="bar-label">EventVLA 隐式记忆库（latent）</div><div class="bar-track"><div class="bar-fill" style="width:25%;background:#f87171">24.9</div></div></div>
+      <div class="bar-row"><div class="bar-label">EventVLA 动作块 15</div><div class="bar-track"><div class="bar-fill" style="width:14%;background:#f87171">13.6</div></div></div>
+      <div class="bar-row"><div class="bar-label">EventVLA 锚帧 + KEM</div><div class="bar-track"><div class="bar-fill" style="width:75%;background:var(--cyan)">75.2</div></div></div>
+      <p class="src">RoboTwin-MeM 8 任务平均成功率 %（EventVLA 表 2）。RMBench 上仅锚帧 67.8（Mem-0 42.0、MemoryVLA 41.7）；KEM 未在 RMBench 上测。</p>
+    </div>
+    <div class="card a">
+      <h3>三个值得记住的数字</h3>
+      <ul class="tight amber">
+        <li><b class="g">24.9 vs 75.2</b>：只换记忆表征，原图胜 latent——至少在要同时记 3–5 个视觉细节时</li>
+        <li><b class="a">13.6</b>：动作块 50 → 15，KEM 的前瞻随之崩塌，低于不用 KEM 的 18.0</li>
+        <li><b class="r">0.94 Hz</b>：多帧输入把吞吐压到基座（2.91 Hz）的三分之一</li>
+      </ul>
+      <p style="margin-top:8px">真机 ARX ACONE 4 任务 × 20：<b class="g">90 / 60 / 90 / 75</b>，π_MEM 50 / – / 30 / 40。留意：两套基准同出 RoboTwin 系；5 帧 FIFO 对 &gt; 10 分钟任务会饱和。</p>
+    </div>
+  </div>
+  <div class="foot"><span>EventVLA Tables 1, 2, 9; Fig. 4</span><span>9 / 32</span></div>
+</section>
+
+<!-- 10 TRACE mechanism -->
+<section class="slide">
+  <div class="kicker">TRACE · mechanism</div>
+  <h1>TRACE：<span class="c">内容与地址分离</span>——当前画面决定"记什么"，走过的路决定"存到哪、从哪取"</h1>
+  <div class="body grid2">
+    <div class="card g">
+      <h3>延迟证据 → 轨迹签名做钥匙</h3>
+      <ul class="tight">
+        <li>短窗口下 x<sub>t−w+1:t</sub> ≈ x′<sub>t−w+1:t</sub> 但 a*<sub>t</sub>(H<sub>t</sub>) ≠ a*<sub>t</sub>(H′<sub>t</sub>)：单帧策略注定至少错一半</li>
+        <li>内容 e<sub>t</sub> = φ<sub>x</sub>(x<sub>t</sub>)：多视角视觉 + 本体感受</li>
+        <li>地址：17 维状态路径的深度-3 路径签名，17 + 17² + 17³ = 5219 维，加增量 δ<sub>t</sub></li>
+        <li>对时间重参数化、常数偏移不变，对<b class="g">顺序</b>敏感；流式 0.52 ms</li>
+      </ul>
+      <p class="src num" style="font-size:12.5px;color:#c7d2fe;margin-top:8px">ω<sub>t,k</sub> = softmax<sub>k</sub>(⟨W<sub>Q</sub>ρ<sub>t</sub>, W<sub>K</sub>m̄<sub>t−1,k</sub>⟩/τ√d) ； m<sub>t,k</sub> = (1−β) m<sub>t−1,k</sub> + β m̃<sub>t,k</sub></p>
+    </div>
+    <div class="card">
+      <h3>适配器只做翻译，骨干、动作头、损失都不改</h3>
+      <ul class="tight">
+        <li>ACT：槽 → 512 维记忆 token 拼进注意力 memory（+0.79 M）</li>
+        <li>Diffusion：池化 → 零初始化 MLP → 加性全局条件（+16.03 M）</li>
+        <li>共享更新器 11.91 M；K = 4 / 6 槽 × 512 维</li>
+        <li>三个稳定器只作用于记忆：L<sub>bal</sub> 防槽塌缩 · L<sub>ent</sub> 防弥散写入 · L<sub>cons</sub> 防读写失配（去掉：69.23 → 66.10）</li>
+      </ul>
+      <p style="margin-top:8px">训练与部署走同一条因果扫描：不用线索标签、分支标签、未来帧，也不做测试时演示检索。</p>
+    </div>
+  </div>
+  <div class="foot"><span>reports/02_trace_cn.md</span><span>10 / 32</span></div>
+</section>
+
+<!-- 11 TRACE evidence -->
+<section class="slide">
+  <div class="kicker">TRACE · evidence & diagnostics</div>
+  <h1>任何记忆都比没有好（+20 到 +30），但 TRACE 再往上 13 个点；<span class="c">倒放历史，读出就变了</span></h1>
+  <div class="body grid2">
+    <div class="card">
+      <table class="dense">
+        <tr><th>方法（5 真机任务，阶段进度 %，25 次/任务）</th><th class="n">平均</th></tr>
+        <tr><td>ACT / Diffusion Policy</td><td class="n">25.50 / 25.00</td></tr>
+        <tr><td>π₀.₅（同数据微调，无记忆模块）</td><td class="n">50.47</td></tr>
+        <tr><td>GRU 循环记忆</td><td class="n">45.83</td></tr>
+        <tr><td>Transformer 历史上下文</td><td class="n">52.10</td></tr>
+        <tr><td>LRU 外部记忆</td><td class="n">53.93</td></tr>
+        <tr><td>检索提示记忆（MAP-VLA 式）</td><td class="n">56.30</td></tr>
+        <tr><td><b class="g">TRACE（回归 / 扩散）</b></td><td class="n"><b class="g">69.23</b> / 59.53</td></tr>
+        <tr><td class="dim">只有签名 / 无路由槽 / 去增量</td><td class="n">45.50 / 52.17 / 61.43</td></tr>
+      </table>
+    </div>
+    <div class="card g">
+      <h3>历史变换诊断（归一化到完整 TRACE = 100）</h3>
+      <table class="dense">
+        <tr><th>变换</th><th class="n">路由相似度</th><th class="n">分支一致性</th></tr>
+        <tr><td>时间重采样</td><td class="n">92.4</td><td class="n">96.0</td></tr>
+        <tr><td>速度抖动</td><td class="n">89.8</td><td class="n">94.7</td></tr>
+        <tr><td>状态偏移</td><td class="n">91.2</td><td class="n">95.1</td></tr>
+        <tr><td>稀疏采样</td><td class="n">86.5</td><td class="n">92.3</td></tr>
+        <tr><td><b class="r">顺序反转（负对照）</b></td><td class="n"><b class="r">37.8</b></td><td class="n"><b class="r">41.6</b></td></tr>
+      </table>
+      <p style="margin-top:8px">同样的分岔点画面、同样的权重，只把历史倒放——"记忆在用有序历史"从假设变成测量。每步开销 +2.11 ms。</p>
+    </div>
+  </div>
+  <div class="foot"><span>TRACE Tables 1–3, 14</span><span>11 / 32</span></div>
+</section>
+
+<!-- 12 SAI -->
+<section class="slide">
+  <div class="kicker">SAI · curriculum</div>
+  <h1>SAI：搭档看不全，<span class="a">历史和课程都要替它补</span>——协调是搭档分布的函数，不是架构的函数</h1>
+  <div class="body grid2">
+    <div class="card a">
+      <h3>单遥操作者三阶段</h3>
+      <ol class="steps">
+        <li>A 与顺从的人类搭档学任务；搭档区域随机化（噪声 / 模糊 / SD 修补）防止学人类外观捷径</li>
+        <li>冻结 A，人遥操 B；给 A 加速度 / 噪声 / 时序扰动，B 学会等待、让步、恢复</li>
+        <li>A+B 联合部署，只在协调快失败处对 A 做 DAgger 式稀疏干预（≈ 30% 数据，动作维掩码）</li>
+      </ol>
+      <p class="src">策略：ACT + 冻结 DINOv3，30 步历史（12 帧对数采样 → GRU 历史 token），级联底盘 → 手臂头；两台机器人无通信</p>
+    </div>
+    <div class="card">
+      <table class="dense">
+        <tr><th>任务</th><th>方法</th><th class="n">成功</th><th class="n">相位同步</th><th class="n">让步</th></tr>
+        <tr><td>Bed-throw</td><td>独立 / <b>SAI</b></td><td class="n">23.3 / <b class="a">53.3</b></td><td class="n">30.8 / <b class="a">62.5</b></td><td class="n">26.7 / <b class="a">68.3</b></td></tr>
+        <tr><td>Tablecloth</td><td>独立 / <b>SAI</b></td><td class="n">43.3 / <b class="a">66.7</b></td><td class="n">54.4 / <b class="a">68.9</b></td><td class="n">46.7 / <b class="a">70.0</b></td></tr>
+        <tr><td>Laundry</td><td>独立 / <b>SAI</b></td><td class="n">50.0 / <b class="a">70.0</b></td><td class="n">51.7 / <b class="a">73.3</b></td><td class="n">31.7 / <b class="a">71.7</b></td></tr>
+        <tr><td>Painting</td><td>独立 / <b>SAI</b></td><td class="n">33.3 / <b class="a">56.7</b></td><td class="n">42.7 / <b class="a">74.7</b></td><td class="n">34.4 / <b class="a">68.9</b></td></tr>
+      </table>
+      <ul class="tight amber" style="margin-top:8px">
+        <li>阶段 2 抬相位同步，阶段 3 抬让步；成功率是两者之和（30 次 rollout / 任务-方法）</li>
+        <li><b class="a">历史 token</b>：提前松手 64.5% → 16.1%——单帧分不清"搬运中"与"该松手"</li>
+        <li>换 Diffusion 头同样有效（成功 23.5 → 52.9）</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>SAI Tables 1–3 · reports/03_sai_cn.md</span><span>12 / 32</span></div>
+</section>
+
+<!-- 13 five routes -->
+<section class="slide">
+  <div class="kicker">Routes</div>
+  <h1>同一个目标，五条路线：<span class="c">记忆可以被触发、被压缩、被寻址、被符号化、被预测</span></h1>
+  <div class="body grid3">
+    <div class="card"><h3>1 · 事件 / 关键帧（5）</h3><p>只在"发生了什么"时写，存原图或 token。EventVLA（学习触发）、KEMO（运动学 + 视觉规则）、UniMem（事件分类器）、WeaveLA（子目标完成）。</p></div>
+    <div class="card"><h3>2 · 稠密压缩历史（25）</h3><p>每帧都进，靠压缩 / token 化 / KV 复用控制成本。MemoryVLA、HAMLET、NativeMEM（1 token/帧）、TempoFit（免训练）、StreamPI（零参数）、DySta。</p></div>
+    <div class="card g"><h3>3 · latent / 循环 / 槽（20）</h3><p>历史压成固定向量或槽递归更新。TRACE（签名寻址）、μVLA（最小循环）、Chronos（SSM 状态）、TFP（进度信念）、GMP（何时回忆）。</p></div>
+    <div class="card v"><h3>4 · 双系统 / 符号（19）</h3><p>高层维护文本 / 图 / 进度指针，低层执行。MEM、MemER、AGM（验证后推进）、HyMeS（记忆在代码）、PonderPounce、BATON。</p></div>
+    <div class="card a"><h3>5 · 世界模型内的记忆（3）</h3><p>记忆服务于预测，预测服务于动作。MemoryWAM（近期 + 事件锚帧 + gist）、MemoryVAM、TriVLA。</p></div>
+    <div class="card r"><h3>第六个方向 · 多机器人搭档记忆（9）</h3><p>搭档相位是只能从历史推断的隐变量。SAI、HATS、Duet、Tri-Manual、AutoIntervene——几乎都在解数据采集，没有显式记忆模块。</p></div>
+  </div>
+  <div class="foot"><span>括号内为本仓库收录篇数；综述 6、基准 7、背景 6 未列</span><span>13 / 32</span></div>
+</section>
+
+<!-- 14 matrix -->
+<section class="slide">
+  <div class="kicker">Design space</div>
+  <h1>17 篇一页对照：<span class="c">六个必答问题</span>——存什么 · 何时写 · 寻址 · 容量 · 接在哪 · 监督</h1>
+  <div class="body">
+    <table class="dense">
+      <tr><th>方法</th><th>存什么</th><th>何时写</th><th>寻址</th><th>容量</th><th>接在哪</th><th>监督</th></tr>
+      <tr><td><b class="c">EventVLA</b></td><td>原图</td><td><b class="c">学习触发</b> + NMS</td><td>时间拼接</td><td>5 + 锚帧</td><td>视觉编码器输入</td><td>235B 标注 + 软标签</td></tr>
+      <tr><td><b class="g">TRACE</b></td><td>512-D latent</td><td>每步，门控</td><td><b class="g">轨迹签名</b></td><td>K = 4/6</td><td>动作头前适配器</td><td>三项稳定器</td></tr>
+      <tr><td><b class="a">SAI</b></td><td>GRU 隐状态</td><td>每步</td><td>无</td><td>30 步</td><td>解码器输入</td><td>数据课程 + DAgger</td></tr>
+      <tr><td>KEMO</td><td>关键帧 token</td><td>运动学 + 视觉规则</td><td>时序 token</td><td>K 逐任务设</td><td>门控残差融合</td><td>事件附近加权</td></tr>
+      <tr><td>UniMem</td><td>关键帧密集记忆</td><td>事件分类器</td><td>注意力</td><td>关键帧缓存</td><td>单骨干</td><td>分类器</td></tr>
+      <tr><td>MemoryVLA</td><td>感知 + 认知 token</td><td>每步，冗余合并</td><td>内容相似</td><td>记忆库</td><td>扩散专家条件</td><td>模仿损失</td></tr>
+      <tr><td>MemER / MEM</td><td>关键帧 + 文本 / 视频 + 文本</td><td>高层 VLM / 持续</td><td>VLM 推理</td><td>选中帧 / 文本无界</td><td>双系统</td><td>语言标注 / 演示</td></tr>
+      <tr><td>Chronos</td><td>每步一个状态 token</td><td>每步</td><td>选择性 SSM</td><td>全历史（压缩）</td><td>策略 latent 状态</td><td>IMLE + 薛定谔桥</td></tr>
+      <tr><td>μVLA</td><td>m 个记忆 token</td><td>每步自注意力</td><td>隐式</td><td>m</td><td>骨干内</td><td>TBPTT，无辅助损失</td></tr>
+      <tr><td>AGM / HyMeS</td><td>进度指针 / 代码结构</td><td>物理验证后 / 阶段验证后</td><td>指针 / 代码</td><td>子目标数 / 无界</td><td>冻结 VLA 外部</td><td>2.43M 验证头 / rollout 反馈</td></tr>
+      <tr><td>AutoIntervene</td><td>视觉-动作支持记忆</td><td>成功执行后</td><td>视觉相似 + 动作一致</td><td>成功轨迹集</td><td>策略 ↔ 操作者切换</td><td>分位数校准阈值</td></tr>
+    </table>
+    <p class="src">完整 40 方法矩阵见 insights/DESIGN_SPACE_MATRIX.md。两个极端在同一个月被占住：EventVLA 押"何时写"，TRACE 押"从哪读"；既学写入时机、又学寻址的中间地带还是空的。</p>
+  </div>
+  <div class="foot"><span>Present-but-Not-Remembered / RMBench / RoboMME / RoboMemArena 是分析与基准，不在此表</span><span>14 / 32</span></div>
+</section>
+
+<!-- 15 evidence RMBench -->
+<section class="slide">
+  <div class="kicker">Evidence chain · 1</div>
+  <h1>RMBench：<span class="a">"初始帧 + 近期帧"就到 67.8</span>——它测的更多是布局记忆，不是事件记忆</h1>
+  <div class="body grid2">
+    <div class="card">
+      <div class="bar-row"><div class="bar-label">π₀.₅（无记忆）</div><div class="bar-track"><div class="bar-fill" style="width:11%;background:#5a6675">10.4</div></div></div>
+      <div class="bar-row"><div class="bar-label">MemoryVLA (QwenOFT)</div><div class="bar-track"><div class="bar-fill" style="width:42%;background:#8b98a9">41.7</div></div></div>
+      <div class="bar-row"><div class="bar-label">Mem-0（RMBench 自带）</div><div class="bar-track"><div class="bar-fill" style="width:42%;background:#8b98a9">42.0</div></div></div>
+      <div class="bar-row"><div class="bar-label">ChainVLA（1.2B）</div><div class="bar-track"><div class="bar-fill" style="width:63%;background:var(--violet)">62.8</div></div></div>
+      <div class="bar-row"><div class="bar-label">EventVLA 仅锚帧</div><div class="bar-track"><div class="bar-fill" style="width:68%;background:var(--cyan)">67.8</div></div></div>
+      <div class="bar-row"><div class="bar-label">Chronos（7 任务子集，0.3B）</div><div class="bar-track"><div class="bar-fill" style="width:74%;background:var(--green)">73.6</div></div></div>
+      <p class="src">成功率 %，每任务 100 次。Chronos 报 7 任务（其表中 Mem-0 为 50.8），EventVLA 报 9 任务——不可直接比。</p>
+    </div>
+    <div class="card a">
+      <h3>逐任务看才知道基准测了什么</h3>
+      <ul class="tight amber">
+        <li>EventVLA 仅锚帧：Rearrange 96、Put Back 95、Swap Blocks 96、Cover 97——持久布局类近乎解决</li>
+        <li>但 Observe and Pick Up 21%、Press Button 3%（所有方法 ≤ 3%）——计数与瞬态证据才是硬核</li>
+        <li>RMBench 自己的 Mem-0 消融：Cover Blocks 去锚帧 92、去滑窗 84，都高于完整版 68</li>
+        <li>Chronos 的 73.6 靠全历史 SSM，也不是事件记忆；Press Button 2%</li>
+      </ul>
+      <p style="margin-top:8px">这正是 EventVLA 另建 RoboTwin-MeM（用 n 参数化"必须记住几个中间关键帧"）的理由。</p>
+    </div>
+  </div>
+  <div class="foot"><span>EventVLA 表 8 · RMBench 笔记 · Chronos 笔记</span><span>15 / 32</span></div>
+</section>
+
+<!-- 16 evidence RoboMME / RoboMemArena -->
+<section class="slide">
+  <div class="kicker">Evidence chain · 2</div>
+  <h1>RoboMME 与 RoboMemArena：<span class="v">计数与过程记忆的榜首都是双系统</span>；记忆表征的效果高度依赖任务</h1>
+  <div class="body grid2">
+    <div class="card v">
+      <h3>RoboMME（16 任务，π₀.₅ 骨干，成功率 %）</h3>
+      <table class="dense">
+        <tr><th>方法</th><th class="n">Counting</th><th class="n">Permanence</th><th class="n">Reference</th><th class="n">Imitation</th><th class="n">平均</th></tr>
+        <tr><td>π₀.₅</td><td class="n">28.78</td><td class="n">17.00</td><td class="n">17.17</td><td class="n">8.78</td><td class="n">17.93</td></tr>
+        <tr><td>MemER</td><td class="n">48.83</td><td class="n">53.17</td><td class="n">38.00</td><td class="n">29.50</td><td class="n">42.38</td></tr>
+        <tr><td>FrameSamp+Modul（感知最佳）</td><td class="n">65.22</td><td class="n">25.11</td><td class="n">36.33</td><td class="n">51.39</td><td class="n">44.51</td></tr>
+        <tr><td>AGM（Counting 子集）</td><td class="n"><b class="v">55.96</b></td><td class="n dim">—</td><td class="n dim">—</td><td class="n dim">—</td><td class="n dim">—</td></tr>
+        <tr><td>PonderPounce 9B</td><td class="n dim">—</td><td class="n dim">—</td><td class="n dim">—</td><td class="n dim">—</td><td class="n"><b class="v">60.83</b></td></tr>
+        <tr><td class="dim">GroundSG+Oracle（上界）</td><td class="n dim">83.86</td><td class="n dim">93.31</td><td class="n dim">95.17</td><td class="n dim">63.98</td><td class="n dim">84.08</td></tr>
+      </table>
+      <p class="src">每种记忆各有强项：FrameSamp 赢 Counting/Imitation，MemER 赢 Permanence；动作 token 对记忆 token 的注意力只有 0.7–4.8%</p>
+    </div>
+    <div class="card">
+      <h3>RoboMemArena（26 任务，&gt; 1000 步，68.9% 子任务依赖记忆）</h3>
+      <table class="dense">
+        <tr><th>方法</th><th class="n">TSR</th><th class="n">CSR</th></tr>
+        <tr><td>π₀.₅ / MemoryVLA / MemER</td><td class="n">21.5 / 15.0 / 27.3</td><td class="n">38.7 / 35.3 / 49.1</td></tr>
+        <tr><td>PrediMem（Qwen3-VL-8B，基准自带）</td><td class="n">38.5</td><td class="n">55.2</td></tr>
+        <tr><td>HyMeS（12 任务修正协议，160 回合）</td><td class="n"><b class="v">60.1</b>（π₀.₅ 41.3）</td><td class="n">66.2（52.5）</td></tr>
+        <tr><td class="dim">Ground Truth（oracle）</td><td class="n dim">46.1</td><td class="n dim">64.8</td></tr>
+      </table>
+      <p style="margin-top:8px">HyMeS 的口号是全场最直接的立场：<b class="v">技能在权重里，记忆在代码里</b>——低层技能模仿学，高层记忆管理由编码智能体从 rollout 反馈迭代。</p>
+      <p class="src">HyMeS 与 PrediMem 的任务协议不同（12 vs 26 任务），表内数字不可跨行比较</p>
+    </div>
+  </div>
+  <div class="foot"><span>RoboMME / RoboMemArena / AGM / HyMeS / PonderPounce 笔记</span><span>16 / 32</span></div>
+</section>
+
+<!-- 17 evidence real robot -->
+<section class="slide">
+  <div class="kicker">Evidence chain · 3</div>
+  <h1>真机上，<span class="c">瞬态视觉证据由端到端事件记忆拿走最高绝对成功率</span>；延迟证据由轨迹寻址拿走</h1>
+  <div class="body">
+    <table class="dense">
+      <tr><th>论文</th><th>平台 / 协议</th><th>无记忆基线</th><th>记忆方法</th><th>口径提醒</th></tr>
+      <tr><td><b class="c">EventVLA</b></td><td>ARX ACONE 双臂，4 任务 × 20</td><td>π₀.₅ 0–10%；π_MEM 50 / – / 30 / 40</td><td><b class="c">90 / 60 / 90 / 75</b></td><td>π_MEM 为作者复现</td></tr>
+      <tr><td>KEMO</td><td>YAM 双臂，6 任务 × 12</td><td>π₀.₅ 聚合 TSR 27.8；MemoryVLA 1.4</td><td><b class="c">51.4</b>（SCR 42.3 → 76.4）</td><td>MemoryVLA 单相机、换骨干</td></tr>
+      <tr><td>UniMem</td><td>xArm6，4 任务 × 15</td><td>无记忆 5.0；MemER 43.5</td><td><b class="c">80.0</b></td><td>四路相机 16 关键帧仅 +25 ms</td></tr>
+      <tr><td>Chronos</td><td>双 UR3 单 RGB，4 任务 × 50</td><td>π₀.₅ 7%（记忆任务 0/150）</td><td><b class="g">78%</b>（记忆任务 108/150）</td><td>0.3B 参数</td></tr>
+      <tr><td><b class="g">TRACE</b></td><td>双臂移动平台，5 任务 × 25</td><td>ACT 25.50 / DP 25.00 / π₀.₅ 50.47</td><td><b class="g">69.23</b> / 59.53</td><td><b>阶段进度</b>，非成功率</td></tr>
+      <tr><td>MemER</td><td>Franka，3 任务 × 20</td><td>无历史错舀 61 次；32 帧长历史 12</td><td>错舀 <b class="v">1</b> 次</td><td>计数错误数，越低越好</td></tr>
+      <tr><td>AGM</td><td>AgileX PiPER，每 N 10 次</td><td>π₀.₅ PickXTimes 100/20/10/0/0（N=1–5）</td><td><b class="v">全部 100</b></td><td>冻结 π₀.₅ + 2.43M 验证头</td></tr>
+      <tr><td><b class="a">SAI</b></td><td>两台双臂移动机器人，4 任务 × 30</td><td>独立模仿 23–50%</td><td><b class="a">53–70%</b></td><td>协作成功率；让步为事件级指标</td></tr>
+      <tr><td>AutoIntervene</td><td>双臂，7 任务 × 25</td><td>基线 30.9%；人判切换 68.6%</td><td><b class="a">80.0%</b></td><td>两轮干预后；操作者时间 122.9 s vs 179.9 s</td></tr>
+    </table>
+    <p class="src">九个真机结果，九种口径；每行内可比，跨行不可比。</p>
+  </div>
+  <div class="foot"><span>数字全部取自各论文表格，见 insights/NUMBERS_LEDGER.md</span><span>17 / 32</span></div>
+</section>
+
+<!-- 18 theme: when to write -->
+<section class="slide">
+  <div class="kicker">Theme 1 · when to write</div>
+  <h1>历史里绝大多数帧是冗余，<span class="c">值得写的只有状态转移的瞬间</span>——五种触发器，一个结论</h1>
+  <div class="body grid2">
+    <div class="card">
+      <table class="dense">
+        <tr><th>方法</th><th>触发器</th><th>证据</th></tr>
+        <tr><td><b class="c">EventVLA</b></td><td>学习：KEM 头预测未来 50 步关键帧概率</td><td>RoboTwin-MeM 18.0 → 75.2</td></tr>
+        <tr><td>KEMO</td><td>规则：关节减速峰值 + DINOv2 去重（ε = 0.05）+ 冷却</td><td>事件驱动选帧优于均匀采样与最近 K 帧</td></tr>
+        <tr><td>UniMem</td><td>事件分类器</td><td>93.4 vs 6 s 定间隔采样 68.2</td></tr>
+        <tr><td>WeaveLA</td><td>子目标完成事件</td><td>SwingXtimes N=3：0 → 47.8，单次任务不变</td></tr>
+        <tr><td>MemoryWAM</td><td>事件边界锚帧 + gist token</td><td>世界动作模型里的同构设计</td></tr>
+        <tr><td>TFP</td><td>液态时间常数信念，事件附近写入增益 ≈ 6×</td><td>机制分析而非显式触发</td></tr>
+      </table>
+    </div>
+    <div class="card a">
+      <h3>为什么这是 2026 年中的共识</h3>
+      <p>2025 年的记忆 VLA 在比谁的窗口长、压缩得好（CronusVLA、ContextVLA、MemoryVLA）。RoboMME 测得动作 token 对记忆 token 的平均注意力只有 0.7–4.8%，Present-but-Not-Remembered 测得历史独有信息 ≈ 0。两条独立证据都说：<strong>堆帧堆进去的是重复</strong>。</p>
+      <p style="margin-top:8px"><b class="a">仍未回答</b>：哪种触发能跨任务迁移。EventVLA 靶 235B 标注、KEMO 逐任务手调窗口（w 10–40、冷却 8–60）、UniMem 训分类器——没有对照实验（研究机会 #2）。</p>
+    </div>
+  </div>
+  <div class="foot"><span>洞见 1 · insights/OPEN_PROBLEMS.md #2</span><span>18 / 32</span></div>
+</section>
+
+<!-- 19 theme: bits -->
+<section class="slide">
+  <div class="kicker">Theme 2 · raw frames or latent</div>
+  <h1>原图还是 latent？<span class="c">取决于下游要恢复多少比特</span>：EventVLA 的 24.9 与 TRACE 的 69.23 不矛盾</h1>
+  <div class="body grid3">
+    <div class="card"><h3>高熵：多个视觉细节</h3><p>EventVLA 的任务要同时记 3–5 个物体的颜色、位置、顺序。把关键帧压成一个 latent 向量：<b class="r">24.9</b>；保留原图：<b class="c">75.2</b>。UniMem 的密集空间记忆、NativeMEM 的逐帧 token 同属此类。</p></div>
+    <div class="card g"><h3>低熵：一两个比特的分支变量</h3><p>TRACE 的任务只需记"来自哪一侧""是哪本书"。512 维槽足够：<b class="g">69.23</b>。TFP 的进度信念、RB-VLA 的紧凑信念（32.5 → 77.5）、μVLA 的 m 个记忆 token（0.42 → 0.84）都在这一档。</p></div>
+    <div class="card v"><h3>离散：计数与过程</h3><p>"按 3 次""跳过已完成子任务"目前符号状态最稳：AGM 的进度指针（PickXTimes 100）、Notes-to-Self 的草稿板、HyMeS 的代码记忆；FM-VLA 用力历史记计数（80%+）是端到端的例外。</p></div>
+  </div>
+  <div class="callout"><p><strong>可操作的版本</strong>：先估计下游决策要从过去恢复多少信息，再选表征。RoboMME 的结论"记忆表征效果高度依赖任务"在这里有了机制解释。</p></div>
+  <div class="foot"><span>洞见 3</span><span>19 / 32</span></div>
+</section>
+
+<!-- 20 theme: addressing -->
+<section class="slide">
+  <div class="kicker">Theme 3 · addressing</div>
+  <h1>寻址是被低估的一轴：<span class="g">写入时刻和读取时刻之间需要一个稳定的对应</span></h1>
+  <div class="body grid2">
+    <div class="card">
+      <table class="dense">
+        <tr><th>寻址方式</th><th>代表</th><th>对应关系来自</th><th>失效条件</th></tr>
+        <tr><td>时间（拼接）</td><td>帧堆叠、EventVLA</td><td>顺序位置，注意力自找</td><td>历史长时虚假相关</td></tr>
+        <tr><td>内容相似</td><td>MemoryVLA、HALO</td><td>当前观测像什么</td><td>分岔点画面相同 ⇒ 检索不出分支</td></tr>
+        <tr><td><b class="g">执行轨迹</b></td><td><b class="g">TRACE</b></td><td>走过的路（签名，保序 ~90 / 倒序 37.8）</td><td>分支不对应运动差异</td></tr>
+        <tr><td>任务进度</td><td>Keyframe-Chaining、AGM</td><td>做到第几步</td><td>进度估计本身出错</td></tr>
+        <tr><td>LRU / 槽身份</td><td>ELMUR、MANN</td><td>最近使用 / 固定槽</td><td>容量与更新策略</td></tr>
+      </table>
+    </div>
+    <div class="card g">
+      <h3>TRACE 的边界</h3>
+      <ul class="tight">
+        <li>五个任务的来源都对应不同空间位置——舒适区；同轨迹、异线索（只差颜色）时签名地址重合（研究机会 #3）</li>
+        <li>签名维度随状态维度立方增长：17 维 → 5219，深度 4 → 88,740；高维人形需 log-signature（1785 维）或学习的低维键（#4）</li>
+        <li>"只有签名"也能到 45.50：轨迹形状本身带一部分分支信息</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>洞见 4 · insights/OPEN_PROBLEMS.md #3–4</span><span>20 / 32</span></div>
+</section>
+
+<!-- 21 theme: dual vs e2e -->
+<section class="slide">
+  <div class="kicker">Theme 4 · dual-system vs end-to-end</div>
+  <h1>分界线正在从"哪个更好"变成<span class="v">"哪类信息该放在哪一层"</span></h1>
+  <div class="body grid2">
+    <div class="card v">
+      <h3>双系统在计数与过程记忆上领先</h3>
+      <ul class="tight">
+        <li>RoboMME：PonderPounce 60.83（MLLM 原生上下文当记忆，p50 78 ms 刷新 / 25 ms 动作）；AGM Counting 55.96、PickXTimes 100</li>
+        <li>RoboMemArena：HyMeS 41.3 → 60.1；BATON 把子任务当探索单位，成本 T<sup>K</sup> → T·K</li>
+        <li>MemER 的 Counting：错舀 1 次 vs 32 帧长历史 12 次；但加文本模态反而更差（13）</li>
+        <li>MEM：视频短时 + 文本长时，15 分钟级任务，上下文自适应 +11 / +62 点</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>端到端的反驳与共同原则</h3>
+      <ul class="tight">
+        <li>EventVLA：双系统延迟高、误差沿层级传播；MemER 在 RoboTwin-MeM 10.5、Mem-0 0.0</li>
+        <li>RoboMME 测得 MemER 计算量约 π₀.₅ 的 5×；API 模型在线部署因 10–15 s 延迟全部失败（MemER 附录）</li>
+        <li><b class="c">共同原则</b>：记忆写入应是带验证的事务——AGM 验证后推进（核实写入 100 vs 按尝试写入 32）、BATON 验证器、EventVLA NMS + 冷却、TRACE 门控写入</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout a"><p>开放问题：符号状态的优势是<strong>表征性的</strong>还是只是<strong>验证机制</strong>带来的？在 RoboMME Counting 上对照 AGM、EventVLA、FM-VLA、WeaveLA 可以回答（研究机会 #12）。</p></div>
+  <div class="foot"><span>洞见 6–7</span><span>21 / 32</span></div>
+</section>
+
+<!-- 22 theme: cost -->
+<section class="slide">
+  <div class="kicker">Theme 5 · cost</div>
+  <h1>记忆的成本正在趋近于零：<span class="c">"几乎免费"已是可达到的工程目标</span></h1>
+  <div class="body grid2">
+    <div class="card">
+      <table class="dense">
+        <tr><th>方法</th><th>做法</th><th>开销</th></tr>
+        <tr><td><b class="r">EventVLA</b></td><td>多帧原图进视觉编码器</td><td><b class="r">2.91 → 0.94 Hz</b>（仅锚帧已 1.07）</td></tr>
+        <tr><td>MemER</td><td>高层 VLM 在线推理</td><td>约 π₀.₅ 的 5×（RoboMME 测）</td></tr>
+        <tr><td><b class="g">TRACE</b></td><td>签名 + 槽更新 + 读出</td><td>+2.11 ms/步</td></tr>
+        <tr><td>UniMem</td><td>关键帧缓存</td><td>四路相机 16 帧仅 +25 ms</td></tr>
+        <tr><td>MemoryVLA</td><td>记忆库检索</td><td>+3.6%（0.187 → 0.194 s）</td></tr>
+        <tr><td>NativeMEM</td><td>VLA 自己的视觉编码器压每帧每视角为 1 token</td><td>近乎零</td></tr>
+        <tr><td>TempoFit</td><td>免训练，复用中间层前缀 K/V</td><td>零新增 token / 参数</td></tr>
+        <tr><td>StreamPI / DySta</td><td>零参数流式注意力 / 静态 token KV 复用</td><td>DySta 2× 加速且涨点</td></tr>
+      </table>
+    </div>
+    <div class="card a">
+      <h3>含义</h3>
+      <ul class="tight amber">
+        <li>EventVLA 的 3× 延迟会成为后继者首先优化的对象：把事件帧经 NativeMEM 式 tokenizer 压成 1 token 是最直接的组合</li>
+        <li>免训练记忆没有在瞬态证据基准（RoboTwin-MeM）上测过；若 n=1 持平、n=4 崩塌，就给出"何时必须学习写入"的边界（研究机会 #13）</li>
+        <li>成本表里没有 SAI：它的成本在数据侧（干预 ≈ 30%）而非推理侧</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>洞见 8</span><span>22 / 32</span></div>
+</section>
+
+<!-- 23 theme: multi-robot -->
+<section class="slide">
+  <div class="kicker">Theme 6 · multi-robot</div>
+  <h1>多机器人是同一个问题的另一张脸：<span class="a">搭档相位是从历史推断的隐变量</span>，却没有显式记忆</h1>
+  <div class="body grid2">
+    <div class="card a">
+      <h3>现有工作几乎都在解数据采集</h3>
+      <table class="dense">
+        <tr><th>工作</th><th>解什么</th><th>与记忆的关系</th></tr>
+        <tr><td><b class="a">SAI</b></td><td>单遥操作者的三阶段课程</td><td>30 步 GRU 历史，提前松手 64.5 → 16.1</td></tr>
+        <tr><td>HATS</td><td>单人 + MLLM 智能体控四臂</td><td>—</td></tr>
+        <tr><td>Duet</td><td>人-人演示预训练 + 少量双机器人微调（加速 5.4×）</td><td>—</td></tr>
+        <tr><td>Tri-Manual</td><td>三臂演示离线重排时序</td><td>—</td></tr>
+        <tr><td>AutoIntervene</td><td>何时把控制交还操作者</td><td>视觉-动作支持记忆；30.9 → 80.0%</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>与 TRACE 的同构，以及一个具体实验</h3>
+      <p>把"早期线索"换成"对方刚才做了什么"，SAI 的设定就是 TRACE 的延迟证据设定。SAI 的历史只有约 1 秒，记不住 B 两分钟前做过什么。</p>
+      <p style="margin-top:8px"><b class="c">MVE</b>：在 Tablecloth 受控延迟实验上，把 A 的 GRU 换成签名槽记忆（键 = A 自己的轨迹，内容 = 对 B 的观测），把 B 的暂停从 2 秒拉到 30 秒，报告 Yield/Wait 随延迟时长的曲线（研究机会 #14）。</p>
+      <p style="margin-top:8px">AutoIntervene 已经把 SAI 阶段三"何时干预"自动化（切换指标 1.00 vs LazyDAgger 0.00 / RND-DAgger 0.90 误触发），下一步是同时纠正两台机器人。</p>
+    </div>
+  </div>
+  <div class="foot"><span>洞见 9 · SAI / AutoIntervene / HATS / Duet 笔记</span><span>23 / 32</span></div>
+</section>
+
+<!-- 24 trends -->
+<section class="slide">
+  <div class="kicker">Trends</div>
+  <h1>六大趋势：<span class="c">触发、表征、寻址、路线、成本、评测</span></h1>
+  <div class="body grid3">
+    <div class="card"><h3>1 · 从"存多少"到"何时写"</h3><p>2025 比窗口长度与压缩，2026 年中集体转向事件触发；写入触发成为一等设计变量。</p></div>
+    <div class="card"><h3>2 · 表征按信息量分层</h3><p>原图（多比特细节）、槽 / 信念（分支变量）、符号（计数与过程）三档并存，不再有"一种记忆通吃"。</p></div>
+    <div class="card g"><h3>3 · 寻址进入设计空间</h3><p>时间、内容之外出现轨迹（TRACE）与进度（Keyframe-Chaining、AGM）寻址；诊断方法随之出现。</p></div>
+    <div class="card v"><h3>4 · 双系统与端到端分层共存</h3><p>符号状态管计数与过程，端到端事件记忆管瞬态视觉证据；PonderPounce 在缩小双系统的延迟劣势。</p></div>
+    <div class="card a"><h3>5 · 成本归零</h3><p>免训练（TempoFit）、零参数（StreamPI）、单 token（NativeMEM）三条路径合流。</p></div>
+    <div class="card r"><h3>6 · 评测分裂、诊断成熟</h3><p>一年 12 套基准；顺序反转负对照、探针 + 因果干预、隐状态干预成为新的报告项。</p></div>
+  </div>
+  <div class="foot"><span>reports/04_trends_insights_cn.md §1–4</span><span>24 / 32</span></div>
+</section>
+
+<!-- 25 insights 1-5 -->
+<section class="slide">
+  <div class="kicker">Insights 1–5</div>
+  <h1>洞见 1–5：<span class="c">触发、机理、比特、寻址、长上下文</span></h1>
+  <div class="body">
+    <ol class="steps">
+      <li><strong>前沿从"存多少"转到"何时写"</strong>——EventVLA / KEMO / UniMem / WeaveLA / MemoryWAM / TFP 从不同架构同时转向事件驱动稀疏写入；TFP 测得事件附近写入增益 ≈ 6×。</li>
+      <li><strong>机理（Present but Not Remembered）</strong>——冻结 VLA 里的历史是当前帧的冗余副本（A₄ ≈ 0），只在全黑遮挡下才被因果使用 ⇒ 记忆增强应注入过去独有的信息。</li>
+      <li><strong>原图 vs latent 取决于要恢复多少比特</strong>——EventVLA 24.9 vs 75.2（3–5 个视觉细节）与 TRACE 69.23（1–2 比特分支变量）并不矛盾；计数用符号。</li>
+      <li><strong>寻址被低估</strong>——TRACE 让写入时刻与读取时刻有稳定对应（保序 ~90，倒序 37.8）；分支若不对应运动差异则退化。</li>
+      <li><strong>长上下文没那么脆，但虚假相关是真的</strong>——Agarwal 等的系统扫描 vs PTP / GMP（+30.1）/ HALO：能否用长窗口取决于监督是否把注意力引向任务相关历史。</li>
+    </ol>
+  </div>
+  <div class="foot"><span>reports/04_trends_insights_cn.md §4</span><span>25 / 32</span></div>
+</section>
+
+<!-- 26 insights 6-10 -->
+<section class="slide">
+  <div class="kicker">Insights 6–10</div>
+  <h1>洞见 6–10：<span class="c">纪律、分层、成本、多机器人、评测</span></h1>
+  <div class="body">
+    <ol class="steps" start="6">
+      <li><strong>可靠性来自有纪律的状态更新，不是容量</strong>——AGM 核实后写入 100 vs 按尝试写入 32（PickXTimes）；EventVLA NMS + 冷却、TRACE 门控写入、BATON 验证器是同一原则：记忆写入应是带验证的事务。</li>
+      <li><strong>双系统在计数与过程记忆上仍领先</strong>——RoboMME / RoboMemArena 榜首都是高层管状态的方案；分界线变成"哪类信息放哪一层"。</li>
+      <li><strong>记忆成本趋近于零</strong>——NativeMEM 每帧 1 token、TempoFit 免训练、StreamPI 零参数、DySta 2× 加速；EventVLA 的 3× 延迟会被后继者先优化。</li>
+      <li><strong>多机器人是同一问题的另一张脸</strong>——搭档相位 = 从历史推断的隐变量；SAI 只有 30 步 GRU，无人把显式记忆用于搭档状态估计。</li>
+      <li><strong>评测在分裂，诊断在成熟</strong>——一年 12 套基准，同一方法（MemoryVLA）在 RoboMME 附录 &lt; 10%、RoboMemArena TSR 15.0、自报 SimplerEnv 71.9；并排任何数字前先查口径账本。</li>
+    </ol>
+  </div>
+  <div class="foot"><span>reports/04_trends_insights_cn.md §4</span><span>26 / 32</span></div>
+</section>
+
+<!-- 27 predictions -->
+<section class="slide">
+  <div class="kicker">Predictions</div>
+  <h1>六条可证伪的预测：<span class="a">把判断写成可以被打脸的形式</span></h1>
+  <div class="body">
+    <table class="dense">
+      <tr><th>#</th><th>预测</th><th>怎么证伪（截止 2027-09）</th></tr>
+      <tr><td>P1</td><td>至少一个主流开源 VLA 基座（π 系 / GR00T / OpenVLA 后继）在默认配置里内置<strong>事件触发的稀疏记忆写入</strong>，而非固定间隔帧堆叠。</td><td>查发布配置与默认推理管线。</td></tr>
+      <tr><td>P2</td><td>RoboMME / RoboMemArena 的 Counting 与过程类子集上，<strong>端到端</strong>记忆方法追平双系统榜首（差距 &lt; 5 点）。</td><td>若仍差 &gt; 10 点，则符号状态优势是表征性的，而非验证机制带来的。</td></tr>
+      <tr><td>P3</td><td>EventVLA 类"存原图"方法的后继版本把推理开销压到基座 1.3× 以内（与 NativeMEM / TempoFit 技术合流）。</td><td>查后继论文的吞吐表；仍 &gt; 2× 则原图记忆将被 token 化记忆取代。</td></tr>
+      <tr><td>P4</td><td>至少一篇工作把 TRACE 式诊断（<strong>顺序反转负对照</strong>）用于审计非自家的记忆方法。</td><td>若没有，诊断只是各论文的装饰。</td></tr>
+      <tr><td>P5</td><td>多机器人协作出现显式的<strong>搭档状态记忆模块</strong>，并报告 Yield/Wait 随受控延迟时长的曲线。</td><td>查 SAI / Duet / HATS 后继工作的实验设计。</td></tr>
+      <tr><td>P6</td><td>至少两套记忆基准采用<strong>统一报告模板</strong>（RoboMME 四类 × 中间事件数 n × 指标类型 × 试验数）。</td><td>查基准论文的结果表头。</td></tr>
+    </table>
+    <p class="src">预测的价值在于能被打脸；一年后回来逐条对账。</p>
+  </div>
+  <div class="foot"><span>reports/04_trends_insights_cn.md §5 · insights/OPEN_PROBLEMS.md</span><span>27 / 32</span></div>
+</section>
+
+<!-- 28 gaps -->
+<section class="slide">
+  <div class="kicker">Research opportunities</div>
+  <h1>十四个没人占的位置，<span class="c">每条配最小可行实验</span>——只做一件事就做第 1 条</h1>
+  <div class="body grid2">
+    <div class="card">
+      <h3>A · 写入与寻址</h3>
+      <ul class="tight">
+        <li><b class="c">#1 前瞻写入 × 轨迹寻址</b>：KEM 门控 TRACE 的写入，在 Book / Laundry 上测 2×/4× 历史一致性</li>
+        <li>#2 写入触发的跨任务迁移：学习 / 规则 / 分类器同骨干对照，报告触发精确率与召回率</li>
+        <li>#3 轨迹地址的可区分性边界：同轨迹、异线索任务</li>
+        <li>#4 高维状态下的签名：log-signature vs 学习的低维键</li>
+      </ul>
+      <h3 style="margin-top:10px">B · 容量、纪律与安全</h3>
+      <ul class="tight">
+        <li>#5 缓冲区饱和后的分层（n = 8、12 的按钮任务）</li>
+        <li>#6 把"验证后才推进"搬进端到端记忆（回读撤销）</li>
+        <li>#7 错误记忆的恢复：注入随机历史帧测容忍度</li>
+        <li>#8 预测窗口与执行窗口解耦（50 / 10）</li>
+      </ul>
+    </div>
+    <div class="card a">
+      <h3>C · 评测与诊断</h3>
+      <ul class="tight amber">
+        <li>#9 标准化记忆诊断：RoboMME 四类各配保序 / 破序变换</li>
+        <li>#10 跨基准统一报告模板（账本雏形已在仓库）</li>
+        <li>#11 RMBench 到底测了什么：只加初始帧 / 只加近 2 帧退化基线</li>
+      </ul>
+      <h3 style="margin-top:10px">D · 路线与成本</h3>
+      <ul class="tight amber">
+        <li>#12 计数能否端到端：AGM vs EventVLA vs FM-VLA vs WeaveLA</li>
+        <li>#13 免训练记忆的失效边界：TempoFit / StreamPI 上 RoboTwin-MeM</li>
+      </ul>
+      <h3 style="margin-top:10px">E · 多机器人</h3>
+      <ul class="tight amber">
+        <li>#14 搭档相位的显式记忆：SAI × TRACE，延迟 2 → 30 秒曲线</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>insights/OPEN_PROBLEMS.md：每条含"为什么重要 / MVE / 相关解读"</span><span>28 / 32</span></div>
+</section>
+
+<!-- 29 numbers ledger -->
+<section class="slide">
+  <div class="kicker">Numbers ledger</div>
+  <h1>并排任何两个数字之前先查这张表：<span class="a">67.8 与 73.6 不在同一个任务集上</span></h1>
+  <div class="body grid2">
+    <div class="card">
+      <table class="dense">
+        <tr><th>数字</th><th>它其实是</th></tr>
+        <tr><td>EventVLA <b>67.8</b></td><td>RMBench <strong>9 任务</strong>，仅锚帧，每任务 100 次</td></tr>
+        <tr><td>Chronos <b>73.6</b></td><td>RMBench <strong>7 任务</strong>子集（其表中 Mem-0 为 50.8，非 42.0）</td></tr>
+        <tr><td>TRACE <b>69.23</b></td><td><strong>阶段进度 %</strong>，非成功率；25 次/任务，Tool SE ± 17.96</td></tr>
+        <tr><td>MemER <b>1</b></td><td>Counting 任务的<strong>错舀次数</strong>（越低越好），20 trials</td></tr>
+        <tr><td>SAI <b>68.3</b>（Yield/Wait）</td><td>分母是<strong>事件数</strong>（60 个让步机会），不是独立试验</td></tr>
+        <tr><td>HyMeS <b>60.1</b></td><td>RoboMemArena <strong>12 任务修正协议</strong>，160 回合；PrediMem 的 38.5 是 26 任务</td></tr>
+        <tr><td>MEM 主结果</td><td>只有<strong>柱状图</strong>，未给精确数值；EventVLA 里的 π_MEM 是复现</td></tr>
+      </table>
+    </div>
+    <div class="card a">
+      <h3>四个最常踩的坑</h3>
+      <ol class="steps">
+        <li><strong>任务集不同</strong>：RMBench 9 vs 7 任务；RoboMemArena 26 vs 12。</li>
+        <li><strong>指标类型不同</strong>：成功率 / 阶段进度 / 错误次数 / TSR 与 CSR。</li>
+        <li><strong>基线是谁跑的</strong>：MemoryVLA 在 EventVLA 表里 41.7（作者复现）、KEMO 表里 1.4%（单相机换骨干）、RoboMME 附录 &lt; 10%、RoboMemArena 15.0（基准方实现）、自报 SimplerEnv 71.9——同一方法五个数字，五种口径。</li>
+        <li><strong>图内数字与文字数字</strong>：只在图里的数字标"图"，引用时不补数。</li>
+      </ol>
+    </div>
+  </div>
+  <div class="foot"><span>insights/NUMBERS_LEDGER.md：28 条，每条标任务集 / 指标类型 / 试验规模 / 独立性 / 口径提醒</span><span>29 / 32</span></div>
+</section>
+
+<!-- 30 method lessons -->
+<section class="slide">
+  <div class="kicker">Method lessons</div>
+  <h1>三篇论文教给我们的<span class="c">三件事</span>：单变量对照、报告代价、用诊断代替猜测</h1>
+  <div class="body grid3">
+    <div class="card"><h3>把一个默认做法拆开单独测</h3><p>EventVLA 只换记忆表征（原图 vs latent：75.2 vs 24.9）；TRACE 只换寻址（有无签名路由：69.23 vs 52.17）；SAI 只换数据课程（架构固定：独立 vs 搭档条件 vs SAI）。说服力来自单变量对照。</p></div>
+    <div class="card g"><h3>报告代价</h3><p>EventVLA 报延迟（0.94 Hz），TRACE 报每步毫秒与参数增量（+24.6% / +10.3%），SAI 报干预数据占比（30%）。读者能判断收益是否值得。</p></div>
+    <div class="card a"><h3>用诊断替代猜测</h3><p>TRACE 的顺序反转负对照把"记忆在用历史"从假设变成可测量；Liao &amp; Cao 的探针 + 因果干预回答"历史是不是当前帧的副本"；AGM 的表 10（核实写入 100 vs 按尝试写入 32）把"纪律"量化。</p></div>
+  </div>
+  <div class="callout"><p>三句话带走：<strong>记忆的四问比"要不要记忆"重要</strong>（记什么 / 何时写 / 写到哪 / 存多少）；<strong>表征跟信息量走</strong>；<strong>用诊断代替猜测</strong>。</p></div>
+  <div class="foot"><span>三篇深读的 §5 判读</span><span>30 / 32</span></div>
+</section>
+
+<!-- 31 repo -->
+<section class="slide">
+  <div class="kicker">Repository</div>
+  <h1>本调研仓库：<span class="c">103 项工作 · 17 篇原文 + 中译 · 17 份全文深读 · 十个家族</span></h1>
+  <div class="body grid2">
+    <div class="card">
+      <table class="dense">
+        <tr><th>想要</th><th>打开</th></tr>
+        <tr><td>15 分钟拿到全部结论</td><td><code>report/survey_slides.html</code> · <code>.pdf</code>（本 PPT）</td></tr>
+        <tr><td>系统研读</td><td><code>report/survey_full_report.pdf</code>（趋势 + 三篇深读 + 矩阵 + 103 篇解读按家族合订）</td></tr>
+        <tr><td>三篇主角的深读（中/英）</td><td><code>reports/01–03_*_{cn,en}.md</code> + <code>reports/pdf/</code></td></tr>
+        <tr><td>趋势与洞见（中/英）</td><td><code>reports/04_trends_insights_{cn,en}.md</code></td></tr>
+        <tr><td>研究机会 / 口径账本 / 设计矩阵</td><td><code>insights/OPEN_PROBLEMS.md</code> · <code>NUMBERS_LEDGER.md</code> · <code>DESIGN_SPACE_MATRIX.md</code></td></tr>
+        <tr><td>原文与中译</td><td><code>papers/pdf/</code> · <code>papers/zh/</code>（QA 见 <code>QA_REPORT.md</code>）</td></tr>
+        <tr><td>全部解读</td><td><code>notes/</code>（14 篇全文手写 + 89 篇摘要笔记）</td></tr>
+      </table>
+    </div>
+    <div class="card a">
+      <h3>复现</h3>
+      <p><code>build_manifest.py</code> → <code>make_notes.py</code> → <code>make_bib.py</code> → <code>make_readme.py</code> → <code>make_figures.py</code> → <code>build_pdfs.py</code></p>
+      <p style="margin-top:6px">翻译：<code>translate_core.sh &lt;KEY&gt;</code>（SuperTranslate + DeepSeek）；<code>launch_detached.py</code> 批量；<code>apply_zh_patches.py</code> 版式补丁；<code>make_zh_qa.py</code> QA 汇总</p>
+      <h3 style="margin-top:12px">工具致谢</h3>
+      <p>super_translate（翻译）· ppt-master（PPT 叙事模式参考）· anti-defensive-writing / shuorenhua（写作约束）· beamer-skill（Beamer 讲稿版 <code>slides/</code>）· 列表规范参考 awesome-ml4co</p>
+    </div>
+  </div>
+  <div class="foot"><span>github.com/asimfish/awesome_memory_vla</span><span>31 / 32</span></div>
+</section>
+
+<!-- 32 end -->
+<section class="slide title-slide">
+  <div class="kicker">Thank you</div>
+  <h1>证据消失之后，策略靠什么行动</h1>
+  <p class="sub">EventVLA (2606.20092) · TRACE (2606.14551) · SAI (2606.16490)<br>Present but Not Remembered (2607.03372) · RoboMME (2603.04639) · AGM (2608.29537) · Chronos (2606.30318) · KEMO (2606.23589)</p>
+  <p class="src" style="margin-top:20px;font-size:12.5px">所有数字只取自原文；不同论文的数字建立在各自的任务集与判定口径上，不可直接比大小。</p>
+  <div class="foot"><span>awesome_memory_vla · maintained by asimfish · 2026-09</span><span>32 / 32</span></div>
+</section>
+
+</div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+function show(k){slides[i].classList.remove('active');i=(k+slides.length)%slides.length;slides[i].classList.add('active');
+  document.getElementById('pageno').textContent=(i+1)+' / '+slides.length;document.getElementById('progress').style.width=((i+1)/slides.length*100)+'%';location.hash='p'+(i+1);}
+document.addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();show(i+1)}
+  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(i-1)}else if(e.key==='Home'){show(0)}else if(e.key==='End'){show(slides.length-1)}
+  else if(e.key.toLowerCase()==='f'){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()}else if(e.key.toLowerCase()==='p'){window.print()}});
+document.getElementById('deck').addEventListener('click',e=>{if(e.target.closest('a,button'))return;show(e.clientX>window.innerWidth/2?i+1:i-1)});
+const m=location.hash.match(/^#p(\d+)$/);show(m?Math.min(slides.length-1,Math.max(0,+m[1]-1)):0);
+</script>
+</body>
+</html>

@@ -1,24 +1,64 @@
 {
  "cn": {
-  "title": "记忆 VLA：从 EventVLA、TRACE、SAI 到 103 篇文献的全景 —— awesome_memory_vla 汇总报告",
-  "subtitle": "三篇核心论文深读 · 十个洞见 · 设计空间矩阵 · 分类文献清单",
+  "title": "记忆 VLA 全景调研：从 EventVLA、TRACE、SAI 到 103 篇文献 —— awesome_memory_vla 全文报告",
+  "subtitle": "总览图 · 趋势与洞见 · 三篇核心论文深读 · 设计空间矩阵 · 研究机会清单 · 数字口径账本 · 103 篇解读按家族合订",
   "preface": "> 本报告由 `scripts/build_pdfs.py` 从仓库内的趋势报告、三份深读报告、设计空间矩阵与 103 篇论文笔记自动合订。各章的权威版本仍是仓库中的对应 Markdown 文件。所有数字只取自原文或摘要；不同论文的数字建立在各自的任务集与判定口径上，不可直接比大小。",
   "toc_title": "目录",
-  "toc": ["1. 趋势与洞见：读完三篇核心论文和 97 篇周边工作之后", "2. EventVLA 深读", "3. TRACE 深读", "4. SAI 深读", "5. 设计空间矩阵", "6. 分类文献清单（103 篇，每篇一句话定位）", "附录：交付物索引与复现"],
-  "ch": ["趋势与洞见", "EventVLA 深读", "TRACE 深读", "SAI 深读", "设计空间矩阵", "分类文献清单"],
+  "toc": [
+   "0. 总览图：时间线与分类树",
+   "1. 趋势与洞见：读完三篇核心论文和 97 篇周边工作之后",
+   "2. EventVLA 深读",
+   "3. TRACE 深读",
+   "4. SAI 深读",
+   "5. 设计空间矩阵",
+   "6. 研究机会清单（14 条，每条配最小可行实验）",
+   "7. 数字口径账本（28 条）",
+   "8. 分类文献解读（103 篇按十个家族合订：14 篇邻居为全文手写笔记，其余为一句话定位 + 摘要）",
+   "附录：交付物索引与复现"
+  ],
+  "ch": [
+   "趋势与洞见",
+   "EventVLA 深读",
+   "TRACE 深读",
+   "SAI 深读",
+   "设计空间矩阵",
+   "分类文献解读",
+   "总览图",
+   "研究机会清单",
+   "数字口径账本"
+  ],
   "list_intro": "分组与 README 一致。每组先给一段定位，再逐篇列出标题、作者、arXiv 编号与一句话定位（定位只依据原文或摘要）。",
   "appendix_title": "附录：交付物索引与复现",
-  "appendix": "| 交付物 | 路径 |\n|---|---|\n| 三篇核心论文英文 PDF | `papers/pdf/` |\n| 保版式中文翻译 PDF | `papers/zh/` |\n| 深读报告（中/英，md + pdf） | `reports/`、`reports/pdf/` |\n| 趋势与洞见（中/英） | `reports/04_trends_insights_{cn,en}.md` |\n| 设计空间矩阵 | `insights/DESIGN_SPACE_MATRIX.md` |\n| 103 篇论文笔记 | `notes/` |\n| 汇总报告（本文件） | `report/awesome_memory_vla_report_{cn,en}.{html,pdf}` |\n| 幻灯片 | `slides/awesome_memory_vla_deck.html`、`slides/awesome_memory_vla_deck.pdf` |\n| BibTeX | `awesome_memory_vla.bib` |\n\n**复现**：`python3 scripts/build_manifest.py && python3 scripts/make_notes.py && python3 scripts/make_bib.py && python3 scripts/make_readme.py && python3 scripts/build_pdfs.py`。翻译：`bash scripts/translate_core.sh <KEY>`（DeepSeek）或 `bash scripts/translate_fallback_google.sh`（免 key）。"
+  "appendix": "| 交付物 | 路径 |\n|---|---|\n| 三篇核心论文英文 PDF | `papers/pdf/` |\n| 保版式中文翻译 PDF | `papers/zh/` |\n| 深读报告（中/英，md + pdf） | `reports/`、`reports/pdf/` |\n| 趋势与洞见（中/英） | `reports/04_trends_insights_{cn,en}.md` |\n| 设计空间矩阵 | `insights/DESIGN_SPACE_MATRIX.md` |\n| 103 篇论文笔记 | `notes/` |\n| 全文报告（本文件） | `report/survey_full_report.{html,pdf}`（英文版 `survey_full_report_en.*`） |\n| 汇总 PPT | `report/survey_slides.html`、`report/survey_slides.pdf`（32 页）|\n| 研究机会清单 / 数字口径账本 | `insights/OPEN_PROBLEMS.md`、`insights/NUMBERS_LEDGER.md` |\n| Beamer 讲稿版幻灯片 | `slides/awesome_memory_vla_deck.pdf` |\n| BibTeX | `awesome_memory_vla.bib` |\n\n**复现**：`python3 scripts/build_manifest.py && python3 scripts/make_notes.py && python3 scripts/make_bib.py && python3 scripts/make_readme.py && python3 scripts/build_pdfs.py`。翻译：`bash scripts/translate_core.sh <KEY>`（DeepSeek）或 `bash scripts/translate_fallback_google.sh`（免 key）。",
+  "list_intro_full": "分组与 README 一致，每组先给一段定位。三篇核心论文的完整解读见第 2–4 章，这里只保留元数据与一句话定位；14 篇邻居论文为基于全文的手写笔记（一句话定位 / 解决什么问题 / 方法 / 关键数字 / 局限与注意 / 与核心论文的关系 / 关联阅读）；其余 86 篇为一句话定位与原文摘要。"
  },
  "en": {
-  "title": "Memory for VLA Policies: from EventVLA, TRACE and SAI to a 103-paper landscape — the awesome_memory_vla consolidated report",
+  "title": "Memory for VLA Policies: from EventVLA, TRACE and SAI to a 103-paper landscape — the awesome_memory_vla full report (English edition)",
   "subtitle": "Three deep dives · ten insights · design-space matrix · annotated paper list",
   "preface": "> This report is assembled by `scripts/build_pdfs.py` from the trends report, the three deep dives, the design-space matrix and the 103 paper notes in the repository. The authoritative version of each chapter is the corresponding Markdown file. Every number is taken from the original paper or abstract; numbers from different papers rest on different task suites and scoring rules and cannot be compared directly.",
   "toc_title": "Contents",
-  "toc": ["1. Trends and insights after three core papers and 97 surrounding works", "2. EventVLA deep dive", "3. TRACE deep dive", "4. SAI deep dive", "5. Design-space matrix (Chinese table; the six-question summary is in Chapter 1, Section 2)", "6. Annotated paper list (103 papers)", "Appendix: deliverables and reproduction"],
-  "ch": ["Trends and Insights", "EventVLA Deep Dive", "TRACE Deep Dive", "SAI Deep Dive", "Design-Space Matrix", "Annotated Paper List"],
+  "toc": [
+   "1. Trends and insights after three core papers and 97 surrounding works",
+   "2. EventVLA deep dive",
+   "3. TRACE deep dive",
+   "4. SAI deep dive",
+   "5. Design-space matrix (Chinese table; the six-question summary is in Chapter 1, Section 2)",
+   "6. Annotated paper list (103 papers)",
+   "Appendix: deliverables and reproduction"
+  ],
+  "ch": [
+   "Trends and Insights",
+   "EventVLA Deep Dive",
+   "TRACE Deep Dive",
+   "SAI Deep Dive",
+   "Design-Space Matrix",
+   "Annotated Paper List",
+   "Overview Figures",
+   "Open Problems",
+   "Numbers Ledger"
+  ],
   "list_intro": "Groups follow the README. Each group opens with a positioning paragraph, followed by title, authors, arXiv id and the first sentences of the abstract for every paper.",
   "appendix_title": "Appendix: deliverables and reproduction",
-  "appendix": "| Deliverable | Path |\n|---|---|\n| English PDFs of the three core papers | `papers/pdf/` |\n| Layout-preserving Chinese translations | `papers/zh/` |\n| Deep-dive reports (zh/en, md + pdf) | `reports/`, `reports/pdf/` |\n| Trends and insights (zh/en) | `reports/04_trends_insights_{cn,en}.md` |\n| Design-space matrix | `insights/DESIGN_SPACE_MATRIX.md` |\n| 103 paper notes | `notes/` |\n| Consolidated report (this file) | `report/awesome_memory_vla_report_{cn,en}.{html,pdf}` |\n| Slides | `slides/awesome_memory_vla_deck.html`, `slides/awesome_memory_vla_deck.pdf` |\n| BibTeX | `awesome_memory_vla.bib` |\n\n**Reproduce**: `python3 scripts/build_manifest.py && python3 scripts/make_notes.py && python3 scripts/make_bib.py && python3 scripts/make_readme.py && python3 scripts/build_pdfs.py`. Translation: `bash scripts/translate_core.sh <KEY>` (DeepSeek) or `bash scripts/translate_fallback_google.sh` (no key)."
+  "appendix": "| Deliverable | Path |\n|---|---|\n| English PDFs of the three core papers | `papers/pdf/` |\n| Layout-preserving Chinese translations | `papers/zh/` |\n| Deep-dive reports (zh/en, md + pdf) | `reports/`, `reports/pdf/` |\n| Trends and insights (zh/en) | `reports/04_trends_insights_{cn,en}.md` |\n| Design-space matrix | `insights/DESIGN_SPACE_MATRIX.md` |\n| 103 paper notes | `notes/` |\n| Full report (this file) | `report/survey_full_report_en.{html,pdf}` (Chinese edition with all 103 notes bound in: `survey_full_report.*`) |\n| Summary slide deck | `report/survey_slides.html`, `report/survey_slides.pdf` (32 pages, Chinese) |\n| Open problems / numbers ledger | `insights/OPEN_PROBLEMS.md`, `insights/NUMBERS_LEDGER.md` (Chinese) |\n| Beamer lecture deck | `slides/awesome_memory_vla_deck.pdf` |\n| BibTeX | `awesome_memory_vla.bib` |\n\n**Reproduce**: `python3 scripts/build_manifest.py && python3 scripts/make_notes.py && python3 scripts/make_bib.py && python3 scripts/make_readme.py && python3 scripts/build_pdfs.py`. Translation: `bash scripts/translate_core.sh <KEY>` (DeepSeek) or `bash scripts/translate_fallback_google.sh` (no key)."
  }
 }

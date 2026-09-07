@@ -9,22 +9,52 @@ English | [中文](README.md)
 
 We maintain a curated list of resources on **memory for Vision-Language-Action and visuomotor policies** — how a robot policy acts when the evidence it needs is no longer in the current observation: occluded objects, vanished cues, task progress, and the phase of a partly visible partner robot.
 
-![timeline](assets/timeline.svg)
-
 The list is organised around three papers from June 2026 — **EventVLA** (event-driven sparse visual evidence memory), **TRACE** (fixed-slot latent memory addressed by trajectory path signatures) and **SAI** (an asymmetric imitation curriculum for coupled multi-robot policies) — and extends to 100 surrounding works: surveys and analyses, memory benchmarks, event/keyframe memory, dense compressed history, latent/recurrent/slot memory, dual-system and symbolic memory, memory inside world models, multi-robot partner memory, and the necessary background.
+
+*Maintained by [asimfish](https://github.com/asimfish). Contributions welcome — see [Contributing](#contributing).*
+
+## Deliverables
+
+| You want | Open | What it is |
+|---|---|---|
+| **All conclusions in 15 minutes** | [`report/survey_slides.html`](report/survey_slides.html) · [PDF](report/survey_slides.pdf) | 32-page summary deck (Chinese): executive summary → overview figures → three protagonists → evidence chains → six deep themes → trends / insights / predictions / gaps / numbers ledger; ← → to navigate, F for fullscreen |
+| **Systematic reading** | [`report/survey_full_report_en.pdf`](report/survey_full_report_en.pdf) · [中文全本](report/survey_full_report.pdf) | English edition (51 pages): trends + three deep dives + design matrix + annotated list; the Chinese edition (110 pages) also binds in all 103 notes, the open-problems list and the numbers ledger |
+| **Deep dives of the three protagonists** | [EventVLA](reports/01_eventvla_en.md) · [TRACE](reports/02_trace_en.md) · [SAI](reports/03_sai_en.md) | Method breakdown / every key number / assessment / comparison with the other two; PDFs in `reports/pdf/` |
+| **Trends and insights** | [`reports/04_trends_insights_en.md`](reports/04_trends_insights_en.md) · [中文](reports/04_trends_insights_cn.md) | Five families · six-question design space · cross-benchmark evidence · ten insights · seven open problems · four research directions |
+| **Open problems** | [`insights/OPEN_PROBLEMS.md`](insights/OPEN_PROBLEMS.md) | 14 unoccupied positions, each with why it matters + a minimum viable experiment + related notes (Chinese) |
+| **Numbers ledger** | [`insights/NUMBERS_LEDGER.md`](insights/NUMBERS_LEDGER.md) | 28 headline numbers annotated with task set / metric type / trial count / independence / comparability caveats (Chinese) |
+| **Design-space matrix** | [`insights/DESIGN_SPACE_MATRIX.md`](insights/DESIGN_SPACE_MATRIX.md) | 40 methods × what / when / addressing / capacity / integration point / supervision |
+| **Overview figures** | [Fig. 1 timeline](assets/fig1_timeline.svg) · [Fig. 2 taxonomy](assets/fig2_taxonomy.svg) | Vector SVG from `scripts/make_figures.py`; dark variants in `assets/*_dark.svg` |
+| **Papers and translations** | [`papers/pdf/`](papers/pdf/) · [`papers/zh/`](papers/zh/) | 17 English PDFs · 17 layout-preserving Chinese translations ([SuperTranslate](https://github.com/asimfish/super_translate) + DeepSeek), per-page QA in [QA_REPORT](papers/zh/QA_REPORT.md) |
+| **All notes** | [`notes/`](notes/) | 103 notes: 14 nearest neighbours as full-text hand-written deep notes, the rest with one-line positioning + relation to the core papers + abstract |
+| **Beamer lecture deck** | [`slides/awesome_memory_vla_deck.pdf`](slides/awesome_memory_vla_deck.pdf) | 21-page XeLaTeX deck following the beamer-skill rules (16:9, no overlays, references and backup slides) |
+
+> Every success-rate number rests on its own task suite and scoring rule; **numbers from different papers must not be compared directly**. Check the [numbers ledger](insights/NUMBERS_LEDGER.md) first.
+
+## Overview figures
+
+![Figure 1 - Timeline](assets/fig1_timeline.svg)
+
+*Figure 1 · Timeline of 103 works: one lane per family, positioned by arXiv month; ★ marks the three core papers; the orange band is the June-2026 convergence.*
+
+![Figure 2 - Taxonomy](assets/fig2_taxonomy.svg)
+
+*Figure 2 · The design space of memory for VLA policies: ten families and 26 sub-classes, matching sections 1–10 below.*
+
+## Why now
+
+Between June 12 and 18, 2026, two unrelated groups pushed the same problem — the evidence a decision needs is no longer in the current observation — to three different levels. **TRACE** (Zhejiang / Sydney) made memory a plug-in module: fixed slots addressed by path signatures of the robot's trajectory, lifting ACT from 25.5 to 69.2 stage progress on five real delayed-evidence tasks, with route similarity collapsing to 37.8 when the history is reversed. **SAI** (same group) treated the partly visible partner in two-robot collaboration as a data-curriculum problem, raising success from 23–50% to 53–70% while a 30-step history token cut premature release from 64.5% to 16.1%. **EventVLA** (USTC / Shanghai AI Lab) made "when to remember" a prediction head inside the architecture, going from 18.0% to 75.2% on its own RoboTwin-MeM benchmark and showing with a clean ablation that raw-frame memory beats a latent bank (24.9%). In the same month KEMO, UniMem, WeaveLA and MemoryWAM converged from different architectures on event-driven sparse writes, and Present-but-Not-Remembered supplied the mechanism through probing: history inside frozen VLAs is largely a redundant copy of the present. The spring benchmarks RMBench, RoboMME and RoboMemArena were the targets all of this aimed at.
 
 **Features**:
 
 - 📄 **English PDFs of 17 papers** (`papers/pdf/`: the three core papers plus their 14 nearest neighbours) and 🇨🇳 **layout-preserving Chinese translations** (`papers/zh/`, SuperTranslate + DeepSeek; per-page visual QA in [papers/zh/QA_REPORT.md](papers/zh/QA_REPORT.md) and [QA_SUMMARY.md](papers/zh/QA_SUMMARY.md))
 - 📝 **Three bilingual deep-dive reports**: `reports/01_eventvla_{cn,en}.md`, `reports/02_trace_{cn,en}.md`, `reports/03_sai_{cn,en}.md`, with method breakdowns, every key number, assessment and related reading; each also as PDF (`reports/pdf/`)
-- 💡 **Bilingual trends-and-insights report**: `reports/04_trends_insights_{cn,en}.md` — five technical families, a six-question design space, cross-benchmark evidence tables, ten insights, seven open problems and four research directions
+- 💡 **Bilingual trends-and-insights report**: `reports/04_trends_insights_{cn,en}.md` — five technical families, a six-question design space, cross-benchmark evidence tables, ten insights, seven open problems and four research directions; plus an [open-problems list](insights/OPEN_PROBLEMS.md) (14 items, each with a minimum viable experiment) and a [numbers ledger](insights/NUMBERS_LEDGER.md) (28 headline numbers with their protocols), both in Chinese
 - 🧭 **Design-space matrix**: `insights/DESIGN_SPACE_MATRIX.md`, 40 methods compared on what / when / where / how much / integration point / supervision
 - 🗂️ **103 paper notes** (`notes/`): the 14 nearest neighbours (KEMO, UniMem, MemoryVLA, MemER, MEM, RMBench, RoboMME, RoboMemArena, Present-but-Not-Remembered, Chronos, muVLA, AGM, HyMeS, AutoIntervene) have hand-written deep notes from the full text (problem / method / key numbers / limitations / relation to the core papers); the other 89 carry a one-line positioning, relation to the core papers, abstract and links
 - 📚 **BibTeX** (`awesome_memory_vla.bib`)
-- 📊 **Consolidated reports**: bilingual HTML/PDF (`report/`), an HTML slide deck and a Beamer PDF deck (`slides/`)
+- 📊 **Summary deck and full report**: [32-page HTML deck](report/survey_slides.html) ([PDF](report/survey_slides.pdf), Chinese) · [110-page full report](report/survey_full_report.pdf) (overview figures + trends + three deep dives + matrix + open problems + ledger + all 103 notes bound by family; [English edition](report/survey_full_report_en.pdf)) · [Beamer lecture deck](slides/awesome_memory_vla_deck.pdf) (21 pages) · overview figures [Fig. 1 timeline](assets/fig1_timeline.svg) / [Fig. 2 taxonomy](assets/fig2_taxonomy.svg)
 - 🔧 **Reproducible scripts** (`scripts/`): arXiv search, manifest, notes/README/BibTeX generation, translation, PDF rendering
-
-*Maintained by [asimfish](https://github.com/asimfish). Contributions welcome — see [Contributing](#contributing).*
 
 ## [Content](#content)
 
@@ -40,7 +70,7 @@ The list is organised around three papers from June 2026 — **EventVLA** (event
 <tr><td colspan="2"><a href="#9-multi-robot-collaboration-and-partner-memory">9. Multi-Robot Collaboration and Partner Memory</a></td></tr>
 <tr><td colspan="2"><a href="#10-background-memory-mechanisms-and-trajectory-descriptors">10. Background: Memory Mechanisms and Trajectory Descriptors</a></td></tr>
 <tr><td colspan="2"><a href="#11-trends--insights">11. Trends & Insights</a></td></tr>
-<tr><td colspan="2"><a href="#12-deliverables">12. Deliverables</a></td></tr>
+<tr><td colspan="2"><a href="#12-recommended-reading-order">12. Recommended Reading Order</a></td></tr>
 </table>
 
 **Legend**: [paper] arXiv page · [pdf] English PDF in this repo · [zh] layout-preserving Chinese PDF · [report] deep-dive report · [note] paper note (one-line positioning + abstract)
@@ -512,19 +542,14 @@ Full analysis in [reports/04_trends_insights_en.md](reports/04_trends_insights_e
 9. Multi-robot collaboration is the same problem in another guise — partner phase is a latent inferred from history, yet no explicit memory module has been used for partner-state estimation
 10. Evaluation is fragmenting (twelve benchmarks in a year) while diagnostics mature (TRACE's order-reversal control, probing plus causal intervention)
 
-### [12. Deliverables](#content)
+### [12. Recommended Reading Order](#content)
 
-| Deliverable | 中文 | English |
-|---|---|---|
-| EventVLA deep dive | [md](reports/01_eventvla_cn.md) · [pdf](reports/pdf/01_eventvla_cn.pdf) | [md](reports/01_eventvla_en.md) · [pdf](reports/pdf/01_eventvla_en.pdf) |
-| TRACE deep dive | [md](reports/02_trace_cn.md) · [pdf](reports/pdf/02_trace_cn.pdf) | [md](reports/02_trace_en.md) · [pdf](reports/pdf/02_trace_en.pdf) |
-| SAI deep dive | [md](reports/03_sai_cn.md) · [pdf](reports/pdf/03_sai_cn.pdf) | [md](reports/03_sai_en.md) · [pdf](reports/pdf/03_sai_en.pdf) |
-| Trends & insights | [md](reports/04_trends_insights_cn.md) · [pdf](reports/pdf/04_trends_insights_cn.pdf) | [md](reports/04_trends_insights_en.md) · [pdf](reports/pdf/04_trends_insights_en.pdf) |
-| Consolidated report | [html](report/awesome_memory_vla_report_cn.html) · [pdf](report/awesome_memory_vla_report_cn.pdf) | [html](report/awesome_memory_vla_report_en.html) · [pdf](report/awesome_memory_vla_report_en.pdf) |
-| Slides | [HTML deck](slides/awesome_memory_vla_deck.html) · [Beamer PDF](slides/awesome_memory_vla_deck.pdf) | (bilingual deck) |
-| Design-space matrix | [md](insights/DESIGN_SPACE_MATRIX.md) | — |
-| Original and translated PDFs | [papers/pdf/](papers/pdf/) · [papers/zh/](papers/zh/) | |
-| BibTeX | [awesome_memory_vla.bib](awesome_memory_vla.bib) | |
+| Time | Path |
+|---|---|
+| **15 minutes** | [`report/survey_slides.html`](report/survey_slides.html) (32 pages, Chinese) — executive summary → overview figures → protagonists → evidence chains → six themes → trends / insights / predictions / gaps / ledger |
+| **1 hour** | [Trends and insights](reports/04_trends_insights_en.md) §4 → the three deep dives: [EventVLA](reports/01_eventvla_en.md) · [TRACE](reports/02_trace_en.md) · [SAI](reports/03_sai_en.md) |
+| **Half a day** | Add the [design-space matrix](insights/DESIGN_SPACE_MATRIX.md), the [open problems](insights/OPEN_PROBLEMS.md) and [numbers ledger](insights/NUMBERS_LEDGER.md) (Chinese), and the 14 neighbour notes in `notes/` |
+| **Systematic** | [`report/survey_full_report_en.pdf`](report/survey_full_report_en.pdf) (51 pages) or the Chinese full edition (110 pages, all 103 notes bound in); or read README sections 1–10 in order |
 
 ### Reproduce
 
@@ -538,8 +563,13 @@ python3 scripts/fetch_pdfs.py               # download the neighbour PDFs listed
 python3 scripts/launch_detached.py scripts/lane_e.txt   # detached batch translation lanes
 python3 scripts/apply_zh_patches.py && python3 scripts/make_zh_qa.py   # apply layout patches, summarise QA
 bash    scripts/translate_fallback_google.sh            # key-free Google-engine fallback
+python3 scripts/make_figures.py          # fig1 timeline / fig2 taxonomy SVG (+ dark) and PDFs
 python3 scripts/build_pdfs.py            # render reports/pdf/ and report/ HTML/PDF
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --no-pdf-header-footer \
+  --print-to-pdf=report/survey_slides.pdf "file://$PWD/report/survey_slides.html"   # deck PDF
 ```
+
+Tools: [super_translate](https://github.com/asimfish/super_translate) (layout-preserving PDF translation) · [ppt-master](https://github.com/hugohe3/ppt-master) (deck narrative reference) · [beamer-skill](https://github.com/Noi1r/beamer-skill) (Beamer deck rules) · [anti-defensive-writing](https://github.com/Kiterlin/anti-defensive-writing) / [shuorenhua](https://github.com/MrGeDiao/shuorenhua) (writing constraints) · [PaperOrchestra](https://github.com/Ar9av/PaperOrchestra) (LaTeX writing pipeline reference) · list conventions from [awesome-ml4co](https://github.com/Thinklab-SJTU/awesome-ml4co).
 
 ## Contributing
 

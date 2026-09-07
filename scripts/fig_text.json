@@ -1,0 +1,31 @@
+{
+ "fig1_title": "图 1 · 103 项工作的时间线：按十个家族分泳道、按 arXiv 提交年月定位，★ 为三篇核心论文，橙色竖带为 2026-06 汇合月",
+ "fig1_title_en": "Figure 1 · Timeline of 103 works: one lane per family, positioned by arXiv month; ★ = the three core papers; orange band = the June-2026 convergence",
+ "fig2_title": "图 2 · 记忆 VLA 的设计空间：十个家族、二十六个子类——与 README 第 1–10 节一一对应",
+ "fig2_title_en": "Figure 2 · The design space of memory for VLA policies: ten families, twenty-six sub-classes, matching README sections 1–10",
+ "root": "记忆 VLA\nMemory for VLA policies",
+ "lanes": {
+  "core": "核心论文 Core",
+  "survey": "综述与分析 Surveys",
+  "bench": "记忆基准 Benchmarks",
+  "event": "事件/关键帧记忆 Event",
+  "dense": "稠密压缩历史 Dense",
+  "latent": "latent/循环/槽 Latent",
+  "agentic": "双系统/符号 Agentic",
+  "world": "世界模型内记忆 World",
+  "multi": "多机器人搭档 Multi-robot",
+  "background": "背景 Background"
+ },
+ "leaves": {
+  "core": [["架构：前瞻式关键帧写入", "EventVLA"], ["模块：轨迹签名寻址槽", "TRACE"], ["数据：非对称课程", "SAI"]],
+  "survey": [["VLA / WAM 综述", "VLASurvey, WAMSurvey"], ["机理审计：历史 ≈ 当前帧副本", "PresentNotRemembered"], ["长上下文与动作块分析", "LongContextDP, WhyChunking"]],
+  "bench": [["记忆分类基准（时间/空间/物体/过程）", "RoboMME, RoboMemArena"], ["RoboTwin 系：RMBench, RoboTwin-MeM", "RMBench, EventVLA"], ["RL 出身 / 真机长时程", "MIKASA-Robo, LongBench"]],
+  "event": [["学习的写入触发", "EventVLA"], ["规则 / 分类器触发", "KEMO, UniMem"], ["子目标完成触发", "WeaveLA, Keyframe-Chaining"]],
+  "dense": [["记忆库 + 检索", "MemoryVLA, HALO"], ["压缩为少量 token", "ContextVLA, NativeMEM, HAMLET"], ["免训练 / 零参数", "TempoFit, StreamPI, DySta"]],
+  "latent": [["寻址式槽记忆", "TRACE, ELMUR"], ["循环 / SSM 状态", "muVLA, Chronos, MTIL"], ["进度信念 / 动作历史", "TFP, CAMP, RB-VLA"]],
+  "agentic": [["文本 / 草稿板记忆", "MEM, Notes-to-Self"], ["高层选帧 + 低层执行", "MemER, HELM"], ["验证后推进的符号状态", "AGM, HyMeS, BATON"]],
+  "world": [["预测式记忆", "MemoryWAM, MemoryVAM, TriVLA"]],
+  "multi": [["搭档分布课程", "SAI"], ["多臂数据采集", "HATS, Duet, Tri-Manual"], ["干预与交接", "AutoIntervene, IntervenGen"]],
+  "background": [["外部记忆机制", "MANN, RMT, Titans"], ["路径签名 / 交互式模仿", "Signatory, DAgger"]]
+ }
+}

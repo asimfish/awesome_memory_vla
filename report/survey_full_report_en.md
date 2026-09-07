@@ -1,5 +1,5 @@
 ---
-title: "Memory for VLA Policies: from EventVLA, TRACE and SAI to a 103-paper landscape — the awesome_memory_vla consolidated report"
+title: "Memory for VLA Policies: from EventVLA, TRACE and SAI to a 103-paper landscape — the awesome_memory_vla full report (English edition)"
 subtitle: "Three deep dives · ten insights · design-space matrix · annotated paper list"
 date: 2026-09-07
 ---
@@ -1201,8 +1201,10 @@ The minimum background for the three core papers: the origins of external memory
 | Trends and insights (zh/en) | `reports/04_trends_insights_{cn,en}.md` |
 | Design-space matrix | `insights/DESIGN_SPACE_MATRIX.md` |
 | 103 paper notes | `notes/` |
-| Consolidated report (this file) | `report/awesome_memory_vla_report_{cn,en}.{html,pdf}` |
-| Slides | `slides/awesome_memory_vla_deck.html`, `slides/awesome_memory_vla_deck.pdf` |
+| Full report (this file) | `report/survey_full_report_en.{html,pdf}` (Chinese edition with all 103 notes bound in: `survey_full_report.*`) |
+| Summary slide deck | `report/survey_slides.html`, `report/survey_slides.pdf` (32 pages, Chinese) |
+| Open problems / numbers ledger | `insights/OPEN_PROBLEMS.md`, `insights/NUMBERS_LEDGER.md` (Chinese) |
+| Beamer lecture deck | `slides/awesome_memory_vla_deck.pdf` |
 | BibTeX | `awesome_memory_vla.bib` |
 
 **Reproduce**: `python3 scripts/build_manifest.py && python3 scripts/make_notes.py && python3 scripts/make_bib.py && python3 scripts/make_readme.py && python3 scripts/build_pdfs.py`. Translation: `bash scripts/translate_core.sh <KEY>` (DeepSeek) or `bash scripts/translate_fallback_google.sh` (no key).
